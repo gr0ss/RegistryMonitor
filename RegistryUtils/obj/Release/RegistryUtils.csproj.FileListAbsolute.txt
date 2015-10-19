@@ -1,0 +1,5 @@
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\bin\Release\RegistryUtils.dll
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\obj\Release\RegistryUtils.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\bin\Release\RegistryUtils.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\obj\Release\RegistryUtils.csprojResolveAssemblyReference.cache
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\obj\Release\RegistryUtils.dll
