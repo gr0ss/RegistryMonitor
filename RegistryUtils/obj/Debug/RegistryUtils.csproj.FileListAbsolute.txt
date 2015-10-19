@@ -1,0 +1,17 @@
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\bin\Debug\RegistryUtils.dll
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\bin\Debug\RegistryUtils.pdb
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\bin\Debug\RegistryUtils.xml
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\obj\Debug\RegistryUtils.csprojResolveAssemblyReference.cache
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\obj\Debug\RegistryUtils.dll
+C:\Users\ggross\Documents\VS Projects\DevPrdCheckSwitch\RegistryUtils\obj\Debug\RegistryUtils.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\RegistryUtils\bin\Debug\RegistryUtils.dll
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\RegistryUtils\bin\Debug\RegistryUtils.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\RegistryUtils\bin\Debug\RegistryUtils.xml
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\RegistryUtils\obj\Debug\RegistryUtils.csprojResolveAssemblyReference.cache
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\RegistryUtils\obj\Debug\RegistryUtils.dll
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\RegistryUtils\obj\Debug\RegistryUtils.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\bin\Debug\RegistryUtils.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\bin\Debug\RegistryUtils.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\bin\Debug\RegistryUtils.xml
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\obj\Debug\RegistryUtils.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\RegistryUtils\obj\Debug\RegistryUtils.pdb

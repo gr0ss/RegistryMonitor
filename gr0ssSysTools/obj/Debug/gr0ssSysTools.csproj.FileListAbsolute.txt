@@ -1,0 +1,43 @@
+c:\users\ggross\documents\visual studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe.config
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.csprojResolveAssemblyReference.cache
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Edit.resources
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Form1.resources
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Properties.Resources.resources
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.csproj.GenerateResource.Cache
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe.config
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\GlobalHotKey.dll
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\ImagedComboBox.exe
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\RegistryUtils.dll
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\Zhwang.SuperNotifyIcon.dll
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\RegistryUtils.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\RegistryUtils.xml
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\Zhwang.SuperNotifyIcon.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.exe
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe.manifest
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\ImagedComboBox.vshost.exe
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\bin\Debug\ImagedComboBox.pdb
+C:\Users\igr0ss\Documents\Visual Studio 2015\Projects\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.exe.manifest
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe.config
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.exe
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe.manifest
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.exe
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\gr0ssSysTools.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\GlobalHotKey.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\ImagedComboBox.exe
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\ImagedComboBox.vshost.exe
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\RegistryUtils.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\Zhwang.SuperNotifyIcon.dll
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\RegistryUtils.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\RegistryUtils.xml
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\Zhwang.SuperNotifyIcon.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\bin\Debug\ImagedComboBox.pdb
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.csprojResolveAssemblyReference.cache
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Edit.resources
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Form1.resources
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Properties.Resources.resources
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.csproj.GenerateResource.Cache
+C:\Users\ggross\Documents\Visual Studio 2015\Projects\New folder\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.exe.manifest

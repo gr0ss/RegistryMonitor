@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gr0ssSysTools", "gr0ssSysTools\gr0ssSysTools.csproj", "{3324572D-C676-4F26-BE10-5856974C7871}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistryUtils", "RegistryUtils\RegistryUtils.csproj", "{EA74FE0C-2CE0-41E8-9A36-0773F9313660}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperNotifyIcon", "SuperNotifyIcon\SuperNotifyIcon\SuperNotifyIcon.csproj", "{7917205F-E357-4793-928C-4193D51C2F73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3324572D-C676-4F26-BE10-5856974C7871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3324572D-C676-4F26-BE10-5856974C7871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3324572D-C676-4F26-BE10-5856974C7871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3324572D-C676-4F26-BE10-5856974C7871}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA74FE0C-2CE0-41E8-9A36-0773F9313660}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA74FE0C-2CE0-41E8-9A36-0773F9313660}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA74FE0C-2CE0-41E8-9A36-0773F9313660}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA74FE0C-2CE0-41E8-9A36-0773F9313660}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7917205F-E357-4793-928C-4193D51C2F73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7917205F-E357-4793-928C-4193D51C2F73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7917205F-E357-4793-928C-4193D51C2F73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7917205F-E357-4793-928C-4193D51C2F73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
