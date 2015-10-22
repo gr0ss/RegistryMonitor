@@ -267,21 +267,21 @@ namespace gr0ssSysTools
 
         private void SetDictionaryIndexes()
         {
-            //var dictionaryToCopy = new Dictionary<string, string>();
-            //var listIndexes = GetListIndex();
+            var dictionaryToCopy = new List<FileStruct>();
+            var listIndexes = GetListIndex();
 
-            //if (tabControl.SelectedTab == tabEnvironments)
-            //{
-            //    if (_environments == new Dictionary<string, string>() || listIndexes == new Dictionary<int, string>())
-            //        return;
+            if (tabControl.SelectedTab == tabEnvironments)
+            {
+                if (_environments == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
+                    return;
 
-            //    foreach (var index in listIndexes.OrderBy(list => list.Key))
-            //    {
-            //        var environment = _environments[index.Value];
-            //        dictionaryToCopy.Add(index.Value, environment);
-            //    }
-            //    _environments = dictionaryToCopy;
-            //}
+                foreach (var index in listIndexes.OrderBy(list => list.Key))
+                {
+                    var environment = _environments.Where(env => env.);
+                    dictionaryToCopy.Add(index.Value, environment);
+                }
+                _environments = dictionaryToCopy;
+            }
             //else if (tabControl.SelectedTab == tabTools)
             //{
             //    if (_tools == new Dictionary<string, string>() || listIndexes == new Dictionary<int, string>())
