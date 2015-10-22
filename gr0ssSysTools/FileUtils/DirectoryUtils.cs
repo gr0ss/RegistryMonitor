@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Text;
 using gr0ssSysTools.FileUtils;
 
 namespace gr0ssSysTools.FileUtils
@@ -136,8 +138,10 @@ namespace gr0ssSysTools.FileUtils
                             name[2].ToString().ToLower();
             using (var sw = new StreamWriter(_currentDirectory + _environmentsTxt))
             {
+                var builder = new StringBuilder();
                 foreach (var line in currentList)
                 {
+                    builder.Append(line.HotKey);
                     sw.WriteLine(line.ID + "|" + 
                                  line.Name + "|" + 
                                  line.ValueKey + "|" + 
@@ -145,9 +149,9 @@ namespace gr0ssSysTools.FileUtils
                                  line.IconLabel + "|" + 
                                  ((SolidBrush)line.IconColor).Color.Name);
                 }
-
+                var newUniqueHotkey = GetFirstUniqueHotkey(name, builder.ToString().ToCharArray());
                 sw.WriteLine(guid1.ToString() + "|" + name + 
-                            "|Data\\DB.xml|" + name[0] + "|" +
+                            "|Data\\DB.xml|" + newUniqueHotkey + "|" +
                             iconLabel + "|Blue");
             }
         }
@@ -158,16 +162,24 @@ namespace gr0ssSysTools.FileUtils
 
             using (var sw = new StreamWriter(_currentDirectory + _toolsTxt))
             {
+                var builder = new StringBuilder();
                 foreach (var line in currentList)
                 {
+                    builder.Append(line.HotKey);
                     sw.WriteLine(line.ID + "|" + 
                                  line.Name + "|" + 
                                  line.ValueKey + "|" + 
                                  line.HotKey);
                 }
 
-                sw.WriteLine(guidOne.ToString() + "|" + name + "|" + _currentDirectory + "|" + name[0]);
+                var newUniqueHotkey = GetFirstUniqueHotkey(name, builder.ToString().ToCharArray());
+                sw.WriteLine(guidOne.ToString() + "|" + name + "|" + _currentDirectory + "|" + newUniqueHotkey);
             }
+        }
+
+        private char GetFirstUniqueHotkey(string name, params char[] charset)
+        {
+            return name.TrimStart(charset)[0];
         }
         #endregion Populate FileStruct List
 
@@ -197,7 +209,7 @@ namespace gr0ssSysTools.FileUtils
                                  line.ValueKey + "|" + 
                                  line.HotKey + "|" + 
                                  line.IconLabel + "|" + 
-                                 line.IconColor);
+                                 ((SolidBrush)line.IconColor).Color.Name);
                 }
             }
         }
