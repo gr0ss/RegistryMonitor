@@ -43,25 +43,7 @@ namespace gr0ssSysTools
             RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
         }
 
-        private void environmentsList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var curItem = environmentsList.SelectedItem.ToString();
-            var itemToLoad = _environments.FirstOrDefault(env => env.Name == curItem);
-
-            guidLabel.Text = itemToLoad.ID.ToString();
-            NameTextbox.Text = curItem;
-            registryValueTextbox.Text = itemToLoad.ValueKey;
-
-            PopulateHotkeyCombo();
-            hotkeyCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
-
-            iconDisplayTextbox.Text = itemToLoad.IconLabel;
-
-            PopulateIconColorCombo();
-            var colorIndex = _utils.GetColorIndex(itemToLoad.IconColor);
-            iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
-        }
-        
+        #region Setup and Populate
         private void RepopulateListFromFile(bool env, bool useDictionary)
         {
             if (env)
@@ -107,11 +89,17 @@ namespace gr0ssSysTools
 
         private void PopulateHotkeyCombo()
         {
-            hotkeyCombo.Items.Clear();
-            foreach (var c in NameTextbox.Text)
+            if (tabControl.SelectedTab == tabEnvironments)
             {
-                if (c.ToString() != " ")
+                hotkeyCombo.Items.Clear();
+                foreach (var c in NameTextbox.Text.Where(c => c.ToString() != " "))
                     hotkeyCombo.Items.Add(c);
+            }
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                hotkeyToolsCombo.Items.Clear();
+                foreach (var c in toolsNameTextbox.Text.Where(c => c.ToString() != " "))
+                    hotkeyToolsCombo.Items.Add(c);
             }
         }
 
@@ -140,6 +128,7 @@ namespace gr0ssSysTools
         {
             PopulateHotkeyCombo();
         }
+        #endregion Setup and Populate
 
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -163,7 +152,7 @@ namespace gr0ssSysTools
             //    }
             //RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
         }
-
+        
         private void removeButton_Click(object sender, EventArgs e)
         {
             if (tabControl.SelectedTab == tabEnvironments)
@@ -196,6 +185,7 @@ namespace gr0ssSysTools
             RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
         }
 
+        #region Save button
         private void saveButton_Click(object sender, EventArgs e)
         {
             SetDictionaryIndexes();
@@ -206,18 +196,115 @@ namespace gr0ssSysTools
                 _dir.SaveListToFile(_tools, _toolsText);
         }
 
+        private void SetDictionaryIndexes()
+        {
+            var dictionaryToCopy = new List<FileStruct>();
+            var listIndexes = GetListIndex();
+
+            if (tabControl.SelectedTab == tabEnvironments)
+            {
+                if (_environments == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
+                    return;
+
+                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
+                                                     .Select(index => _environments.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
+                _environments = dictionaryToCopy;
+            }
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                if (_tools == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
+                    return;
+
+                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
+                                                     .Select(index => _tools.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
+                
+                _tools = dictionaryToCopy;
+            }
+        }
+
+        private Dictionary<int, string> GetListIndex()
+        {
+            var dictionaryToReturn = new Dictionary<int, string>();
+            if (tabControl.SelectedTab == tabEnvironments)
+            {
+                foreach (var item in environmentsList.Items)
+                {
+                    var text = environmentsList.GetItemText(item);
+                    var index = environmentsList.Items.IndexOf(item);
+                    dictionaryToReturn.Add(index, text);
+                }
+            }
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                foreach (var item in toolsList.Items)
+                {
+                    var text = toolsList.GetItemText(item);
+                    var index = toolsList.Items.IndexOf(item);
+                    dictionaryToReturn.Add(index, text);
+                }
+            }
+            return dictionaryToReturn;
+        }
+
+        #endregion Save button
+
+        #region Move buttons
         private void moveUpButton_Click(object sender, EventArgs e)
         {
-            environmentsList.SelectedIndexChanged -= environmentsList_SelectedIndexChanged;
+            TurnOffListEventHandlers();
             MoveItem(-1);
-            environmentsList.SelectedIndexChanged += environmentsList_SelectedIndexChanged;
+            TurnOnListEventHandlers();
         }
 
         private void moveDownButton_Click(object sender, EventArgs e)
         {
-            environmentsList.SelectedIndexChanged -= environmentsList_SelectedIndexChanged;
+            TurnOffListEventHandlers();
             MoveItem(1);
+            TurnOnListEventHandlers();
+        }
+
+        private void environmentsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var curItem = environmentsList.SelectedItem.ToString();
+            var itemToLoad = _environments.FirstOrDefault(env => env.Name == curItem);
+
+            guidLabel.Text = itemToLoad.ID.ToString();
+            NameTextbox.Text = curItem;
+            registryValueTextbox.Text = itemToLoad.ValueKey;
+
+            PopulateHotkeyCombo();
+            hotkeyCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+
+            iconDisplayTextbox.Text = itemToLoad.IconLabel;
+
+            PopulateIconColorCombo();
+            var colorIndex = _utils.GetColorIndex(itemToLoad.IconColor);
+            iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
+        }
+
+        private void toolsList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var curItem = toolsList.SelectedItem.ToString();
+            var itemToLoad = _tools.FirstOrDefault(tool => tool.Name == curItem);
+
+            guidToolsLabel.Text = itemToLoad.ID.ToString();
+            toolsNameTextbox.Text = curItem;
+            DirectoryPathTextbox.Text = itemToLoad.ValueKey;
+
+            PopulateHotkeyCombo();
+            hotkeyToolsCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+        }
+
+        private void TurnOffListEventHandlers()
+        {
+            environmentsList.SelectedIndexChanged -= environmentsList_SelectedIndexChanged;
+            toolsList.SelectedIndexChanged -= toolsList_SelectedIndexChanged;
+        }
+
+        private void TurnOnListEventHandlers()
+        {
             environmentsList.SelectedIndexChanged += environmentsList_SelectedIndexChanged;
+            toolsList.SelectedIndexChanged += toolsList_SelectedIndexChanged;
         }
 
         private void MoveItem(int direction)
@@ -249,55 +336,6 @@ namespace gr0ssSysTools
                 
             }
         }
-
-        private Dictionary<int, string> GetListIndex()
-        {
-            var dictionaryToReturn = new Dictionary<int, string>();
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                foreach (var item in environmentsList.Items)
-                {
-                    var text = environmentsList.GetItemText(item);
-                    var index = environmentsList.Items.IndexOf(item);
-                    dictionaryToReturn.Add(index, text);
-                }
-            }
-            else if (tabControl.SelectedTab == tabTools)
-            {
-                foreach (var item in toolsList.Items)
-                {
-                    var text = toolsList.GetItemText(item);
-                    var index = toolsList.Items.IndexOf(item);
-                    dictionaryToReturn.Add(index, text);
-                }
-            }
-            return dictionaryToReturn;
-        }
-
-        private void SetDictionaryIndexes()
-        {
-            var dictionaryToCopy = new List<FileStruct>();
-            var listIndexes = GetListIndex();
-
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                if (_environments == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
-                    return;
-
-                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
-                                                     .Select(index => _environments.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
-                _environments = dictionaryToCopy;
-            }
-            else if (tabControl.SelectedTab == tabTools)
-            {
-                if (_tools == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
-                    return;
-
-                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
-                                                     .Select(index => _tools.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
-                
-                _tools = dictionaryToCopy;
-            }
-        }
+        #endregion Move buttons
     }
 }
