@@ -55,6 +55,9 @@
             this.hotkeyLabel = new System.Windows.Forms.Label();
             this.guidLabel = new System.Windows.Forms.Label();
             this.registryValueLbl = new System.Windows.Forms.Label();
+            this.hotkeyToolsCombo = new System.Windows.Forms.ComboBox();
+            this.hotkeyToolsLabel = new System.Windows.Forms.Label();
+            this.guidToolsLabel = new System.Windows.Forms.Label();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
@@ -107,6 +110,9 @@
             // 
             // tabTools
             // 
+            this.tabTools.Controls.Add(this.guidToolsLabel);
+            this.tabTools.Controls.Add(this.hotkeyToolsCombo);
+            this.tabTools.Controls.Add(this.hotkeyToolsLabel);
             this.tabTools.Controls.Add(this.toolsList);
             this.tabTools.Controls.Add(this.label2);
             this.tabTools.Controls.Add(this.DirectoryPathTextbox);
@@ -316,6 +322,33 @@
             this.registryValueLbl.TabIndex = 2;
             this.registryValueLbl.Text = "Registry Value: ";
             // 
+            // hotkeyToolsCombo
+            // 
+            this.hotkeyToolsCombo.FormattingEnabled = true;
+            this.hotkeyToolsCombo.Location = new System.Drawing.Point(259, 73);
+            this.hotkeyToolsCombo.Name = "hotkeyToolsCombo";
+            this.hotkeyToolsCombo.Size = new System.Drawing.Size(341, 21);
+            this.hotkeyToolsCombo.TabIndex = 20;
+            // 
+            // hotkeyToolsLabel
+            // 
+            this.hotkeyToolsLabel.AutoSize = true;
+            this.hotkeyToolsLabel.Location = new System.Drawing.Point(205, 76);
+            this.hotkeyToolsLabel.Name = "hotkeyToolsLabel";
+            this.hotkeyToolsLabel.Size = new System.Drawing.Size(47, 13);
+            this.hotkeyToolsLabel.TabIndex = 19;
+            this.hotkeyToolsLabel.Text = "Hotkey: ";
+            // 
+            // guidToolsLabel
+            // 
+            this.guidToolsLabel.AutoSize = true;
+            this.guidToolsLabel.Location = new System.Drawing.Point(172, 194);
+            this.guidToolsLabel.Name = "guidToolsLabel";
+            this.guidToolsLabel.Size = new System.Drawing.Size(67, 13);
+            this.guidToolsLabel.TabIndex = 21;
+            this.guidToolsLabel.Text = "place Holder";
+            this.guidToolsLabel.Visible = false;
+            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,5 +401,8 @@
         private System.Windows.Forms.Label iconTextLabel;
         private System.Windows.Forms.Label hotkeyLabel;
         private ComboxExtended.ImagedComboBox iconColorCombo;
+        private System.Windows.Forms.Label guidToolsLabel;
+        private System.Windows.Forms.ComboBox hotkeyToolsCombo;
+        private System.Windows.Forms.Label hotkeyToolsLabel;
     }
 }

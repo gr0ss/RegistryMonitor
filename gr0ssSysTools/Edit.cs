@@ -180,10 +180,19 @@ namespace gr0ssSysTools
                     MessageBox.Show("You need to select an environment before you can delete one...", "Duh", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
-            //else if (tabControl.SelectedTab == tabTools)
-            //{
-            //    _tools.Remove(toolsList.SelectedItem.ToString());
-            //}
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                if (toolsList.SelectedIndex != -1)
+                {
+                    var toolToRemove = _tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+                    if (toolToRemove.ID != Guid.Empty)
+                        _tools.Remove(toolToRemove);
+                    else
+                        MessageBox.Show("Error retrieving tool", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                    MessageBox.Show("You need to select a tool before you can delete one...", "Duh", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
         }
 
@@ -193,8 +202,8 @@ namespace gr0ssSysTools
 
             if (tabControl.SelectedTab == tabEnvironments)
                 _dir.SaveListToFile(_environments, _environmentsText);
-            //else if (tabControl.SelectedTab == tabTools)
-            //    _dir.SaveListToFile(_tools, _toolsText);
+            else if (tabControl.SelectedTab == tabTools)
+                _dir.SaveListToFile(_tools, _toolsText);
         }
 
         private void moveUpButton_Click(object sender, EventArgs e)
@@ -275,27 +284,20 @@ namespace gr0ssSysTools
                 if (_environments == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
                     return;
 
-                foreach (var index in listIndexes.OrderBy(list => list.Key))
-                {
-                    var environment = _environments.Where(env => env.);
-                    dictionaryToCopy.Add(index.Value, environment);
-                }
+                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
+                                                     .Select(index => _environments.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
                 _environments = dictionaryToCopy;
             }
-            //else if (tabControl.SelectedTab == tabTools)
-            //{
-            //    if (_tools == new Dictionary<string, string>() || listIndexes == new Dictionary<int, string>())
-            //        return;
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                if (_tools == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
+                    return;
 
-            //    foreach (var index in listIndexes.OrderBy(list => list.Key))
-            //    {
-            //        var tool = _tools[index.Value];
-            //        dictionaryToCopy.Add(index.Value, tool);
-            //    }
-            //    _tools = dictionaryToCopy;
-            //}
+                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
+                                                     .Select(index => _tools.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
+                
+                _tools = dictionaryToCopy;
+            }
         }
-
-        
     }
 }
