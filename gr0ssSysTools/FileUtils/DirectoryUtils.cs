@@ -33,7 +33,7 @@ namespace gr0ssSysTools.FileUtils
                     sw.WriteLine(guid5.ToString() + "|Production|Data\\prdDB.xml|P|prd|Red");
                 }
             }
-            else if (file == _toolsTxt && !File.Exists(_currentDirectory + _environmentsTxt))
+            else if (file == _toolsTxt && !File.Exists(_currentDirectory + _toolsTxt))
             {
                 var guidOne = Guid.NewGuid();
 
@@ -141,7 +141,8 @@ namespace gr0ssSysTools.FileUtils
                 var builder = new StringBuilder();
                 foreach (var line in currentList)
                 {
-                    builder.Append(line.HotKey);
+                    builder.Append(line.HotKey.ToUpperInvariant());
+                    builder.Append(line.HotKey.ToLowerInvariant());
                     sw.WriteLine(line.ID + "|" + 
                                  line.Name + "|" + 
                                  line.ValueKey + "|" + 
@@ -165,7 +166,8 @@ namespace gr0ssSysTools.FileUtils
                 var builder = new StringBuilder();
                 foreach (var line in currentList)
                 {
-                    builder.Append(line.HotKey);
+                    builder.Append(line.HotKey.ToUpperInvariant());
+                    builder.Append(line.HotKey.ToLowerInvariant());
                     sw.WriteLine(line.ID + "|" + 
                                  line.Name + "|" + 
                                  line.ValueKey + "|" + 

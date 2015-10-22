@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
@@ -250,7 +249,10 @@ namespace gr0ssSysTools
                     return;
 
                 dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
-                                                     .Select(index => _environments.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
+                                                     .Select(index => _environments.First(env => env.Name == index.Value)));
+
+                //dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
+                //                                     .Select(index => _environments.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
                 _environments = dictionaryToCopy;
             }
             else if (tabControl.SelectedTab == tabTools)
@@ -308,34 +310,42 @@ namespace gr0ssSysTools
 
         private void environmentsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var curItem = environmentsList.SelectedItem.ToString();
-            var itemToLoad = _environments.FirstOrDefault(env => env.Name == curItem);
+            if (environmentsList.SelectedIndex != -1)
+            {
+                var curItem = environmentsList.SelectedItem.ToString();
+                var itemToLoad = _environments.FirstOrDefault(env => env.Name == curItem);
 
-            guidLabel.Text = itemToLoad.ID.ToString();
-            NameTextbox.Text = curItem;
-            registryValueTextbox.Text = itemToLoad.ValueKey;
+                guidLabel.Text = itemToLoad.ID.ToString();
+                NameTextbox.Text = curItem;
+                registryValueTextbox.Text = itemToLoad.ValueKey;
 
-            PopulateHotkeyCombo();
-            hotkeyCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+                PopulateHotkeyCombo();
+                //hotkeyCombo.SelectedItem = itemToLoad.HotKey;
+                //hotkeyCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
 
-            iconDisplayTextbox.Text = itemToLoad.IconLabel;
+                iconDisplayTextbox.Text = itemToLoad.IconLabel;
 
-            PopulateIconColorCombo();
-            var colorIndex = _utils.GetColorIndex(itemToLoad.IconColor);
-            iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
+                PopulateIconColorCombo();
+                var colorIndex = _utils.GetColorIndex(itemToLoad.IconColor);
+                iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
+            }
         }
 
         private void toolsList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var curItem = toolsList.SelectedItem.ToString();
-            var itemToLoad = _tools.FirstOrDefault(tool => tool.Name == curItem);
+            if (toolsList.SelectedIndex != -1)
+            {
+                var curItem = toolsList.SelectedItem.ToString();
+                var itemToLoad = _tools.FirstOrDefault(tool => tool.Name == curItem);
 
-            guidToolsLabel.Text = itemToLoad.ID.ToString();
-            toolsNameTextbox.Text = curItem;
-            DirectoryPathTextbox.Text = itemToLoad.ValueKey;
+                guidToolsLabel.Text = itemToLoad.ID.ToString();
+                toolsNameTextbox.Text = curItem;
+                DirectoryPathTextbox.Text = itemToLoad.ValueKey;
 
-            PopulateHotkeyCombo();
-            hotkeyToolsCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+                PopulateHotkeyCombo();
+                //hotkeyToolsCombo.SelectedItem = itemToLoad.HotKey;
+                //hotkeyToolsCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+            }
         }
 
         private void TurnOffListEventHandlers()
@@ -376,9 +386,32 @@ namespace gr0ssSysTools
             }
             else if (tabControl.SelectedTab == tabTools)
             {
-                
+                // Checking selected item
+                if (toolsList.SelectedItem == null || toolsList.SelectedIndex < 0)
+                    return; // No selected item - nothing to do
+
+                // Calculate new index using move direction
+                int newIndex = toolsList.SelectedIndex + direction;
+
+                // Checking bounds of the range
+                if (newIndex < 0 || newIndex >= toolsList.Items.Count)
+                    return; // Index out of range - nothing to do
+
+                object selected = toolsList.SelectedItem;
+
+                // Removing removable element
+                toolsList.Items.Remove(selected);
+                // Insert it in new position
+                toolsList.Items.Insert(newIndex, selected);
+                // Restore selection
+                toolsList.SetSelected(newIndex, true);
             }
         }
         #endregion Move buttons
+        
+        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+        }
     }
 }

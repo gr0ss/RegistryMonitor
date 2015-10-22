@@ -1,0 +1,6 @@
+e7c63166-2704-4362-a3d7-80d4344689c4|Development|Data\devDB.xml|D|dev|Blue
+164ded35-d89f-4721-92b2-7aa25fefc300|sb1|Data\sb1DB.xml|1|sb1|Blue
+d8f0abc7-6321-4b30-af93-497e461e535f|sb2|Data\sb2DB.xml|2|sb2|Blue
+a6cc2548-4d00-4a2b-95d2-a5fb2c7a7a04|sb3|Data\sb3DB.xml|3|sb3|Blue
+e8b2eed4-97db-4801-bd91-43f1f7338ebc|Production|Data\prdDB.xml|P|prd|Red
+eef057a4-9a88-46ee-a853-9e56c95979cc|prdFather|Data\DB.xml|r|prd|Blue
