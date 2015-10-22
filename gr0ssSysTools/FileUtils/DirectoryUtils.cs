@@ -16,11 +16,11 @@ namespace gr0ssSysTools.FileUtils
         {
             if (file == _environmentsTxt && !File.Exists(_currentDirectory + _environmentsTxt))
             {
-                var guid1 = new Guid();
-                var guid2 = new Guid();
-                var guid3 = new Guid();
-                var guid4 = new Guid();
-                var guid5 = new Guid();
+                var guid1 = Guid.NewGuid();
+                var guid2 = Guid.NewGuid();
+                var guid3 = Guid.NewGuid();
+                var guid4 = Guid.NewGuid();
+                var guid5 = Guid.NewGuid();
 
                 using (var sw = new StreamWriter(_currentDirectory + _environmentsTxt))
                 {
@@ -33,7 +33,7 @@ namespace gr0ssSysTools.FileUtils
             }
             else if (file == _toolsTxt && !File.Exists(_currentDirectory + _environmentsTxt))
             {
-                var guidOne = new Guid();
+                var guidOne = Guid.NewGuid();
 
                 using (var sw = new StreamWriter(_currentDirectory + _toolsTxt))
                 {
@@ -59,11 +59,11 @@ namespace gr0ssSysTools.FileUtils
             else if (file == _toolsTxt && !File.Exists(_currentDirectory + _toolsTxt))
             {
                 CreateTextIfItDoesntExist(file);
-                listToReturn = MakeEnvironmentsList(file);
+                listToReturn = MakeToolsList(file);
             }
             else if (file == _toolsTxt && File.Exists(_currentDirectory + _toolsTxt))
             {
-                listToReturn = MakeEnvironmentsList(file);
+                listToReturn = MakeToolsList(file);
             }
             
             return listToReturn;
@@ -118,6 +118,56 @@ namespace gr0ssSysTools.FileUtils
                 }
             }
             return listToReturn;
+        }
+
+        public void AddNameToFile(string name, bool isEnv, IEnumerable<FileStruct> currentList)
+        {
+            if (isEnv)
+                AddEnvironmentToFile(name, currentList);
+            else
+                AddToolToFile(name, currentList);
+        }
+
+        private void AddEnvironmentToFile(string name, IEnumerable<FileStruct> currentList)
+        {
+            var guid1 = Guid.NewGuid();
+            var iconLabel = name[0].ToString().ToLower() +
+                            name[1].ToString().ToLower() +
+                            name[2].ToString().ToLower();
+            using (var sw = new StreamWriter(_currentDirectory + _environmentsTxt))
+            {
+                foreach (var line in currentList)
+                {
+                    sw.WriteLine(line.ID + "|" + 
+                                 line.Name + "|" + 
+                                 line.ValueKey + "|" + 
+                                 line.HotKey + "|" + 
+                                 line.IconLabel + "|" + 
+                                 ((SolidBrush)line.IconColor).Color.Name);
+                }
+
+                sw.WriteLine(guid1.ToString() + "|" + name + 
+                            "|Data\\DB.xml|" + name[0] + "|" +
+                            iconLabel + "|Blue");
+            }
+        }
+
+        private void AddToolToFile(string name, IEnumerable<FileStruct> currentList)
+        {
+            var guidOne = Guid.NewGuid();
+
+            using (var sw = new StreamWriter(_currentDirectory + _toolsTxt))
+            {
+                foreach (var line in currentList)
+                {
+                    sw.WriteLine(line.ID + "|" + 
+                                 line.Name + "|" + 
+                                 line.ValueKey + "|" + 
+                                 line.HotKey);
+                }
+
+                sw.WriteLine(guidOne.ToString() + "|" + name + "|" + _currentDirectory + "|" + name[0]);
+            }
         }
         #endregion Populate FileStruct List
 

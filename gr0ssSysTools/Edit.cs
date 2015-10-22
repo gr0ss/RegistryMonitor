@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
@@ -132,25 +134,37 @@ namespace gr0ssSysTools
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            //if (tabControl.SelectedTab == tabEnvironments)
-            //    if (NameTextbox.Text != string.Empty && registryValueTextbox.Text != string.Empty)
-            //        _environments.Add(NameTextbox.Text, registryValueTextbox.Text);
-            //    else
-            //    {
-            //        MessageBox.Show("Please fill out the name and registry value fields before adding", "Error",
-            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //else if (tabControl.SelectedTab == tabTools)
-            //    if (toolsNameTextbox.Text != string.Empty && DirectoryPathTextbox.Text != string.Empty)
-            //        _tools.Add(toolsNameTextbox.Text, DirectoryPathTextbox.Text);
-            //    else
-            //    {
-            //        MessageBox.Show("Please fill out the name and directory path fields before adding", "Error",
-            //            MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //        return;
-            //    }
-            //RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
+            if (tabControl.SelectedTab == tabEnvironments)
+            {
+                var addName = new AddName(true, _environments);
+                addName.Closing += NameAdded_EventHandler;
+                addName.Show();
+            }
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                var addTextName = new AddName(false, _tools);
+                addTextName.Closing += NameAdded_EventHandler;
+                addTextName.Show();
+            }
+        }
+
+        private void NameAdded_EventHandler(object sender, CancelEventArgs e)
+        {
+            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+
+            if (tabControl.SelectedTab == tabEnvironments)
+            {
+                var index = environmentsList.Items.Count - 1;
+                environmentsList.SelectedIndex = index;
+            }
+            else if (tabControl.SelectedTab == tabTools)
+            {
+                var toolIndex = toolsList.Items.Count - 1;
+                toolsList.SelectedIndex = toolIndex;
+            }
+
+            // Remove Event handler
+            //Events.Dispose();
         }
         
         private void removeButton_Click(object sender, EventArgs e)
@@ -161,7 +175,10 @@ namespace gr0ssSysTools
                 {
                     var environmentToRemove = _environments.FirstOrDefault(env => env.ID == Guid.Parse(guidLabel.Text));
                     if (environmentToRemove.ID != Guid.Empty)
+                    {
                         _environments.Remove(environmentToRemove);
+                        ClearEnvironmentFields();
+                    }
                     else
                         MessageBox.Show("Error retrieving environment", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -175,7 +192,10 @@ namespace gr0ssSysTools
                 {
                     var toolToRemove = _tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
                     if (toolToRemove.ID != Guid.Empty)
+                    {
                         _tools.Remove(toolToRemove);
+                        ClearToolFields();
+                    }
                     else
                         MessageBox.Show("Error retrieving tool", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -185,6 +205,29 @@ namespace gr0ssSysTools
             RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
         }
 
+        #region Clear Methods
+        private void ClearEnvironmentFields()
+        {
+            NameTextbox.Text = "";
+            registryValueTextbox.Text = "";
+            hotkeyCombo.Items.Clear();
+            hotkeyCombo.Text = "";
+            iconDisplayTextbox.Text = "";
+            iconColorCombo.SelectedIndex = -1;
+            guidLabel.Text = "";
+        }
+
+        private void ClearToolFields()
+        {
+            toolsNameTextbox.Text = "";
+            DirectoryPathTextbox.Text = "";
+            hotkeyToolsCombo.Items.Clear();
+            hotkeyToolsCombo.Text = "";
+            guidToolsLabel.Text = "";
+        }
+        #endregion Clear Methods
+
+        // Broke
         #region Save button
         private void saveButton_Click(object sender, EventArgs e)
         {
