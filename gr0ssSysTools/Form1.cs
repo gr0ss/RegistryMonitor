@@ -61,7 +61,7 @@ namespace gr0ssSysTools
             SetIcon();
 
             var keyName = $"{Registry.CurrentUser.Name}\\Software\\PSI";
-
+            
             _registryMonitor = new RegistryMonitor(keyName)
             {
                 RegChangeNotifyFilter = RegChangeNotifyFilter.Value
