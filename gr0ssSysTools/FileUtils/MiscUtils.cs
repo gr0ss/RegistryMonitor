@@ -1,5 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using ComboxExtended;
 
 namespace gr0ssSysTools.FileUtils
@@ -55,6 +57,13 @@ namespace gr0ssSysTools.FileUtils
                 return 11;
 
             return -1;
+        }
+
+        public int GetIndexOfHotkey(string name, string hotkey)
+        {
+            var indexOfHotkey = name.IndexOf(hotkey, StringComparison.Ordinal);
+            var numberOfSpacesBeforeHotkey = name.Substring(0, indexOfHotkey).Count(char.IsSeparator);
+            return indexOfHotkey - numberOfSpacesBeforeHotkey;
         }
     }
 }

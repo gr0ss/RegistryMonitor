@@ -34,6 +34,9 @@
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.tabTools = new System.Windows.Forms.TabPage();
+            this.guidToolsLabel = new System.Windows.Forms.Label();
+            this.hotkeyToolsCombo = new System.Windows.Forms.ComboBox();
+            this.hotkeyToolsLabel = new System.Windows.Forms.Label();
             this.toolsList = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
             this.DirectoryPathTextbox = new System.Windows.Forms.TextBox();
@@ -107,6 +110,9 @@
             // 
             // tabTools
             // 
+            this.tabTools.Controls.Add(this.guidToolsLabel);
+            this.tabTools.Controls.Add(this.hotkeyToolsCombo);
+            this.tabTools.Controls.Add(this.hotkeyToolsLabel);
             this.tabTools.Controls.Add(this.toolsList);
             this.tabTools.Controls.Add(this.label2);
             this.tabTools.Controls.Add(this.DirectoryPathTextbox);
@@ -121,6 +127,33 @@
             this.tabTools.Text = "Tools";
             this.tabTools.UseVisualStyleBackColor = true;
             // 
+            // guidToolsLabel
+            // 
+            this.guidToolsLabel.AutoSize = true;
+            this.guidToolsLabel.Location = new System.Drawing.Point(172, 194);
+            this.guidToolsLabel.Name = "guidToolsLabel";
+            this.guidToolsLabel.Size = new System.Drawing.Size(67, 13);
+            this.guidToolsLabel.TabIndex = 21;
+            this.guidToolsLabel.Text = "place Holder";
+            this.guidToolsLabel.Visible = false;
+            // 
+            // hotkeyToolsCombo
+            // 
+            this.hotkeyToolsCombo.FormattingEnabled = true;
+            this.hotkeyToolsCombo.Location = new System.Drawing.Point(259, 73);
+            this.hotkeyToolsCombo.Name = "hotkeyToolsCombo";
+            this.hotkeyToolsCombo.Size = new System.Drawing.Size(341, 21);
+            this.hotkeyToolsCombo.TabIndex = 20;
+            // 
+            // hotkeyToolsLabel
+            // 
+            this.hotkeyToolsLabel.AutoSize = true;
+            this.hotkeyToolsLabel.Location = new System.Drawing.Point(205, 76);
+            this.hotkeyToolsLabel.Name = "hotkeyToolsLabel";
+            this.hotkeyToolsLabel.Size = new System.Drawing.Size(47, 13);
+            this.hotkeyToolsLabel.TabIndex = 19;
+            this.hotkeyToolsLabel.Text = "Hotkey: ";
+            // 
             // toolsList
             // 
             this.toolsList.FormattingEnabled = true;
@@ -128,6 +161,7 @@
             this.toolsList.Name = "toolsList";
             this.toolsList.Size = new System.Drawing.Size(154, 186);
             this.toolsList.TabIndex = 12;
+            this.toolsList.SelectedIndexChanged += new System.EventHandler(this.toolsList_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -151,6 +185,7 @@
             this.toolsNameTextbox.Name = "toolsNameTextbox";
             this.toolsNameTextbox.Size = new System.Drawing.Size(341, 20);
             this.toolsNameTextbox.TabIndex = 9;
+            this.toolsNameTextbox.Leave += new System.EventHandler(this.NameTextbox_Leave);
             // 
             // directoryPathLbl
             // 
@@ -221,6 +256,7 @@
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(621, 262);
             this.tabControl.TabIndex = 12;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.TabControl_SelectedIndexChanged);
             // 
             // tabEnvironments
             // 
@@ -368,5 +404,8 @@
         private System.Windows.Forms.Label iconTextLabel;
         private System.Windows.Forms.Label hotkeyLabel;
         private ComboxExtended.ImagedComboBox iconColorCombo;
+        private System.Windows.Forms.Label guidToolsLabel;
+        private System.Windows.Forms.ComboBox hotkeyToolsCombo;
+        private System.Windows.Forms.Label hotkeyToolsLabel;
     }
 }

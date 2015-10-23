@@ -7,6 +7,7 @@ using GlobalHotKey;
 using Zhwang.SuperNotifyIcon;
 using gr0ssSysTools.FileUtils;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Win32;
 using System.Threading.Tasks;
 using FlimFlan.IconEncoder;
@@ -43,7 +44,7 @@ namespace gr0ssSysTools
             _util = new MiscUtils();
 
             LoadTextFiles();
-            LoadEnvironments();
+            LoadMenu();
 
             _hkManager = new HotKeyManager();
             _hkManager.KeyPressed += HkManagerOnKeyPressed;
@@ -53,7 +54,7 @@ namespace gr0ssSysTools
             SuperNotifyIcon superNotifyIcon = new SuperNotifyIcon {NotifyIcon = Icon};
             _locationOfIcon = superNotifyIcon.GetLocation();
         }
-
+        
         private void Form1_Load(object sender, EventArgs e)
         {
             _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(USER_ROOT, "DBPath", ""));
@@ -76,19 +77,26 @@ namespace gr0ssSysTools
             _dir.CreateTextIfItDoesntExist(_toolsText);
         }
 
-        private void LoadEnvironments()
+        private void LoadMenu()
         {
             _environments = _dir.ReadFileAndPopulateList(_environmentsText);
+            _tools = _dir.ReadFileAndPopulateList(_toolsText);
 
             menuStrip.Items.Clear();
+            menuTools.DropDownItems.Clear();
+
+            foreach (var tool in _tools)
+            {
+                menuTools.DropDownItems.Add(_util.GetNameWithHotkey(tool.Name, tool.HotKey));
+                menuTools.DropDownItems[menuTools.DropDownItems.Count - 1].Click += ToolClicked;
+            }
+            
             menuStrip.Items.Add(menuTools);
             menuStrip.Items.Add(toolStripSeparator1);
             
             foreach (var env in _environments)
             {
-                var nameWithHotkeyAssigned = _util.GetNameWithHotkey(env.Name, env.HotKey);
-
-                menuStrip.Items.Add(nameWithHotkeyAssigned);
+                menuStrip.Items.Add(_util.GetNameWithHotkey(env.Name, env.HotKey));
 
                 menuStrip.Items[menuStrip.Items.Count - 1].Click += EnvironmentClicked;
             }
@@ -103,7 +111,28 @@ namespace gr0ssSysTools
         {
             _currentEnvironment = _environments.Find(env => env.Name == sender.ToString().Replace("&", ""));
             SetRegistry();
+        }
 
+        private void ToolClicked(object sender, EventArgs e)
+        {
+            var currentTool = _tools.Find(tool => tool.Name == sender.ToString().Replace("&", ""));
+            // Prepare the process to run
+            ProcessStartInfo start = new ProcessStartInfo();
+            // Enter the executable to run, including the complete path
+            start.FileName = currentTool.ValueKey;
+            // Do you want to show a console window?
+            start.WindowStyle = ProcessWindowStyle.Hidden;
+            start.CreateNoWindow = true;
+            int exitCode;
+            
+            // Run the external process & wait for it to finish
+            using (Process proc = Process.Start(start))
+            {
+                 proc.WaitForExit();
+
+                 // Retrieve the app's exit code
+                 exitCode = proc.ExitCode;
+            }
         }
 
         private void HkManagerOnKeyPressed(object sender, KeyPressedEventArgs e)
@@ -125,6 +154,7 @@ namespace gr0ssSysTools
         private void menuEdit_Click(object sender, EventArgs e)
         {
             Edit edit = new Edit(true);
+            edit.Closed += (o, args) => LoadMenu();
             edit.Show();
         }
         #endregion OnClick

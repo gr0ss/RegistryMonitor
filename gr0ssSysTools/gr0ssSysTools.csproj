@@ -59,6 +59,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddName.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddName.Designer.cs">
+      <DependentUpon>AddName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Edit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +86,9 @@
     <Compile Include="FileUtils\DirectoryUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />
     <Compile Include="Utils\ImageStructs.cs" />
+    <EmbeddedResource Include="AddName.resx">
+      <DependentUpon>AddName.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Edit.resx">
       <DependentUpon>Edit.cs</DependentUpon>
     </EmbeddedResource>
