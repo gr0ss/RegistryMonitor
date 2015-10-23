@@ -12,4 +12,10 @@ namespace gr0ssSysTools.FileUtils
         public string IconLabel;
         public Brush IconColor;
     }
+
+    public struct GeneralStruct
+    {
+        public string RegistryRoot;
+        public string RegistryField;
+    }
 }

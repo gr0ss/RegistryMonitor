@@ -46,6 +46,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +65,12 @@
     </Compile>
     <Compile Include="AddName.Designer.cs">
       <DependentUpon>AddName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddRegistryKey.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddRegistryKey.Designer.cs">
+      <DependentUpon>AddRegistryKey.cs</DependentUpon>
     </Compile>
     <Compile Include="Edit.cs">
       <SubType>Form</SubType>
@@ -88,6 +95,9 @@
     <Compile Include="Utils\ImageStructs.cs" />
     <EmbeddedResource Include="AddName.resx">
       <DependentUpon>AddName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddRegistryKey.resx">
+      <DependentUpon>AddRegistryKey.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Edit.resx">
       <DependentUpon>Edit.cs</DependentUpon>

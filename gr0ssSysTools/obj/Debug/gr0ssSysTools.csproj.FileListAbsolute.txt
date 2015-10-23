@@ -63,3 +63,4 @@ C:\Users\ggross\Documents\GitHub\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysT
 C:\Users\ggross\Documents\GitHub\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.Properties.Resources.resources
 C:\Users\ggross\Documents\GitHub\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.csproj.GenerateResource.Cache
 C:\Users\ggross\Documents\GitHub\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.exe.manifest
+C:\Users\ggross\Documents\GitHub\gr0ssSysTools\gr0ssSysTools\obj\Debug\gr0ssSysTools.AddRegistryKey.resources

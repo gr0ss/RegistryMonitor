@@ -7,6 +7,7 @@ using GlobalHotKey;
 using Zhwang.SuperNotifyIcon;
 using gr0ssSysTools.FileUtils;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.Threading.Tasks;
@@ -24,10 +25,14 @@ namespace gr0ssSysTools
         private DirectoryUtils _dir;
         private string _environmentsText = "\\environments.txt";
         private string _toolsText = "\\tools.txt";
+        private string _generalText = "\\general.txt";
         private List<FileStruct> _environments;
-        private List<FileStruct> _tools; 
+        private List<FileStruct> _tools;
+        private GeneralStruct _general;
 
         private MiscUtils _util;
+
+        private static Configuration _config;
 
         private FileStruct _currentEnvironment;
 
@@ -42,9 +47,11 @@ namespace gr0ssSysTools
             
             _dir = new DirectoryUtils();
             _util = new MiscUtils();
+            _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             LoadTextFiles();
             LoadMenu();
+            CheckRegistryKeyExists();
 
             _hkManager = new HotKeyManager();
             _hkManager.KeyPressed += HkManagerOnKeyPressed;
@@ -70,11 +77,33 @@ namespace gr0ssSysTools
             _registryMonitor.Error += OnError;
             _registryMonitor.Start();
         }
+
+        private void CheckRegistryKeyExists()
+        {
+            _general = _dir.ReadFileandPopulateGeneralStruct();
+            if (_general.RegistryRoot == string.Empty)
+            {
+                var addRegistry = new AddRegistryKey();
+                addRegistry.Show();
+            }
+        }
+
+        private void AddRegistryKeyToAppConfig()
+        {
+            
+            _config.AppSettings.Settings.Add("ModificationDate",
+                           DateTime.Now.ToLongTimeString() + " ");
+
+            // Save the changes in App.config file.
+
+            _config.Save(ConfigurationSaveMode.Modified);
+        }
         
         private void LoadTextFiles()
         {
             _dir.CreateTextIfItDoesntExist(_environmentsText);
             _dir.CreateTextIfItDoesntExist(_toolsText);
+            _dir.CreateTextIfItDoesntExist(_generalText);
         }
 
         private void LoadMenu()

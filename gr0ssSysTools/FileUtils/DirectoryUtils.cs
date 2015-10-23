@@ -13,6 +13,7 @@ namespace gr0ssSysTools.FileUtils
         private readonly string _currentDirectory = Directory.GetCurrentDirectory();
         private string _environmentsTxt = "\\environments.txt";
         private string _toolsTxt = "\\tools.txt";
+        private string _generalText = "\\general.txt";
         
         public void CreateTextIfItDoesntExist(string file)
         {
@@ -42,7 +43,42 @@ namespace gr0ssSysTools.FileUtils
                     sw.WriteLine(guidOne.ToString() + "|Set Window Positions|C:\\Users\\ggross\\Documents\\AutoIT Scripts\\SetWindowPositions.exe|W");
                 }
             }
+            else if (file == _generalText && !File.Exists(_currentDirectory + _generalText))
+            {
+                using (var sw = new StreamWriter(_currentDirectory + _generalText))
+                {
+                    sw.WriteLine("|");
+                }
+            }
         }
+
+        #region Populate GeneralStruct
+
+        public GeneralStruct ReadFileandPopulateGeneralStruct()
+        {
+            if (!File.Exists(_currentDirectory + _generalText))
+                CreateTextIfItDoesntExist(_generalText);
+
+            return MakeGeneralStruct();
+        }
+
+        private GeneralStruct MakeGeneralStruct()
+        {
+            using (StreamReader sr = new StreamReader(_generalText.Replace("\\", "")))
+            {
+                var line = sr.ReadLine();
+
+                var readLine = line.Split('|');
+
+                return new GeneralStruct
+                {
+                    RegistryRoot = readLine[0],
+                    RegistryField = readLine[1]
+                };
+            }
+        } 
+
+        #endregion Populate GeneralStruct
 
         #region Populate FileStruct List
         public List<FileStruct> ReadFileAndPopulateList(string file)
@@ -230,5 +266,24 @@ namespace gr0ssSysTools.FileUtils
             }
         }
         #endregion Write FileStruct to file
+
+        #region Write GeneralStruct to file
+        public void SaveGeneralStructToFile(GeneralStruct structToSave)
+        {
+            if (File.Exists(_currentDirectory + _generalText))
+            {
+                WriteGeneralStructToFile(structToSave);
+            }
+        }
+
+        private void WriteGeneralStructToFile(GeneralStruct structToSave)
+        {
+            using (StreamWriter sw = new StreamWriter(_generalText.Replace("\\", "")))
+            {
+                sw.WriteLine(structToSave.RegistryRoot + "|" + structToSave.RegistryField);
+            }
+        }
+
+        #endregion Write GeneralStruct to file
     }
 }
