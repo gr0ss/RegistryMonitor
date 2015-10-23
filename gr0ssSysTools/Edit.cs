@@ -44,6 +44,11 @@ namespace gr0ssSysTools
             RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
         }
 
+        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+        }
+
         #region Setup and Populate
         private void RepopulateListFromFile(bool env, bool useDictionary)
         {
@@ -226,7 +231,6 @@ namespace gr0ssSysTools
         }
         #endregion Clear Methods
 
-        // Broke
         #region Save button
         private void saveButton_Click(object sender, EventArgs e)
         {
@@ -250,9 +254,7 @@ namespace gr0ssSysTools
 
                 dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
                                                      .Select(index => _environments.First(env => env.Name == index.Value)));
-
-                //dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
-                //                                     .Select(index => _environments.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
+                
                 _environments = dictionaryToCopy;
             }
             else if (tabControl.SelectedTab == tabTools)
@@ -320,8 +322,9 @@ namespace gr0ssSysTools
                 registryValueTextbox.Text = itemToLoad.ValueKey;
 
                 PopulateHotkeyCombo();
-                //hotkeyCombo.SelectedItem = itemToLoad.HotKey;
-                //hotkeyCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+                if (_utils == null)
+                    _utils = new MiscUtils();
+                hotkeyCombo.SelectedIndex = _utils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
 
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
 
@@ -343,8 +346,9 @@ namespace gr0ssSysTools
                 DirectoryPathTextbox.Text = itemToLoad.ValueKey;
 
                 PopulateHotkeyCombo();
-                //hotkeyToolsCombo.SelectedItem = itemToLoad.HotKey;
-                //hotkeyToolsCombo.SelectedIndex = itemToLoad.Name.IndexOf(itemToLoad.HotKey, StringComparison.Ordinal);
+                if (_utils == null)
+                    _utils = new MiscUtils();
+                hotkeyToolsCombo.SelectedIndex = _utils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
             }
         }
 
@@ -408,10 +412,5 @@ namespace gr0ssSysTools
             }
         }
         #endregion Move buttons
-        
-        private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
-        }
     }
 }
