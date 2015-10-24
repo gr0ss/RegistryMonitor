@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
+using Microsoft.Win32;
 
 namespace gr0ssSysTools
 {
@@ -21,8 +22,6 @@ namespace gr0ssSysTools
         public Edit()
         {
             InitializeComponent();
-
-            _utils = new MiscUtils();
         }
 
         public Edit(bool env)
@@ -30,6 +29,7 @@ namespace gr0ssSysTools
             InitializeComponent();
             
             _dir = new DirectoryUtils();
+            _utils = new MiscUtils();
 
             tabControl.SelectedTab = env ? tabEnvironments : tabTools;
         }
@@ -46,7 +46,16 @@ namespace gr0ssSysTools
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
-            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+            if (tabControl.SelectedTab == tabGeneral)
+            {
+                SetupButtonEnabled(false);
+                _utils.PopulateRootCombo(rootCombo);
+            }
+            else
+            {
+                SetupButtonEnabled(true);
+                RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+            }
         }
 
         #region Setup and Populate
@@ -76,6 +85,16 @@ namespace gr0ssSysTools
                     toolsList.Items.Add(key.Name);
                 }
             }
+        }
+
+        private void SetupButtonEnabled(bool enabled)
+        {
+            /* Save button is always enabled. All other *
+             * buttons are dependent on the current tab */
+            addButton.Enabled = enabled;
+            removeButton.Enabled = enabled;
+            moveUpButton.Enabled = enabled;
+            moveDownButton.Enabled = enabled;
         }
         
         private void SetupButtonImages()
@@ -234,12 +253,17 @@ namespace gr0ssSysTools
         #region Save button
         private void saveButton_Click(object sender, EventArgs e)
         {
-            SetDictionaryIndexes();
+            if (tabControl.SelectedTab == tabGeneral)
+                SaveNewRegistryKey();
+            else
+            {
+                SetDictionaryIndexes();
 
-            if (tabControl.SelectedTab == tabEnvironments)
-                _dir.SaveListToFile(_environments, _environmentsText);
-            else if (tabControl.SelectedTab == tabTools)
-                _dir.SaveListToFile(_tools, _toolsText);
+                if (tabControl.SelectedTab == tabEnvironments)
+                    _dir.SaveListToFile(_environments, _environmentsText);
+                else if (tabControl.SelectedTab == tabTools)
+                    _dir.SaveListToFile(_tools, _toolsText);
+            }
         }
 
         private void SetDictionaryIndexes()
@@ -412,5 +436,62 @@ namespace gr0ssSysTools
             }
         }
         #endregion Move buttons
+
+        #region Registry Key Methods
+        private void checkButton_Click(object sender, EventArgs e)
+        {
+            var rootValue = _utils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+
+            MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", @"Current Value of Key",
+                MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SaveNewRegistryKey()
+        {
+            if (GetCurrentKeyValue() == string.Empty)
+                MessageBox.Show("You must first select a valid key.", "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            else
+            {
+                var confirmMessage = MessageBox.Show("If we save the new registry key, you must restart the program for the new key to take effect.\nAre you sure this is what you want to do?", 
+                    "Continue With Save", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+
+                if (confirmMessage == DialogResult.Yes)
+                {
+                    var newGeneralStruct = new GeneralStruct
+                    {
+                        RegistryRoot = _utils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                        RegistryField = fieldTextBox.Text
+                    };
+                    var dir = new DirectoryUtils();
+                    dir.SaveGeneralStructToFile(newGeneralStruct);
+                }
+            }
+        }
+
+        private void RootCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rootCombo2.Items.Clear();
+            rootCombo2.Text = "";
+            rootCombo3.Items.Clear();
+            rootCombo3.Text = "";
+            _utils.PopulateRootCombo2(rootCombo, rootCombo2);
+        }
+
+        private void RootCombo2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            rootCombo3.Items.Clear();
+            rootCombo3.Text = "";
+
+            _utils.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+        }
+
+        private string GetCurrentKeyValue()
+        {
+            return (string) Registry.GetValue(_utils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
+        }
+        #endregion Registry Key Methods
+
+        
     }
 }

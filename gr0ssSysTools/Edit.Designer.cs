@@ -58,9 +58,18 @@
             this.hotkeyLabel = new System.Windows.Forms.Label();
             this.guidLabel = new System.Windows.Forms.Label();
             this.registryValueLbl = new System.Windows.Forms.Label();
+            this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.registryKeyGroupBox = new System.Windows.Forms.GroupBox();
+            this.checkButton = new System.Windows.Forms.Button();
+            this.fieldTextBox = new System.Windows.Forms.TextBox();
+            this.rootCombo3 = new System.Windows.Forms.ComboBox();
+            this.rootCombo2 = new System.Windows.Forms.ComboBox();
+            this.rootCombo = new System.Windows.Forms.ComboBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
+            this.tabGeneral.SuspendLayout();
+            this.registryKeyGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveButton
@@ -130,7 +139,7 @@
             // guidToolsLabel
             // 
             this.guidToolsLabel.AutoSize = true;
-            this.guidToolsLabel.Location = new System.Drawing.Point(172, 194);
+            this.guidToolsLabel.Location = new System.Drawing.Point(167, 194);
             this.guidToolsLabel.Name = "guidToolsLabel";
             this.guidToolsLabel.Size = new System.Drawing.Size(67, 13);
             this.guidToolsLabel.TabIndex = 21;
@@ -140,7 +149,7 @@
             // hotkeyToolsCombo
             // 
             this.hotkeyToolsCombo.FormattingEnabled = true;
-            this.hotkeyToolsCombo.Location = new System.Drawing.Point(259, 73);
+            this.hotkeyToolsCombo.Location = new System.Drawing.Point(266, 73);
             this.hotkeyToolsCombo.Name = "hotkeyToolsCombo";
             this.hotkeyToolsCombo.Size = new System.Drawing.Size(341, 21);
             this.hotkeyToolsCombo.TabIndex = 20;
@@ -148,7 +157,7 @@
             // hotkeyToolsLabel
             // 
             this.hotkeyToolsLabel.AutoSize = true;
-            this.hotkeyToolsLabel.Location = new System.Drawing.Point(205, 76);
+            this.hotkeyToolsLabel.Location = new System.Drawing.Point(212, 76);
             this.hotkeyToolsLabel.Name = "hotkeyToolsLabel";
             this.hotkeyToolsLabel.Size = new System.Drawing.Size(47, 13);
             this.hotkeyToolsLabel.TabIndex = 19;
@@ -174,14 +183,14 @@
             // 
             // DirectoryPathTextbox
             // 
-            this.DirectoryPathTextbox.Location = new System.Drawing.Point(259, 47);
+            this.DirectoryPathTextbox.Location = new System.Drawing.Point(266, 47);
             this.DirectoryPathTextbox.Name = "DirectoryPathTextbox";
             this.DirectoryPathTextbox.Size = new System.Drawing.Size(341, 20);
             this.DirectoryPathTextbox.TabIndex = 10;
             // 
             // toolsNameTextbox
             // 
-            this.toolsNameTextbox.Location = new System.Drawing.Point(259, 21);
+            this.toolsNameTextbox.Location = new System.Drawing.Point(266, 21);
             this.toolsNameTextbox.Name = "toolsNameTextbox";
             this.toolsNameTextbox.Size = new System.Drawing.Size(341, 20);
             this.toolsNameTextbox.TabIndex = 9;
@@ -190,7 +199,7 @@
             // directoryPathLbl
             // 
             this.directoryPathLbl.AutoSize = true;
-            this.directoryPathLbl.Location = new System.Drawing.Point(172, 50);
+            this.directoryPathLbl.Location = new System.Drawing.Point(179, 50);
             this.directoryPathLbl.Name = "directoryPathLbl";
             this.directoryPathLbl.Size = new System.Drawing.Size(80, 13);
             this.directoryPathLbl.TabIndex = 8;
@@ -199,7 +208,7 @@
             // toolNameLbl
             // 
             this.toolNameLbl.AutoSize = true;
-            this.toolNameLbl.Location = new System.Drawing.Point(212, 24);
+            this.toolNameLbl.Location = new System.Drawing.Point(219, 24);
             this.toolNameLbl.Name = "toolNameLbl";
             this.toolNameLbl.Size = new System.Drawing.Size(41, 13);
             this.toolNameLbl.TabIndex = 7;
@@ -251,6 +260,7 @@
             // 
             this.tabControl.Controls.Add(this.tabEnvironments);
             this.tabControl.Controls.Add(this.tabTools);
+            this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Location = new System.Drawing.Point(2, 2);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
@@ -352,6 +362,73 @@
             this.registryValueLbl.TabIndex = 2;
             this.registryValueLbl.Text = "Registry Value: ";
             // 
+            // tabGeneral
+            // 
+            this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
+            this.tabGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tabGeneral.Name = "tabGeneral";
+            this.tabGeneral.Size = new System.Drawing.Size(613, 236);
+            this.tabGeneral.TabIndex = 2;
+            this.tabGeneral.Text = "General";
+            this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // registryKeyGroupBox
+            // 
+            this.registryKeyGroupBox.Controls.Add(this.checkButton);
+            this.registryKeyGroupBox.Controls.Add(this.fieldTextBox);
+            this.registryKeyGroupBox.Controls.Add(this.rootCombo3);
+            this.registryKeyGroupBox.Controls.Add(this.rootCombo2);
+            this.registryKeyGroupBox.Controls.Add(this.rootCombo);
+            this.registryKeyGroupBox.Location = new System.Drawing.Point(6, 3);
+            this.registryKeyGroupBox.Name = "registryKeyGroupBox";
+            this.registryKeyGroupBox.Size = new System.Drawing.Size(168, 158);
+            this.registryKeyGroupBox.TabIndex = 0;
+            this.registryKeyGroupBox.TabStop = false;
+            this.registryKeyGroupBox.Text = "Update Registry Key";
+            // 
+            // checkButton
+            // 
+            this.checkButton.Location = new System.Drawing.Point(6, 126);
+            this.checkButton.Name = "checkButton";
+            this.checkButton.Size = new System.Drawing.Size(152, 23);
+            this.checkButton.TabIndex = 17;
+            this.checkButton.Text = "Check Key";
+            this.checkButton.UseVisualStyleBackColor = true;
+            this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
+            // 
+            // fieldTextBox
+            // 
+            this.fieldTextBox.Location = new System.Drawing.Point(6, 100);
+            this.fieldTextBox.Name = "fieldTextBox";
+            this.fieldTextBox.Size = new System.Drawing.Size(152, 20);
+            this.fieldTextBox.TabIndex = 16;
+            // 
+            // rootCombo3
+            // 
+            this.rootCombo3.FormattingEnabled = true;
+            this.rootCombo3.Location = new System.Drawing.Point(6, 73);
+            this.rootCombo3.Name = "rootCombo3";
+            this.rootCombo3.Size = new System.Drawing.Size(152, 21);
+            this.rootCombo3.TabIndex = 15;
+            // 
+            // rootCombo2
+            // 
+            this.rootCombo2.FormattingEnabled = true;
+            this.rootCombo2.Location = new System.Drawing.Point(6, 46);
+            this.rootCombo2.Name = "rootCombo2";
+            this.rootCombo2.Size = new System.Drawing.Size(152, 21);
+            this.rootCombo2.TabIndex = 14;
+            this.rootCombo2.SelectedIndexChanged += new System.EventHandler(this.RootCombo2_SelectedIndexChanged);
+            // 
+            // rootCombo
+            // 
+            this.rootCombo.FormattingEnabled = true;
+            this.rootCombo.Location = new System.Drawing.Point(6, 19);
+            this.rootCombo.Name = "rootCombo";
+            this.rootCombo.Size = new System.Drawing.Size(152, 21);
+            this.rootCombo.TabIndex = 13;
+            this.rootCombo.SelectedIndexChanged += new System.EventHandler(this.RootCombo_SelectedIndexChanged);
+            // 
             // Edit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -371,6 +448,9 @@
             this.tabControl.ResumeLayout(false);
             this.tabEnvironments.ResumeLayout(false);
             this.tabEnvironments.PerformLayout();
+            this.tabGeneral.ResumeLayout(false);
+            this.registryKeyGroupBox.ResumeLayout(false);
+            this.registryKeyGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -407,5 +487,12 @@
         private System.Windows.Forms.Label guidToolsLabel;
         private System.Windows.Forms.ComboBox hotkeyToolsCombo;
         private System.Windows.Forms.Label hotkeyToolsLabel;
+        private System.Windows.Forms.TabPage tabGeneral;
+        private System.Windows.Forms.GroupBox registryKeyGroupBox;
+        private System.Windows.Forms.Button checkButton;
+        private System.Windows.Forms.TextBox fieldTextBox;
+        private System.Windows.Forms.ComboBox rootCombo3;
+        private System.Windows.Forms.ComboBox rootCombo2;
+        private System.Windows.Forms.ComboBox rootCombo;
     }
 }

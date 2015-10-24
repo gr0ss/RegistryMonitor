@@ -14,12 +14,12 @@ using System.Threading.Tasks;
 using FlimFlan.IconEncoder;
 using System.Drawing.Imaging;
 using System.IO;
+using System.ComponentModel;
 
 namespace gr0ssSysTools
 {
     public partial class Form1 : Form
     {
-        private const string USER_ROOT = "HKEY_CURRENT_USER\\Software\\PSI";
         readonly Font _font = new Font("Arial Narrow", 7.0f);
 
         private DirectoryUtils _dir;
@@ -51,7 +51,6 @@ namespace gr0ssSysTools
 
             LoadTextFiles();
             LoadMenu();
-            CheckRegistryKeyExists();
 
             _hkManager = new HotKeyManager();
             _hkManager.KeyPressed += HkManagerOnKeyPressed;
@@ -64,18 +63,7 @@ namespace gr0ssSysTools
         
         private void Form1_Load(object sender, EventArgs e)
         {
-            _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(USER_ROOT, "DBPath", ""));
-            SetIcon();
-
-            var keyName = $"{Registry.CurrentUser.Name}\\Software\\PSI";
-            
-            _registryMonitor = new RegistryMonitor(keyName)
-            {
-                RegChangeNotifyFilter = RegChangeNotifyFilter.Value
-            };
-            _registryMonitor.RegChanged += OnRegChanged;
-            _registryMonitor.Error += OnError;
-            _registryMonitor.Start();
+            CheckRegistryKeyExists();
         }
 
         private void CheckRegistryKeyExists()
@@ -83,20 +71,47 @@ namespace gr0ssSysTools
             _general = _dir.ReadFileandPopulateGeneralStruct();
             if (_general.RegistryRoot == string.Empty)
             {
-                var addRegistry = new AddRegistryKey();
-                addRegistry.Show();
+                var newUserMessage = MessageBox.Show("Thank you for downloading my program!\n\nAs this is your first time running the program, we need you to select the registry key you would like to monitor.",
+                    "New User Registry Monitoring Setup",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Information);
+
+                if (newUserMessage == DialogResult.OK)
+                {
+                    var addRegistry = new AddRegistryKey();
+                    addRegistry.FormClosing += RegistryKeyAdded_EventHandler;
+                    addRegistry.Show();
+                }
+                else
+                    Environment.Exit(0);                
             }
+            else
+                LoadRegistryMonitor();
         }
 
-        private void AddRegistryKeyToAppConfig()
+        private void RegistryKeyAdded_EventHandler(object sender, CancelEventArgs e)
         {
+            _general = _dir.ReadFileandPopulateGeneralStruct();
+            if (_general.RegistryRoot == string.Empty)
+                Environment.Exit(0);
+            else
+                LoadRegistryMonitor();
+        }
+
+        private void LoadRegistryMonitor()
+        {
+            _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(_general.RegistryRoot, _general.RegistryField, ""));
+            SetIcon();
+
+            //var keyName = $"{Registry.CurrentUser.Name}\\Software\\PSI";
             
-            _config.AppSettings.Settings.Add("ModificationDate",
-                           DateTime.Now.ToLongTimeString() + " ");
-
-            // Save the changes in App.config file.
-
-            _config.Save(ConfigurationSaveMode.Modified);
+            _registryMonitor = new RegistryMonitor(_general.RegistryRoot)
+            {
+                RegChangeNotifyFilter = RegChangeNotifyFilter.Value
+            };
+            _registryMonitor.RegChanged += OnRegChanged;
+            _registryMonitor.Error += OnError;
+            _registryMonitor.Start();
         }
         
         private void LoadTextFiles()
@@ -191,15 +206,21 @@ namespace gr0ssSysTools
         #region Registry
         private void SetRegistry()
         {
-            Registry.SetValue(USER_ROOT, "DBPath", _currentEnvironment.ValueKey);
-            SetIcon();
+            if (_general.RegistryRoot != string.Empty)
+            {
+                Registry.SetValue(_general.RegistryRoot, _general.RegistryField, _currentEnvironment.ValueKey);
+                SetIcon();
+            }
         }
         
         private void OnRegChanged(object sender, EventArgs e)
         {
-            _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(USER_ROOT, "DBPath", ""));
-            SetIcon();
-            ShowEnvironmentChangedBalloonTip();
+            if (_general.RegistryRoot != string.Empty)
+            {
+                _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(_general.RegistryRoot, _general.RegistryField, ""));
+                SetIcon();
+                ShowEnvironmentChangedBalloonTip();
+            }
         }
 
         private void SetIcon()
