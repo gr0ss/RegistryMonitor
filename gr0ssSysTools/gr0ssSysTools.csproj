@@ -130,13 +130,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Libraries\SuperNotifyIcon\SuperNotifyIcon\SuperNotifyIcon.csproj">
+      <Project>{7917205f-e357-4793-928c-4193d51c2f73}</Project>
+      <Name>SuperNotifyIcon</Name>
+    </ProjectReference>
     <ProjectReference Include="..\RegistryUtils\RegistryUtils.csproj">
       <Project>{ea74fe0c-2ce0-41e8-9a36-0773f9313660}</Project>
       <Name>RegistryUtils</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SuperNotifyIcon\SuperNotifyIcon\SuperNotifyIcon.csproj">
-      <Project>{7917205f-e357-4793-928c-4193d51c2f73}</Project>
-      <Name>SuperNotifyIcon</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -156,12 +156,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Star_32.ICO" />
-  </ItemGroup>
-  <ItemGroup>
-    <NativeReference Include="MyApplication.app, Version=1.0.0.0">
-      <Name>ImagedComboBox.vshost.exe.manifest</Name>
-      <HintPath>..\ImagedComboBox.vshost.exe.manifest</HintPath>
-    </NativeReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

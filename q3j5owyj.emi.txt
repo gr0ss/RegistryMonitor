@@ -1,0 +1,78 @@
+﻿
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is up-to-date with 'origin/master'.
+#
+# Changes to be committed:
+#	new file:   .gitmodules
+#	new file:   Libraries/SuperNotifyIcon
+#
+# Changes not staged for commit:
+#	deleted:    SuperNotifyIcon/.gitignore
+#	deleted:    SuperNotifyIcon/CHANGELOG
+#	deleted:    SuperNotifyIcon/COPYING
+#	deleted:    SuperNotifyIcon/README.md
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Form1.Designer.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Form1.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Form1.resx
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Program.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Properties/AssemblyInfo.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Properties/Resources.Designer.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Properties/Resources.resx
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Properties/Settings.Designer.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/Properties/Settings.settings
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/SuperNotifyIcon.Demo.csproj
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/app.config
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.Demo/testicon.ico
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon.sln
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Animation.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Dropzone.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/FormDebugger.Designer.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/FormDebugger.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/FormDebugger.resx
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/FormDrop.Designer.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/FormDrop.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/GlobalHook.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/MouseHoldTimed.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/MouseHook.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/NativeMethods.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/NotifyArea.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/NotifyIcon.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/SysInfo.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Helpers/Taskbar.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Location.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/NotifyIconLocation/Deprecated/WindowPositioning.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/NotifyIconLocation/Fallback/NotifyIconColorFinder.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/NotifyIconLocationWPF/Compatibility.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/NotifyIconLocationWPF/NativeMethods.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/NotifyIconLocationWPF/WindowPositioning.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/Properties/AssemblyInfo.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/SuperNotifyIcon.cs
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/SuperNotifyIcon.csproj
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/bin/Debug/Zhwang.SuperNotifyIcon.dll
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/bin/Debug/Zhwang.SuperNotifyIcon.pdb
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/bin/Release/Zhwang.SuperNotifyIcon.dll
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/bin/Release/Zhwang.SuperNotifyIcon.pdb
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Debug/SuperNotifyIcon.csproj.FileListAbsolute.txt
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Debug/SuperNotifyIcon.csproj.GenerateResource.Cache
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Debug/Zhwang.SuperNotifyIcon.FormDebugger.resources
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Debug/Zhwang.SuperNotifyIcon.dll
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Debug/Zhwang.SuperNotifyIcon.pdb
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/SuperNotifyIcon.csproj.FileListAbsolute.txt
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/SuperNotifyIcon.csproj.GenerateResource.Cache
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/SuperNotifyIcon.csprojResolveAssemblyReference.cache
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/Zhwang.SuperNotifyIcon.FormDebugger.resources
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/Zhwang.SuperNotifyIcon.dll
+#	deleted:    SuperNotifyIcon/SuperNotifyIcon/obj/Release/Zhwang.SuperNotifyIcon.pdb
+#	modified:   gr0ssSysTools.sln
+#	modified:   gr0ssSysTools/bin/Debug/Zhwang.SuperNotifyIcon.dll
+#	modified:   gr0ssSysTools/bin/Debug/Zhwang.SuperNotifyIcon.pdb
+#	modified:   gr0ssSysTools/bin/Debug/gr0ssSysTools.exe
+#	modified:   gr0ssSysTools/bin/Debug/gr0ssSysTools.pdb
+#	modified:   gr0ssSysTools/bin/Debug/gr0ssSysTools.vshost.exe.manifest
+#	modified:   gr0ssSysTools/gr0ssSysTools.csproj
+#
+
