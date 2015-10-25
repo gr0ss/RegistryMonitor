@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
+using gr0ssSysTools.Utils;
 using Microsoft.Win32;
 
 namespace gr0ssSysTools
@@ -130,23 +131,22 @@ namespace gr0ssSysTools
 
         private void PopulateIconColorCombo()
         {
-            iconColorCombo.Items.ItemsBase.Clear();
             iconColorCombo.Items.Clear();
 
             _utils = new MiscUtils();
 
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Dark Gray", Brushes.DarkGray));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Blue", Brushes.Blue));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Brown", Brushes.Brown));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Coral", Brushes.Coral));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Red", Brushes.Red));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Aqua", Brushes.Aqua));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Violet", Brushes.Violet));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Green", Brushes.Green));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Yellow", Brushes.Yellow));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Magenta", Brushes.Magenta));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Wheat", Brushes.Wheat));
-            iconColorCombo.Items.Add(_utils.CreateComboBoxItem("Orange", Brushes.Orange));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Dark Gray", Brushes.DarkGray));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Blue", Brushes.Blue));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Brown", Brushes.Brown));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Coral", Brushes.Coral));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Red", Brushes.Red));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Aqua", Brushes.Aqua));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Violet", Brushes.Violet));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Green", Brushes.Green));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Yellow", Brushes.Yellow));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Magenta", Brushes.Magenta));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Wheat", Brushes.Wheat));
+            iconColorCombo.Items.Add(new ColorDropDownItem("Orange", Brushes.Orange));
         }
 
         private void NameTextbox_Leave(object sender, EventArgs e)
@@ -353,6 +353,7 @@ namespace gr0ssSysTools
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
 
                 PopulateIconColorCombo();
+
                 var colorIndex = _utils.GetColorIndex(itemToLoad.IconColor);
                 iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
             }

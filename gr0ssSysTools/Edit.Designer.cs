@@ -1,4 +1,6 @@
-﻿namespace gr0ssSysTools
+﻿using gr0ssSysTools.Utils;
+
+namespace gr0ssSysTools
 {
     partial class Edit
     {
@@ -50,7 +52,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabEnvironments = new System.Windows.Forms.TabPage();
-            this.iconColorCombo = new ComboxExtended.ImagedComboBox();
+            this.iconColorCombo = new ColorComboBox();
             this.hotkeyCombo = new System.Windows.Forms.ComboBox();
             this.iconColorLabel = new System.Windows.Forms.Label();
             this.iconDisplayTextbox = new System.Windows.Forms.TextBox();
@@ -483,7 +485,7 @@
         private System.Windows.Forms.TextBox iconDisplayTextbox;
         private System.Windows.Forms.Label iconTextLabel;
         private System.Windows.Forms.Label hotkeyLabel;
-        private ComboxExtended.ImagedComboBox iconColorCombo;
+        private ColorComboBox iconColorCombo;
         private System.Windows.Forms.Label guidToolsLabel;
         private System.Windows.Forms.ComboBox hotkeyToolsCombo;
         private System.Windows.Forms.Label hotkeyToolsLabel;

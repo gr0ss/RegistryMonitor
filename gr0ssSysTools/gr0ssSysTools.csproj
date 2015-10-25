@@ -37,13 +37,6 @@
       <HintPath>..\packages\GlobalHotKey.1.1.0\lib\GlobalHotKey.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ImagedComboBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\ImagedComboBox.exe</HintPath>
-    </Reference>
-    <Reference Include="ImagedComboBox.vshost">
-      <HintPath>..\ImagedComboBox.vshost.exe</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -89,10 +82,14 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\BitmapHolder.cs" />
+    <Compile Include="Utils\ColorComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Utils\Converter.cs" />
     <Compile Include="FileUtils\DirectoryUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />
     <Compile Include="Utils\ImageStructs.cs" />
+    <Compile Include="Utils\RegistryMonitor.cs" />
     <EmbeddedResource Include="AddName.resx">
       <DependentUpon>AddName.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,10 +130,6 @@
     <ProjectReference Include="..\Libraries\SuperNotifyIcon\SuperNotifyIcon\SuperNotifyIcon.csproj">
       <Project>{7917205f-e357-4793-928c-4193d51c2f73}</Project>
       <Name>SuperNotifyIcon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RegistryUtils\RegistryUtils.csproj">
-      <Project>{ea74fe0c-2ce0-41e8-9a36-0773f9313660}</Project>
-      <Name>RegistryUtils</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

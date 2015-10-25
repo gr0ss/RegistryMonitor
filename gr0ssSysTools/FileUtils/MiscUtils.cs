@@ -4,7 +4,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using ComboxExtended;
+using gr0ssSysTools.Utils;
 using Microsoft.Win32;
 
 namespace gr0ssSysTools.FileUtils
@@ -16,22 +16,7 @@ namespace gr0ssSysTools.FileUtils
             var positionOfHotkey = name.IndexOf(hotkey);
             return name.Insert(positionOfHotkey, "&");
         }
-
-        public ComboBoxItem CreateComboBoxItem(string color, Brush brushColor)
-        {
-            var red = new ComboBoxItem();
-            red.Value = color;
-
-            Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
-			using (Graphics g = Graphics.FromImage(bmp))
-			{
-                Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			    g.FillEllipse(brushColor, rectangle);
-			}
-            red.Image = bmp;
-            return red;
-        }
-
+        
         public int GetColorIndex(Brush brushColor)
         {
             if (((SolidBrush)brushColor).Color == Color.DarkGray)
