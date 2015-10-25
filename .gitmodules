@@ -1,0 +1,3 @@
+[submodule "Libraries/SuperNotifyIcon"]
+	path = Libraries/SuperNotifyIcon
+	url = http://github.com/rzhw/SuperNotifyIcon
