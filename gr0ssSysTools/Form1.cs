@@ -60,7 +60,7 @@ namespace gr0ssSysTools
         private void CheckRegistryKeyExists()
         {
             _general = GeneralUtils.ReadGeneralStructSettings();
-            if (_general.RegistryRoot == string.Empty)
+            if (string.IsNullOrEmpty(_general.RegistryRoot))
             {
                 var newUserMessage = MessageBox.Show("Thank you for downloading my program!\n\nAs this is your first time running the program, we need you to select the registry key you would like to monitor.",
                     "New User Registry Monitoring Setup",

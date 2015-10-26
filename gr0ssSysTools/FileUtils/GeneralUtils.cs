@@ -10,7 +10,10 @@ namespace gr0ssSysTools.FileUtils
         {
             string generalFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_FILE_NAME);
             if (!File.Exists(generalFile))
+            {
+                SaveGeneralSettings(new GeneralStruct());
                 return new GeneralStruct();
+            }
 
             using (StreamReader sr = new StreamReader(generalFile))
             {
