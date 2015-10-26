@@ -13,12 +13,8 @@ namespace gr0ssSysTools
 {
     public partial class Edit : Form
     {
-        private string _environmentsText = "\\environments.txt";
-        private string _toolsText = "\\tools.txt";
-        private DirectoryUtils _dir;
         private List<FileStruct> _environments;
-        private List<FileStruct> _tools; 
-        private MiscUtils _utils;
+        private List<FileStruct> _tools;
 
         public Edit()
         {
@@ -29,20 +25,18 @@ namespace gr0ssSysTools
         {
             InitializeComponent();
             
-            _dir = new DirectoryUtils();
-            _utils = new MiscUtils();
-
             tabControl.SelectedTab = env ? tabEnvironments : tabTools;
         }
 
         private void Edit_Load(object sender, EventArgs e)
         {
             SetupButtonImages();
-
-            _dir.CreateTextIfItDoesntExist(_environmentsText);
-            _dir.CreateTextIfItDoesntExist(_toolsText);
-
-            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+                        
+            if (tabControl.SelectedTab == tabEnvironments) {
+                environmentsList.Items.Clear();
+                _environments = EnvironmentUtils.GetSampleEnvironmentSettings();
+                RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+            }
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -50,7 +44,7 @@ namespace gr0ssSysTools
             if (tabControl.SelectedTab == tabGeneral)
             {
                 SetupButtonEnabled(false);
-                _utils.PopulateRootCombo(rootCombo);
+                RegistryKeyUtils.PopulateRootCombo(rootCombo);
             }
             else
             {
@@ -59,7 +53,7 @@ namespace gr0ssSysTools
             }
         }
 
-        #region Setup and Populate
+#region Setup and Populate
         private void RepopulateListFromFile(bool env, bool useDictionary)
         {
             if (env)
@@ -67,7 +61,7 @@ namespace gr0ssSysTools
                 environmentsList.Items.Clear();
 
                 if (!useDictionary)
-                    _environments = _dir.ReadFileAndPopulateList(_environmentsText);
+                    _environments = EnvironmentUtils.ReadEnvironmentSettings();
 
                 foreach (var key in _environments)
                 {
@@ -79,7 +73,7 @@ namespace gr0ssSysTools
                 toolsList.Items.Clear();
 
                 if (!useDictionary)
-                    _tools = _dir.ReadFileAndPopulateList(_toolsText);
+                    _tools = ToolsUtils.ReadToolsSettings();
 
                 foreach (var key in _tools)
                 {
@@ -132,9 +126,7 @@ namespace gr0ssSysTools
         private void PopulateIconColorCombo()
         {
             iconColorCombo.Items.Clear();
-
-            _utils = new MiscUtils();
-
+            
             iconColorCombo.Items.Add(new ColorDropDownItem("Dark Gray", Brushes.DarkGray));
             iconColorCombo.Items.Add(new ColorDropDownItem("Blue", Brushes.Blue));
             iconColorCombo.Items.Add(new ColorDropDownItem("Brown", Brushes.Brown));
@@ -153,7 +145,7 @@ namespace gr0ssSysTools
         {
             PopulateHotkeyCombo();
         }
-        #endregion Setup and Populate
+#endregion Setup and Populate
 
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -228,7 +220,7 @@ namespace gr0ssSysTools
             RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
         }
 
-        #region Clear Methods
+#region Clear Methods
         private void ClearEnvironmentFields()
         {
             NameTextbox.Text = "";
@@ -248,9 +240,9 @@ namespace gr0ssSysTools
             hotkeyToolsCombo.Text = "";
             guidToolsLabel.Text = "";
         }
-        #endregion Clear Methods
+#endregion Clear Methods
 
-        #region Save button
+#region Save button
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (tabControl.SelectedTab == tabGeneral)
@@ -260,9 +252,9 @@ namespace gr0ssSysTools
                 SetDictionaryIndexes();
 
                 if (tabControl.SelectedTab == tabEnvironments)
-                    _dir.SaveListToFile(_environments, _environmentsText);
+                    EnvironmentUtils.SaveEnvironmentsSettings(_environments);
                 else if (tabControl.SelectedTab == tabTools)
-                    _dir.SaveListToFile(_tools, _toolsText);
+                    ToolsUtils.SaveToolsSettings(_tools);
             }
         }
 
@@ -317,9 +309,9 @@ namespace gr0ssSysTools
             return dictionaryToReturn;
         }
 
-        #endregion Save button
+#endregion Save button
 
-        #region Move buttons
+#region Move buttons
         private void moveUpButton_Click(object sender, EventArgs e)
         {
             TurnOffListEventHandlers();
@@ -346,15 +338,13 @@ namespace gr0ssSysTools
                 registryValueTextbox.Text = itemToLoad.ValueKey;
 
                 PopulateHotkeyCombo();
-                if (_utils == null)
-                    _utils = new MiscUtils();
-                hotkeyCombo.SelectedIndex = _utils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                hotkeyCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
 
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
 
                 PopulateIconColorCombo();
 
-                var colorIndex = _utils.GetColorIndex(itemToLoad.IconColor);
+                var colorIndex = MiscUtils.GetColorIndex(itemToLoad.IconColor);
                 iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
             }
         }
@@ -371,9 +361,7 @@ namespace gr0ssSysTools
                 DirectoryPathTextbox.Text = itemToLoad.ValueKey;
 
                 PopulateHotkeyCombo();
-                if (_utils == null)
-                    _utils = new MiscUtils();
-                hotkeyToolsCombo.SelectedIndex = _utils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                hotkeyToolsCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
             }
         }
 
@@ -436,12 +424,12 @@ namespace gr0ssSysTools
                 toolsList.SetSelected(newIndex, true);
             }
         }
-        #endregion Move buttons
+#endregion Move buttons
 
-        #region Registry Key Methods
+#region Registry Key Methods
         private void checkButton_Click(object sender, EventArgs e)
         {
-            var rootValue = _utils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
 
             MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", @"Current Value of Key",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -461,11 +449,10 @@ namespace gr0ssSysTools
                 {
                     var newGeneralStruct = new GeneralStruct
                     {
-                        RegistryRoot = _utils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                        RegistryRoot = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
                         RegistryField = fieldTextBox.Text
                     };
-                    var dir = new DirectoryUtils();
-                    dir.SaveGeneralStructToFile(newGeneralStruct);
+                    GeneralUtils.SaveGeneralSettings(newGeneralStruct);
                 }
             }
         }
@@ -476,7 +463,7 @@ namespace gr0ssSysTools
             rootCombo2.Text = "";
             rootCombo3.Items.Clear();
             rootCombo3.Text = "";
-            _utils.PopulateRootCombo2(rootCombo, rootCombo2);
+            RegistryKeyUtils.PopulateRootCombo2(rootCombo, rootCombo2);
         }
 
         private void RootCombo2_SelectedIndexChanged(object sender, EventArgs e)
@@ -484,14 +471,14 @@ namespace gr0ssSysTools
             rootCombo3.Items.Clear();
             rootCombo3.Text = "";
 
-            _utils.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+            RegistryKeyUtils.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
         }
 
         private string GetCurrentKeyValue()
         {
-            return (string) Registry.GetValue(_utils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
+            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
         }
-        #endregion Registry Key Methods
+#endregion Registry Key Methods
 
         
     }

@@ -22,16 +22,10 @@ namespace gr0ssSysTools
     {
         readonly Font _font = new Font("Arial Narrow", 7.0f);
 
-        private DirectoryUtils _dir;
-        private string _environmentsText = "\\environments.txt";
-        private string _toolsText = "\\tools.txt";
-        private string _generalText = "\\general.txt";
         private List<FileStruct> _environments;
         private List<FileStruct> _tools;
         private GeneralStruct _general;
-
-        private MiscUtils _util;
-
+        
         private static Configuration _config;
 
         private FileStruct _currentEnvironment;
@@ -45,11 +39,8 @@ namespace gr0ssSysTools
         {
             InitializeComponent();
             
-            _dir = new DirectoryUtils();
-            _util = new MiscUtils();
             _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
-            LoadTextFiles();
             LoadMenu();
 
             _hkManager = new HotKeyManager();
@@ -68,7 +59,7 @@ namespace gr0ssSysTools
 
         private void CheckRegistryKeyExists()
         {
-            _general = _dir.ReadFileandPopulateGeneralStruct();
+            _general = GeneralUtils.ReadGeneralStructSettings();
             if (_general.RegistryRoot == string.Empty)
             {
                 var newUserMessage = MessageBox.Show("Thank you for downloading my program!\n\nAs this is your first time running the program, we need you to select the registry key you would like to monitor.",
@@ -91,7 +82,7 @@ namespace gr0ssSysTools
 
         private void RegistryKeyAdded_EventHandler(object sender, CancelEventArgs e)
         {
-            _general = _dir.ReadFileandPopulateGeneralStruct();
+            _general = GeneralUtils.ReadGeneralStructSettings();
             if (_general.RegistryRoot == string.Empty)
                 Environment.Exit(0);
             else
@@ -114,24 +105,17 @@ namespace gr0ssSysTools
             _registryMonitor.Start();
         }
         
-        private void LoadTextFiles()
-        {
-            _dir.CreateTextIfItDoesntExist(_environmentsText);
-            _dir.CreateTextIfItDoesntExist(_toolsText);
-            _dir.CreateTextIfItDoesntExist(_generalText);
-        }
-
         private void LoadMenu()
         {
-            _environments = _dir.ReadFileAndPopulateList(_environmentsText);
-            _tools = _dir.ReadFileAndPopulateList(_toolsText);
+            _environments = EnvironmentUtils.GetSampleEnvironmentSettings();
+            _tools = ToolsUtils.ReadToolsSettings();
 
             menuStrip.Items.Clear();
             menuTools.DropDownItems.Clear();
 
             foreach (var tool in _tools)
             {
-                menuTools.DropDownItems.Add(_util.GetNameWithHotkey(tool.Name, tool.HotKey));
+                menuTools.DropDownItems.Add(MiscUtils.GetNameWithHotkey(tool.Name, tool.HotKey));
                 menuTools.DropDownItems[menuTools.DropDownItems.Count - 1].Click += ToolClicked;
             }
             
@@ -140,7 +124,7 @@ namespace gr0ssSysTools
             
             foreach (var env in _environments)
             {
-                menuStrip.Items.Add(_util.GetNameWithHotkey(env.Name, env.HotKey));
+                menuStrip.Items.Add(MiscUtils.GetNameWithHotkey(env.Name, env.HotKey));
 
                 menuStrip.Items[menuStrip.Items.Count - 1].Click += EnvironmentClicked;
             }
@@ -225,8 +209,8 @@ namespace gr0ssSysTools
 
         private void SetIcon()
         {
-            Task.Run(() =>
-            {
+ //           Task.Run(() =>
+ //           {
                 Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
 			    using (Graphics g = Graphics.FromImage(bmp))
 			    {
@@ -236,7 +220,7 @@ namespace gr0ssSysTools
 			    }
 
                 Icon.Icon = Converter.BitmapToIcon(bmp);
-            });
+  //          });
         }
 
         private void ShowEnvironmentChangedBalloonTip()

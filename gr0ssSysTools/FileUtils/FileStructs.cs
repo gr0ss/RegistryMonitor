@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace gr0ssSysTools.FileUtils
 {
-    public struct FileStruct
+    public class FileStruct
     {
         public Guid ID;
         public string Name;
@@ -13,7 +13,7 @@ namespace gr0ssSysTools.FileUtils
         public Brush IconColor;
     }
 
-    public struct GeneralStruct
+    public class GeneralStruct
     {
         public string RegistryRoot;
         public string RegistryField;

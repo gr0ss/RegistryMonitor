@@ -72,6 +72,7 @@
       <DependentUpon>Edit.cs</DependentUpon>
     </Compile>
     <Compile Include="FileUtils\FileStructs.cs" />
+    <Compile Include="FileUtils\GeneralUtils.cs" />
     <Compile Include="FileUtils\MiscUtils.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -86,10 +87,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\Converter.cs" />
-    <Compile Include="FileUtils\DirectoryUtils.cs" />
+    <Compile Include="FileUtils\EnvironmentUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />
     <Compile Include="Utils\ImageStructs.cs" />
+    <Compile Include="Utils\RegistryKeyUtils.cs" />
     <Compile Include="Utils\RegistryMonitor.cs" />
+    <Compile Include="FileUtils\ToolsUtils.cs" />
     <EmbeddedResource Include="AddName.resx">
       <DependentUpon>AddName.cs</DependentUpon>
     </EmbeddedResource>

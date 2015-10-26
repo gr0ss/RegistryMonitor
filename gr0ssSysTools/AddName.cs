@@ -37,8 +37,10 @@ namespace gr0ssSysTools
         
         private void saveButton_Click(object sender, EventArgs e)
         {
-            var dir = new DirectoryUtils();
-            dir.AddNameToFile(nameTextbox.Text, _isEnv, _list);
+            if (_isEnv)
+                EnvironmentUtils.AddNewEnvironmentSetting(nameTextbox.Text, _list);
+            else
+                ToolsUtils.AddNewToolSetting(nameTextbox.Text, _list);
             this.Close();
         }
 
