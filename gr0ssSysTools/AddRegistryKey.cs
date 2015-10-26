@@ -16,12 +16,12 @@ namespace gr0ssSysTools
 
         private void AddRegistryKey_Load(object sender, EventArgs e)
         {
-            RegistryKeyUtils.PopulateRootCombo(rootCombo);
+            RegistryKeyMethods.PopulateRootCombo(rootCombo);
         }
 
         private void checkButton_Click(object sender, EventArgs e)
         {
-            var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var rootValue = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
 
             MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", @"Current Value of Key",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -38,7 +38,7 @@ namespace gr0ssSysTools
             {
                 var newGeneralStruct = new GeneralStruct
                 {
-                    RegistryRoot = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                    RegistryRoot = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
                     RegistryField = fieldTextBox.Text
                 };
                 GeneralUtils.SaveGeneralSettings(newGeneralStruct);
@@ -58,7 +58,7 @@ namespace gr0ssSysTools
             rootCombo2.Text = "";
             rootCombo3.Items.Clear();
             rootCombo3.Text = "";
-            RegistryKeyUtils.PopulateRootCombo2(rootCombo, rootCombo2);
+            RegistryKeyMethods.PopulateRootCombo2(rootCombo, rootCombo2);
         }
         
         private void RootCombo2_SelectedIndexChanged(object sender, EventArgs e)
@@ -66,13 +66,13 @@ namespace gr0ssSysTools
             rootCombo3.Items.Clear();
             rootCombo3.Text = "";
 
-            RegistryKeyUtils.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+            RegistryKeyMethods.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
         }
         #endregion Populate Combos
 
         private string GetCurrentKeyValue()
         {
-            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
+            return (string) Registry.GetValue(RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
         }
     }
 }

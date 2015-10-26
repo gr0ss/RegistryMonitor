@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Windows.Input;
-using RegistryUtils;
-using GlobalHotKey;
-using Zhwang.SuperNotifyIcon;
-using gr0ssSysTools.FileUtils;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
-using Microsoft.Win32;
-using System.Threading.Tasks;
-using FlimFlan.IconEncoder;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.ComponentModel;
+using System.Windows.Forms;
+using System.Windows.Input;
+using FlimFlan.IconEncoder;
+using gr0ssSysTools.FileUtils;
+using GlobalHotKey;
+using Microsoft.Win32;
+using RegistryUtils;
+using Zhwang.SuperNotifyIcon;
 
 namespace gr0ssSysTools
 {
@@ -42,7 +41,6 @@ namespace gr0ssSysTools
             _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 
             LoadMenu();
-
             _hkManager = new HotKeyManager();
             _hkManager.KeyPressed += HkManagerOnKeyPressed;
             _hkManager.Register(Key.Z, System.Windows.Input.ModifierKeys.Windows | System.Windows.Input.ModifierKeys.Alt);

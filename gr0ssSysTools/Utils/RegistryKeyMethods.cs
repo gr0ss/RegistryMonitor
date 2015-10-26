@@ -4,7 +4,7 @@ using Microsoft.Win32;
 
 namespace gr0ssSysTools.Utils
 {
-    public class RegistryKeyUtils
+    public class RegistryKeyMethods
     {
         public static RegistryKey GetRegistryKeyFromText(string key)
         {
