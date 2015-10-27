@@ -16,30 +16,37 @@ namespace gr0ssSysTools.FileUtils
             using (StreamWriter file = File.CreateText(environmnentJsonFile))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
-                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKey() : registryKey);
+                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKeyJson() : registryKey);
                 writer.WriteRaw(jsonRegistryKey);
             }
         }
 
-        public static RegistryKey ReadJsonRegistryKeySettings()
+        public static RegistryKey ReadRegistryKeySettingsJson()
         {
             string registryKeyJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_JSON_FILE_NAME);
 
             var registryKey = new RegistryKey();
 
-            using (StreamReader file = File.OpenText(registryKeyJsonFile))
-            using (JsonTextReader reader = new JsonTextReader(file))
+            if (!File.Exists(registryKeyJsonFile))
             {
-                while (reader.Read())
+                registryKey = GetInitialRegistryKeyJson();
+                WriteRegistryKeySettingsJson(registryKey);
+            }
+            else
+            {
+                using (StreamReader file = File.OpenText(registryKeyJsonFile))
+                using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    JObject o3 = (JObject) JToken.ReadFrom(reader);
-                    foreach (var child in o3.Children())
+                    while (reader.Read())
                     {
-                        AddPropertyToRegistryKey(registryKey, child.Path, child.First.ToString());
+                        JObject o3 = (JObject) JToken.ReadFrom(reader);
+                        foreach (var child in o3.Children())
+                        {
+                            AddPropertyToRegistryKey(registryKey, child.Path, child.First.ToString());
+                        }
                     }
                 }
             }
-
             return registryKey;
         }
 
@@ -57,7 +64,7 @@ namespace gr0ssSysTools.FileUtils
             return registryKey;
         }
 
-        private static RegistryKey GetInitialRegistryKey()
+        private static RegistryKey GetInitialRegistryKeyJson()
         {
             return new RegistryKey {Root = "", Subkey = ""};
         } 

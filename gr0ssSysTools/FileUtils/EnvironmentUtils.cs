@@ -29,7 +29,7 @@ namespace gr0ssSysTools.FileUtils
             }
         }
 
-        public static List<Environments> ReadJsonEnvironmentsSettings()
+        public static List<Environments> ReadEnvironmentsSettingsJson()
         {
             var environments = new List<Environments>();
 

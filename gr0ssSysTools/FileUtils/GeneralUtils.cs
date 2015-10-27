@@ -29,19 +29,26 @@ namespace gr0ssSysTools.FileUtils
 
             var generalSettings = new General();
 
-            using (StreamReader file = File.OpenText(generalJsonFile))
-            using (JsonTextReader reader = new JsonTextReader(file))
+            if (!File.Exists(generalJsonFile))
             {
-                while (reader.Read())
+                generalSettings = GetDefaultGeneralSettingsJson();
+                WriteGeneralSettingsJson(generalSettings);
+            }
+            else
+            {
+                using (StreamReader file = File.OpenText(generalJsonFile))
+                using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    JObject o3 = (JObject) JToken.ReadFrom(reader);
-                    foreach (var child in o3.Children())
+                    while (reader.Read())
                     {
-                        AddPropertyToGeneralSettings(generalSettings, child.Path, child.First.ToString());
+                        JObject o3 = (JObject) JToken.ReadFrom(reader);
+                        foreach (var child in o3.Children())
+                        {
+                            AddPropertyToGeneralSettings(generalSettings, child.Path, child.First.ToString());
+                        }
                     }
                 }
             }
-
             return generalSettings;
         }
 
@@ -65,7 +72,7 @@ namespace gr0ssSysTools.FileUtils
             return general;
         }
 
-        public static General GetDefaultGeneralSettings()
+        public static General GetDefaultGeneralSettingsJson()
         {
             return new General {IconFont = "Arial Narrow", IconFontSize = 7.0f, IconShape = "", ShowBalloonTips = true};
         } 
