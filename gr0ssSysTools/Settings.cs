@@ -18,7 +18,11 @@ namespace gr0ssSysTools
                 }
                 return _environments;
             }
-            set { _environments = value; }
+            set
+            {
+                EnvironmentUtils.WriteEnvironmentSettingsJson(value);
+                _environments = value;
+            }
         }
 
         private List<Tools> _tools;
@@ -33,7 +37,11 @@ namespace gr0ssSysTools
                 }
                 return _tools;
             }
-            set { _tools = value; }
+            set
+            {
+                ToolsUtils.WriteToolsSettingsJson(value);
+                _tools = value;
+            }
         }
 
         private RegistryKey _registryKey;
@@ -48,7 +56,11 @@ namespace gr0ssSysTools
                 }
                 return _registryKey;
             }
-            set { _registryKey = value; }
+            set
+            {
+                RegistryKeyUtils.WriteRegistryKeySettingsJson(value);
+                _registryKey = value;
+            }
         }
 
         private General _general;
@@ -63,7 +75,11 @@ namespace gr0ssSysTools
                 }
                 return _general;
             }
-            set { _general = value; }
+            set
+            {
+                GeneralUtils.WriteGeneralSettingsJson(value);
+                _general = value;
+            }
         }
     }
 }

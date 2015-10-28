@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
+using gr0ssSysTools.Files;
 
 namespace gr0ssSysTools.FileUtils
 {
@@ -22,6 +25,28 @@ namespace gr0ssSysTools.FileUtils
         public static char GetFirstUniqueHotkey(string name, params char[] charset)
         {
             return name.TrimStart(charset)[0];
+        }
+
+        public static char[] GetAllEnvironmentsHotkeys(IEnumerable<Environments> environments)
+        {
+            var builder = new StringBuilder();
+            foreach (var line in environments)
+            {
+                builder.Append(line.HotKey.ToUpperInvariant());
+                builder.Append(line.HotKey.ToLowerInvariant());
+            }
+            return builder.ToString().ToCharArray();
+        }
+
+        public static char[] GetAllToolsHotkeys(IEnumerable<Tools> tools)
+        {
+            var builder = new StringBuilder();
+            foreach (var line in tools)
+            {
+                builder.Append(line.HotKey.ToUpperInvariant());
+                builder.Append(line.HotKey.ToLowerInvariant());
+            }
+            return builder.ToString().ToCharArray();
         }
         
         public static int GetColorIndex(Brush brushColor)
