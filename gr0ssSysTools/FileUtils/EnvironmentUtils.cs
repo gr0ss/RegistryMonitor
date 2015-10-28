@@ -35,26 +35,32 @@ namespace gr0ssSysTools.FileUtils
 
             string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), ENVIRONMENT_JSON_FILE_NAME);
 
-
-            using (StreamReader file = File.OpenText(environmnentJsonFile))
-            using (JsonTextReader reader = new JsonTextReader(file))
+            if (!File.Exists(environmnentJsonFile))
             {
-                var env = new Environments();
-
-                reader.SupportMultipleContent = true;
-
-                while (reader.Read())
+                environments = GetGenericEnvironmentsJson();
+                WriteEnvironmentSettingsJson(environments);
+            }
+            else
+            {
+                using (StreamReader file = File.OpenText(environmnentJsonFile))
+                using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    JObject o3 = (JObject) JToken.ReadFrom(reader);
-                    foreach (var child in o3.Children())
+                    var env = new Environments();
+
+                    reader.SupportMultipleContent = true;
+
+                    while (reader.Read())
                     {
-                        AddPropertyToEnvironment(env, child.Path, child.First.ToString());
+                        JObject o3 = (JObject) JToken.ReadFrom(reader);
+                        foreach (var child in o3.Children())
+                        {
+                            AddPropertyToEnvironment(env, child.Path, child.First.ToString());
+                        }
+                        environments.Add(env);
+                        env = new Environments();
                     }
-                    environments.Add(env);
-                    env = new Environments();
                 }
             }
-
             return environments;
         }
 

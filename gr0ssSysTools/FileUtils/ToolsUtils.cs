@@ -34,26 +34,32 @@ namespace gr0ssSysTools.FileUtils
 
             string toolJsonFile = Path.Combine(Directory.GetCurrentDirectory(), TOOLS_JSON_FILE_NAME);
 
-
-            using (StreamReader file = File.OpenText(toolJsonFile))
-            using (JsonTextReader reader = new JsonTextReader(file))
+            if (!File.Exists(toolJsonFile))
             {
-                var tool = new Tools();
-
-                reader.SupportMultipleContent = true;
-
-                while (reader.Read())
+                tools = GetGenericToolsJson();
+                WriteToolsSettingsJson(tools);
+            }
+            else
+            {
+                using (StreamReader file = File.OpenText(toolJsonFile))
+                using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    JObject o3 = (JObject) JToken.ReadFrom(reader);
-                    foreach (var child in o3.Children())
+                    var tool = new Tools();
+
+                    reader.SupportMultipleContent = true;
+
+                    while (reader.Read())
                     {
-                        AddPropertyToTool(tool, child.Path, child.First.ToString());
+                        JObject o3 = (JObject) JToken.ReadFrom(reader);
+                        foreach (var child in o3.Children())
+                        {
+                            AddPropertyToTool(tool, child.Path, child.First.ToString());
+                        }
+                        tools.Add(tool);
+                        tool = new Tools();
                     }
-                    tools.Add(tool);
-                    tool = new Tools();
                 }
             }
-
             return tools;
         }
 
@@ -83,7 +89,7 @@ namespace gr0ssSysTools.FileUtils
                 "Documents\\AutoIT Scripts\\SetWindowPositions.exe");
             return new List<Tools>
             {
-                new Tools {ID = Guid.NewGuid(), Name = "Set Windows Positions", FileLocation = fileLocation, HotKey = "W"}
+                new Tools {ID = Guid.NewGuid(), Name = "Set Windows Positions", FileLocation = fileLocation, HotKey = "S"}
             };
         } 
 

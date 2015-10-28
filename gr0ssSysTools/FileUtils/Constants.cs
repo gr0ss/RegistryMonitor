@@ -13,7 +13,7 @@ namespace gr0ssSysTools.FileUtils
             public const string ID = "ID";
             public const string NAME = "Name";
             public const string SUBKEY_VALUE = "SubkeyValue";
-            public const string HOTKEY = "Hotkey";
+            public const string HOTKEY = "HotKey";
             public const string ICON_LABEL = "IconLabel";
             public const string ICON_COLOR = "IconColor";
         }
@@ -23,7 +23,7 @@ namespace gr0ssSysTools.FileUtils
             public const string ID = "ID";
             public const string NAME = "Name";
             public const string FILE_LOCATION = "FileLocation";
-            public const string HOTKEY = "Hotkey";
+            public const string HOTKEY = "HotKey";
         }
 
         public static class RegistryKey

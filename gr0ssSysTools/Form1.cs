@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Diagnostics;
@@ -19,15 +18,11 @@ namespace gr0ssSysTools
 {
     public partial class Form1 : Form
     {
-        readonly Font _font = new Font("Arial Narrow", 7.0f);
-
-        private List<FileStruct> _environments;
-        private List<FileStruct> _tools;
-        private GeneralStruct _general;
+        private Settings _settings;
         
         private static Configuration _config;
 
-        private FileStruct _currentEnvironment;
+        private Files.Environments _currentEnvironment;
 
         private RegistryMonitor _registryMonitor;
         private readonly HotKeyManager _hkManager;
@@ -39,6 +34,7 @@ namespace gr0ssSysTools
             InitializeComponent();
             
             _config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            _settings = new Settings();
 
             LoadMenu();
             _hkManager = new HotKeyManager();
@@ -57,8 +53,7 @@ namespace gr0ssSysTools
 
         private void CheckRegistryKeyExists()
         {
-            _general = GeneralUtils.ReadGeneralStructSettings();
-            if (string.IsNullOrEmpty(_general.RegistryRoot))
+            if (string.IsNullOrEmpty(_settings.RegistryKey.Root))
             {
                 var newUserMessage = MessageBox.Show("Thank you for downloading my program!\n\nAs this is your first time running the program, we need you to select the registry key you would like to monitor.",
                     "New User Registry Monitoring Setup",
@@ -80,8 +75,7 @@ namespace gr0ssSysTools
 
         private void RegistryKeyAdded_EventHandler(object sender, CancelEventArgs e)
         {
-            _general = GeneralUtils.ReadGeneralStructSettings();
-            if (_general.RegistryRoot == string.Empty)
+            if (string.IsNullOrEmpty(_settings.RegistryKey.Root))
                 Environment.Exit(0);
             else
                 LoadRegistryMonitor();
@@ -89,12 +83,10 @@ namespace gr0ssSysTools
 
         private void LoadRegistryMonitor()
         {
-            _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(_general.RegistryRoot, _general.RegistryField, ""));
+            _currentEnvironment = _settings.Environments.Find(env => env.SubkeyValue == (string)Registry.GetValue(_settings.RegistryKey.Root, _settings.RegistryKey.Subkey, ""));
             SetIcon();
-
-            //var keyName = $"{Registry.CurrentUser.Name}\\Software\\PSI";
             
-            _registryMonitor = new RegistryMonitor(_general.RegistryRoot)
+            _registryMonitor = new RegistryMonitor(_settings.RegistryKey.Root)
             {
                 RegChangeNotifyFilter = RegChangeNotifyFilter.Value
             };
@@ -105,13 +97,10 @@ namespace gr0ssSysTools
         
         private void LoadMenu()
         {
-            _environments = EnvironmentUtils.GetSampleEnvironmentSettings();
-            _tools = ToolsUtils.ReadToolsSettings();
-
             menuStrip.Items.Clear();
             menuTools.DropDownItems.Clear();
 
-            foreach (var tool in _tools)
+            foreach (var tool in _settings.Tools)
             {
                 menuTools.DropDownItems.Add(MiscUtils.GetNameWithHotkey(tool.Name, tool.HotKey));
                 menuTools.DropDownItems[menuTools.DropDownItems.Count - 1].Click += ToolClicked;
@@ -120,7 +109,7 @@ namespace gr0ssSysTools
             menuStrip.Items.Add(menuTools);
             menuStrip.Items.Add(toolStripSeparator1);
             
-            foreach (var env in _environments)
+            foreach (var env in _settings.Environments)
             {
                 menuStrip.Items.Add(MiscUtils.GetNameWithHotkey(env.Name, env.HotKey));
 
@@ -135,30 +124,38 @@ namespace gr0ssSysTools
         #region OnClick
         private void EnvironmentClicked(object sender, EventArgs e)
         {
-            _currentEnvironment = _environments.Find(env => env.Name == sender.ToString().Replace("&", ""));
+            _currentEnvironment = _settings.Environments.Find(env => env.Name == sender.ToString().Replace("&", ""));
             SetRegistry();
         }
 
         private void ToolClicked(object sender, EventArgs e)
         {
-            var currentTool = _tools.Find(tool => tool.Name == sender.ToString().Replace("&", ""));
+            var currentTool = _settings.Tools.Find(tool => tool.Name == sender.ToString().Replace("&", ""));
             // Prepare the process to run
             ProcessStartInfo start = new ProcessStartInfo();
             // Enter the executable to run, including the complete path
-            start.FileName = currentTool.ValueKey;
+            start.FileName = currentTool.FileLocation;
             // Do you want to show a console window?
             start.WindowStyle = ProcessWindowStyle.Hidden;
             start.CreateNoWindow = true;
             int exitCode;
             
-            // Run the external process & wait for it to finish
-            using (Process proc = Process.Start(start))
+            if (File.Exists(currentTool.FileLocation))
             {
-                 proc.WaitForExit();
+                // Run the external process & wait for it to finish
+                using (Process proc = Process.Start(start))
+                {
+                     proc.WaitForExit();
 
-                 // Retrieve the app's exit code
-                 exitCode = proc.ExitCode;
+                     // Retrieve the app's exit code
+                     exitCode = proc.ExitCode;
+                }
             }
+            else
+            {
+                MessageBox.Show($"Couldn't find anything at {currentTool.FileLocation} to run", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         private void HkManagerOnKeyPressed(object sender, KeyPressedEventArgs e)
@@ -188,18 +185,18 @@ namespace gr0ssSysTools
         #region Registry
         private void SetRegistry()
         {
-            if (_general.RegistryRoot != string.Empty)
+            if (!string.IsNullOrEmpty(_settings.RegistryKey.Root))
             {
-                Registry.SetValue(_general.RegistryRoot, _general.RegistryField, _currentEnvironment.ValueKey);
+                Registry.SetValue(_settings.RegistryKey.Root, _settings.RegistryKey.Subkey, _currentEnvironment.SubkeyValue);
                 SetIcon();
             }
         }
         
         private void OnRegChanged(object sender, EventArgs e)
         {
-            if (_general.RegistryRoot != string.Empty)
+            if (!string.IsNullOrEmpty(_settings.RegistryKey.Root))
             {
-                _currentEnvironment = _environments.Find(env => env.ValueKey == (string)Registry.GetValue(_general.RegistryRoot, _general.RegistryField, ""));
+                _currentEnvironment = _settings.Environments.Find(env => env.SubkeyValue == (string)Registry.GetValue(_settings.RegistryKey.Root, _settings.RegistryKey.Subkey, ""));
                 SetIcon();
                 ShowEnvironmentChangedBalloonTip();
             }
@@ -207,25 +204,30 @@ namespace gr0ssSysTools
 
         private void SetIcon()
         {
- //           Task.Run(() =>
- //           {
-                Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
-			    using (Graphics g = Graphics.FromImage(bmp))
-			    {
-                    Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			        g.FillEllipse(_currentEnvironment.IconColor, rectangle);
-                    g.DrawString(_currentEnvironment.IconLabel, _font, Brushes.White, 0, 0);
-			    }
+            var iconFont = _settings.General.IconFont;
+            var fontSize = _settings.General.IconFontSize;
+            var iconColor = new SolidBrush(Color.FromName(_currentEnvironment.IconColor));
 
-                Icon.Icon = Converter.BitmapToIcon(bmp);
-  //          });
+            Font font = new Font(iconFont, fontSize);
+            Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
+			using (Graphics g = Graphics.FromImage(bmp))
+			{
+                Rectangle rectangle = new Rectangle(0, 0, 16, 16);
+			    g.FillEllipse(iconColor, rectangle);
+                g.DrawString(_currentEnvironment.IconLabel, font, Brushes.White, 0, 0);
+			}
+
+            Icon.Icon = Converter.BitmapToIcon(bmp);
         }
 
         private void ShowEnvironmentChangedBalloonTip()
         {
-            Icon.BalloonTipTitle = "Environment Has Changed";
-            Icon.BalloonTipText = $"The environment has been changed to {_currentEnvironment.Name}";
-            Icon.ShowBalloonTip(3000);
+            if (_settings.General.ShowBalloonTips)
+            {
+                Icon.BalloonTipTitle = "Environment Has Changed";
+                Icon.BalloonTipText = $"The environment has been changed to {_currentEnvironment.Name}";
+                Icon.ShowBalloonTip(3000);
+            }
         }
 
         private void OnError(object sender, ErrorEventArgs e)

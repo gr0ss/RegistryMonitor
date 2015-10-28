@@ -36,12 +36,14 @@ namespace gr0ssSysTools
                     MessageBoxIcon.Error);
             else
             {
-                var newGeneralStruct = new GeneralStruct
+                var newRegistryKey = new Files.RegistryKey
                 {
-                    RegistryRoot = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
-                    RegistryField = fieldTextBox.Text
+                    Root = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                    Subkey = fieldTextBox.Text
                 };
-                GeneralUtils.SaveGeneralSettings(newGeneralStruct);
+                RegistryKeyUtils.WriteRegistryKeySettingsJson(newRegistryKey);
+                var settings = new Settings();
+                settings.RegistryKey = newRegistryKey;
                 Close();
             }
         }
