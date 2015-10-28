@@ -12,13 +12,17 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_environments == null || _environments.Count <= 0)
+                if (_environments != null && _environments.Count <= 0)
                 {
                     _environments = EnvironmentUtils.ReadEnvironmentsSettingsJson();
                 }
                 return _environments;
             }
-            set { _environments = value; }
+            set
+            {
+                EnvironmentUtils.WriteEnvironmentSettingsJson(value);
+                _environments = value;
+            }
         }
 
         private List<Tools> _tools;
@@ -27,13 +31,17 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_tools == null || _tools.Count <= 0)
+                if (_tools != null && _tools.Count <= 0)
                 {
                     _tools = ToolsUtils.ReadToolsSettingsJson();
                 }
                 return _tools;
             }
-            set { _tools = value; }
+            set
+            {
+                ToolsUtils.WriteToolsSettingsJson(value);
+                _tools = value;
+            }
         }
 
         private RegistryKey _registryKey;
@@ -42,13 +50,17 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_registryKey == null)
+                if (_registryKey != null && string.IsNullOrEmpty(_registryKey.Root))
                 {
                     _registryKey = RegistryKeyUtils.ReadRegistryKeySettingsJson();
                 }
                 return _registryKey;
             }
-            set { _registryKey = value; }
+            set
+            {
+                RegistryKeyUtils.WriteRegistryKeySettingsJson(value);
+                _registryKey = value;
+            }
         }
 
         private General _general;
@@ -57,13 +69,17 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_general == null)
+                if (_general != null && string.IsNullOrEmpty(_general.IconFont))
                 {
                     _general = GeneralUtils.ReadGeneralSettingsJson();
                 }
                 return _general;
             }
-            set { _general = value; }
+            set
+            {
+                GeneralUtils.WriteGeneralSettingsJson(value);
+                _general = value;
+            }
         }
     }
 }

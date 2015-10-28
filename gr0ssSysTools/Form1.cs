@@ -21,9 +21,9 @@ namespace gr0ssSysTools
         private Settings _settings;
         
         private static Configuration _config;
-
+        
         private Files.Environments _currentEnvironment;
-
+        
         private RegistryMonitor _registryMonitor;
         private readonly HotKeyManager _hkManager;
         private readonly ContextMenuStrip _menuStrip;
@@ -62,7 +62,7 @@ namespace gr0ssSysTools
 
                 if (newUserMessage == DialogResult.OK)
                 {
-                    var addRegistry = new AddRegistryKey();
+                    var addRegistry = new AddRegistryKey(_settings);
                     addRegistry.FormClosing += RegistryKeyAdded_EventHandler;
                     addRegistry.Show();
                 }
@@ -176,7 +176,7 @@ namespace gr0ssSysTools
 
         private void menuEdit_Click(object sender, EventArgs e)
         {
-            Edit edit = new Edit(true);
+            Edit edit = new Edit(_settings, true);
             edit.Closed += (o, args) => LoadMenu();
             edit.Show();
         }
