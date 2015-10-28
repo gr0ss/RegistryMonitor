@@ -12,7 +12,7 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_environments.Count <= 0)
+                if (_environments != null && _environments.Count <= 0)
                 {
                     _environments = EnvironmentUtils.ReadEnvironmentsSettingsJson();
                 }
@@ -27,7 +27,7 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_tools.Count <= 0)
+                if (_tools != null && _tools.Count <= 0)
                 {
                     _tools = ToolsUtils.ReadToolsSettingsJson();
                 }
@@ -42,7 +42,7 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (string.IsNullOrEmpty(_registryKey.Root))
+                if (_registryKey != null && string.IsNullOrEmpty(_registryKey.Root))
                 {
                     _registryKey = RegistryKeyUtils.ReadRegistryKeySettingsJson();
                 }
@@ -57,7 +57,7 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (string.IsNullOrEmpty(_general.IconFont))
+                if (_general != null && string.IsNullOrEmpty(_general.IconFont))
                 {
                     _general = GeneralUtils.ReadGeneralSettingsJson();
                 }
