@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
@@ -61,7 +56,8 @@ namespace gr0ssSysTools
         private Environments CreateNewEnvironment()
         {
             var newName = nameTextbox.Text;
-            var newUniqueHotkey = MiscUtils.GetFirstUniqueHotkey(newName, MiscUtils.GetAllEnvironmentsHotkeys(_settings.Environments)).ToString();
+            var currentHotkeys = _settings.Environments.Select(env => env.HotKey).ToList();
+            var newUniqueHotkey = MiscUtils.GetFirstUniqueHotkey(newName,currentHotkeys).ToString();
             var iconLabel = newName[0].ToString().ToLower() +
                             newName[1].ToString().ToLower() +
                             newName[2].ToString().ToLower();
@@ -79,7 +75,8 @@ namespace gr0ssSysTools
         private Tools CreateNewTool()
         {
             var newName = nameTextbox.Text;
-            var newUniqueHotkey = MiscUtils.GetFirstUniqueHotkey(newName, MiscUtils.GetAllToolsHotkeys(_settings.Tools)).ToString();
+            var currentHotkeys = _settings.Tools.Select(env => env.HotKey).ToList();
+            var newUniqueHotkey = MiscUtils.GetFirstUniqueHotkey(newName, currentHotkeys).ToString();
             return new Tools
             {
                 ID = Guid.NewGuid(),

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Utils;

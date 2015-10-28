@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using gr0ssSysTools.Files;
 
 namespace gr0ssSysTools.FileUtils
 {
@@ -11,7 +10,7 @@ namespace gr0ssSysTools.FileUtils
     {
         public static string GetNameWithHotkey(string name, string hotkey)
         {
-            var positionOfHotkey = name.IndexOf(hotkey);
+            var positionOfHotkey = name.IndexOf(hotkey, StringComparison.Ordinal);
             return name.Insert(positionOfHotkey, "&");
         }
 
@@ -22,31 +21,25 @@ namespace gr0ssSysTools.FileUtils
             return indexOfHotkey - numberOfSpacesBeforeHotkey;
         }
 
+        // Remove after Settings are implemented.
         public static char GetFirstUniqueHotkey(string name, params char[] charset)
         {
             return name.TrimStart(charset)[0];
         }
 
-        public static char[] GetAllEnvironmentsHotkeys(IEnumerable<Environments> environments)
+        public static char GetFirstUniqueHotkey(string name, IEnumerable<string> hotkeys)
         {
             var builder = new StringBuilder();
-            foreach (var line in environments)
-            {
-                builder.Append(line.HotKey.ToUpperInvariant());
-                builder.Append(line.HotKey.ToLowerInvariant());
-            }
-            return builder.ToString().ToCharArray();
-        }
 
-        public static char[] GetAllToolsHotkeys(IEnumerable<Tools> tools)
-        {
-            var builder = new StringBuilder();
-            foreach (var line in tools)
+            foreach (var line in hotkeys)
             {
-                builder.Append(line.HotKey.ToUpperInvariant());
-                builder.Append(line.HotKey.ToLowerInvariant());
+                builder.Append(line.ToUpperInvariant());
+                builder.Append(line.ToLowerInvariant());
             }
-            return builder.ToString().ToCharArray();
+            
+            var charset = builder.ToString().ToCharArray();
+
+            return name.TrimStart(charset)[0];
         }
         
         public static int GetColorIndex(Brush brushColor)
