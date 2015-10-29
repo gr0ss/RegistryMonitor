@@ -153,7 +153,7 @@ namespace gr0ssSysTools
             }
             else
             {
-                MessageBox.Show($"Couldn't find anything at {currentTool.FileLocation} to run", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Couldn't find anything to run at {currentTool.FileLocation}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -222,12 +222,11 @@ namespace gr0ssSysTools
 
         private void ShowEnvironmentChangedBalloonTip()
         {
-            if (_settings.General.ShowBalloonTips)
-            {
-                Icon.BalloonTipTitle = "Environment Has Changed";
-                Icon.BalloonTipText = $"The environment has been changed to {_currentEnvironment.Name}";
-                Icon.ShowBalloonTip(3000);
-            }
+            if (!_settings.General.ShowBalloonTips) return;
+
+            Icon.BalloonTipTitle = "Environment Has Changed";
+            Icon.BalloonTipText = $"The environment has been changed to {_currentEnvironment.Name}";
+            Icon.ShowBalloonTip(3000);
         }
 
         private void OnError(object sender, ErrorEventArgs e)

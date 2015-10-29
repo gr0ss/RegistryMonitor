@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,14 +13,12 @@ namespace gr0ssSysTools
         private const string ENV_TEXT = "Name of new environment:";
         private const string TOOL_TEXT = "Name of new tool:";
         private bool _isEnv;
-        private List<FileStruct> _list; // Remove after Settings are implemented.
         private Settings _settings;
 
-        public AddName(bool envTab, List<FileStruct> list, Settings settings)
+        public AddName(bool envTab, Settings settings)
         {
             InitializeComponent();
             _isEnv = envTab;
-            _list = list; // Remove after Settings are implemented.
             _settings = settings;
             textLabel.Text = envTab ? ENV_TEXT : TOOL_TEXT;
         }
@@ -35,15 +32,11 @@ namespace gr0ssSysTools
         {
             if (_isEnv)
             {
-                //_settings.Environments.Add(CreateNewEnvironment());
-                // Remove next line after Settings are implemented.
-                EnvironmentUtils.AddNewEnvironmentSetting(nameTextbox.Text, _list);
+                _settings.Environments.Add(CreateNewEnvironment());
             }
             else
             {
-                //_settings.Tools.Add(CreateNewTool());
-                // Remove next line after Settings are implemented.
-                ToolsUtils.AddNewToolSetting(nameTextbox.Text, _list);
+                _settings.Tools.Add(CreateNewTool());
             }
             this.Close();
         }

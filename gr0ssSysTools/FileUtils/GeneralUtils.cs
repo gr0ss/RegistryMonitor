@@ -8,12 +8,11 @@ namespace gr0ssSysTools.FileUtils
 {
     public class GeneralUtils
     {
-        private const string GENERAL_FILE_NAME = "general.txt";
-        private const string GENERAL_JSON_FILE_NAME = "general.json";
+        private const string GENERAL_FILE_NAME = "general.json";
 
-        public static void WriteGeneralSettingsJson(General general)
+        public static void WriteGeneralSettings(General general)
         {
-            string generalJsonFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_JSON_FILE_NAME);
+            string generalJsonFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_FILE_NAME);
             
             using (StreamWriter file = File.CreateText(generalJsonFile))
             using (JsonTextWriter writer = new JsonTextWriter(file))
@@ -23,16 +22,16 @@ namespace gr0ssSysTools.FileUtils
             }
         }
 
-        public static General ReadGeneralSettingsJson()
+        public static General ReadGeneralSettings()
         {
-            string generalJsonFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_JSON_FILE_NAME);
+            string generalJsonFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_FILE_NAME);
 
             var generalSettings = new General();
 
             if (!File.Exists(generalJsonFile))
             {
-                generalSettings = GetDefaultGeneralSettingsJson();
-                WriteGeneralSettingsJson(generalSettings);
+                generalSettings = GetDefaultGeneralSettings();
+                WriteGeneralSettings(generalSettings);
             }
             else
             {
@@ -72,56 +71,9 @@ namespace gr0ssSysTools.FileUtils
             return general;
         }
 
-        public static General GetDefaultGeneralSettingsJson()
+        public static General GetDefaultGeneralSettings()
         {
             return new General {IconFont = "Arial Narrow", IconFontSize = 7.0f, IconShape = "", ShowBalloonTips = true};
-        } 
-
-        //public static GeneralStruct ReadGeneralStructSettings()
-        //{
-        //    string generalFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_FILE_NAME);
-        //    if (!File.Exists(generalFile))
-        //    {
-        //        SaveGeneralSettings(new GeneralStruct());
-        //        return new GeneralStruct();
-        //    }
-
-        //    using (StreamReader sr = new StreamReader(generalFile))
-        //    {
-        //        var line = string.Empty;
-        //        while ((line = sr.ReadLine()) != null)
-        //        {
-        //            var result = ParseGeneralSetting(line);
-        //            if (result != null)
-        //                return result;
-        //        }
-        //    }
-
-        //    return new GeneralStruct();
-        //}
-
-        //private static GeneralStruct ParseGeneralSetting(string input)
-        //{
-        //    if (string.IsNullOrEmpty(input))
-        //        return null;
-
-        //    var readLine = input.Split('|');
-            
-        //    return new GeneralStruct
-        //    {
-        //        RegistryRoot = readLine[0],
-        //        RegistryField = readLine[1]
-        //    };
-        //}
-        
-        //public static void SaveGeneralSettings(GeneralStruct generalStruct)
-        //{
-        //    string generalFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_FILE_NAME);
-
-        //    using (StreamWriter sw = new StreamWriter(generalFile))
-        //    {
-        //        sw.WriteLine($"{generalStruct.RegistryRoot}|{generalStruct.RegistryField}");
-        //    }
-        //}
+        }
     }
 }

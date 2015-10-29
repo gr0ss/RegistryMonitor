@@ -7,30 +7,30 @@ namespace gr0ssSysTools.FileUtils
 {
     public class RegistryKeyUtils
     {
-        private const string REGISTRYKEY_JSON_FILE_NAME = "registrykey.json";
+        private const string REGISTRYKEY_FILE_NAME = "registrykey.json";
 
-        public static void WriteRegistryKeySettingsJson(RegistryKey registryKey, bool firstLoad = false)
+        public static void WriteRegistryKeySettings(RegistryKey registryKey, bool firstLoad = false)
         {
-            string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_JSON_FILE_NAME);
+            string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_FILE_NAME);
             
             using (StreamWriter file = File.CreateText(environmnentJsonFile))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
-                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKeyJson() : registryKey);
+                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKey() : registryKey);
                 writer.WriteRaw(jsonRegistryKey);
             }
         }
 
-        public static RegistryKey ReadRegistryKeySettingsJson()
+        public static RegistryKey ReadRegistryKeySettings()
         {
-            string registryKeyJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_JSON_FILE_NAME);
+            string registryKeyJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_FILE_NAME);
 
             var registryKey = new RegistryKey();
 
             if (!File.Exists(registryKeyJsonFile))
             {
-                registryKey = GetInitialRegistryKeyJson();
-                WriteRegistryKeySettingsJson(registryKey);
+                registryKey = GetInitialRegistryKey();
+                WriteRegistryKeySettings(registryKey);
             }
             else
             {
@@ -64,7 +64,7 @@ namespace gr0ssSysTools.FileUtils
             return registryKey;
         }
 
-        private static RegistryKey GetInitialRegistryKeyJson()
+        private static RegistryKey GetInitialRegistryKey()
         {
             return new RegistryKey {Root = "", Subkey = ""};
         } 

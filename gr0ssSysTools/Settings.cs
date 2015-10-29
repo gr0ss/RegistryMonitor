@@ -12,15 +12,15 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_environments != null && _environments.Count <= 0)
+                if (_environments == null || _environments.Count <= 0)
                 {
-                    _environments = EnvironmentUtils.ReadEnvironmentsSettingsJson();
+                    _environments = EnvironmentUtils.ReadEnvironmentsSettings();
                 }
                 return _environments;
             }
             set
             {
-                EnvironmentUtils.WriteEnvironmentSettingsJson(value);
+                EnvironmentUtils.WriteEnvironmentSettings(value);
                 _environments = value;
             }
         }
@@ -31,15 +31,15 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_tools != null && _tools.Count <= 0)
+                if (_tools == null || _tools.Count <= 0)
                 {
-                    _tools = ToolsUtils.ReadToolsSettingsJson();
+                    _tools = ToolsUtils.ReadToolsSettings();
                 }
                 return _tools;
             }
             set
             {
-                ToolsUtils.WriteToolsSettingsJson(value);
+                ToolsUtils.WriteToolsSettings(value);
                 _tools = value;
             }
         }
@@ -50,15 +50,15 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_registryKey != null && string.IsNullOrEmpty(_registryKey.Root))
+                if (string.IsNullOrEmpty(_registryKey?.Root))
                 {
-                    _registryKey = RegistryKeyUtils.ReadRegistryKeySettingsJson();
+                    _registryKey = RegistryKeyUtils.ReadRegistryKeySettings();
                 }
                 return _registryKey;
             }
             set
             {
-                RegistryKeyUtils.WriteRegistryKeySettingsJson(value);
+                RegistryKeyUtils.WriteRegistryKeySettings(value);
                 _registryKey = value;
             }
         }
@@ -69,15 +69,15 @@ namespace gr0ssSysTools
         {
             get
             {
-                if (_general != null && string.IsNullOrEmpty(_general.IconFont))
+                if (string.IsNullOrEmpty(_general?.IconFont))
                 {
-                    _general = GeneralUtils.ReadGeneralSettingsJson();
+                    _general = GeneralUtils.ReadGeneralSettings();
                 }
                 return _general;
             }
             set
             {
-                GeneralUtils.WriteGeneralSettingsJson(value);
+                GeneralUtils.WriteGeneralSettings(value);
                 _general = value;
             }
         }

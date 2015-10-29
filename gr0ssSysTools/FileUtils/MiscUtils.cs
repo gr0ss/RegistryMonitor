@@ -20,13 +20,7 @@ namespace gr0ssSysTools.FileUtils
             var numberOfSpacesBeforeHotkey = name.Substring(0, indexOfHotkey).Count(char.IsSeparator);
             return indexOfHotkey - numberOfSpacesBeforeHotkey;
         }
-
-        // Remove after Settings are implemented.
-        public static char GetFirstUniqueHotkey(string name, params char[] charset)
-        {
-            return name.TrimStart(charset)[0];
-        }
-
+        
         public static char GetFirstUniqueHotkey(string name, IEnumerable<string> hotkeys)
         {
             var builder = new StringBuilder();
@@ -40,6 +34,38 @@ namespace gr0ssSysTools.FileUtils
             var charset = builder.ToString().ToCharArray();
 
             return name.TrimStart(charset)[0];
+        }
+
+        public static int GetColorIndex(string brushColor)
+        {
+            switch (brushColor)
+            {
+                case "DarkGray":
+                    return 0;
+                case "Blue":
+                    return 1;
+                case "Brown":
+                    return 2;
+                case "Coral":
+                    return 3;
+                case "Red":
+                    return 4;
+                case "Aqua":
+                    return 5;
+                case "Violet":
+                    return 6;
+                case "Green":
+                    return 7;
+                case "Yellow":
+                    return 8;
+                case "Magenta":
+                    return 9;
+                case "Wheat":
+                    return 10;
+                case "Orange":
+                    return 11;
+            }
+            return -1;
         }
         
         public static int GetColorIndex(Brush brushColor)

@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
 using gr0ssSysTools.Utils;
@@ -14,8 +13,6 @@ namespace gr0ssSysTools
 {
     public partial class Edit : Form
     {
-        private List<FileStruct> _environments;
-        private List<FileStruct> _tools;
         private Settings _settings;
 
         public Edit()
@@ -36,13 +33,10 @@ namespace gr0ssSysTools
         {
             SetupButtonImages();
                         
-            if (tabControl.SelectedTab == tabEnvironments) {
+            if (tabControl.SelectedTab == tabEnvironments)
+            {
                 environmentsList.Items.Clear();
-                //RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
-
-                // Remove Next Two Lines when settings are implemented.
-                _environments = EnvironmentUtils.GetSampleEnvironmentSettings();
-                RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+                RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
             }
         }
 
@@ -56,10 +50,7 @@ namespace gr0ssSysTools
             else
             {
                 SetupButtonEnabled(true);
-                //RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
-
-                // Remove Next Line when settings are implemented.
-                RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+                RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
             }
         }
 
@@ -86,36 +77,7 @@ namespace gr0ssSysTools
                 }
             }
         }
-
-        // Remove this method when settings are implemented.
-        private void RepopulateListFromFile(bool env, bool useDictionary)
-        {
-            if (env)
-            {
-                environmentsList.Items.Clear();
-
-                if (!useDictionary)
-                    _environments = EnvironmentUtils.ReadEnvironmentSettings();
-
-                foreach (var key in _environments)
-                {
-                    environmentsList.Items.Add(key.Name);
-                }
-            }
-            else
-            {
-                toolsList.Items.Clear();
-
-                if (!useDictionary)
-                    _tools = ToolsUtils.ReadToolsSettings();
-
-                foreach (var key in _tools)
-                {
-                    toolsList.Items.Add(key.Name);
-                }
-            }
-        }
-
+        
         private void SetupButtonEnabled(bool enabled)
         {
             /* Save button is always enabled. All other *
@@ -185,13 +147,13 @@ namespace gr0ssSysTools
         {
             if (tabControl.SelectedTab == tabEnvironments)
             {
-                var addName = new AddName(true, _environments, _settings);
+                var addName = new AddName(true, _settings);
                 addName.Closing += NameAdded_EventHandler;
                 addName.Show();
             }
             else if (tabControl.SelectedTab == tabTools)
             {
-                var addTextName = new AddName(false, _tools, _settings);
+                var addTextName = new AddName(false, _settings);
                 addTextName.Closing += NameAdded_EventHandler;
                 addTextName.Show();
             }
@@ -199,9 +161,7 @@ namespace gr0ssSysTools
 
         private void NameAdded_EventHandler(object sender, CancelEventArgs e)
         {
-            //RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
-            // Remove next line when Settings is implemented.
-            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, false);
+            RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
 
             if (tabControl.SelectedTab == tabEnvironments)
             {
@@ -224,15 +184,12 @@ namespace gr0ssSysTools
             {
                 if (environmentsList.SelectedIndex != -1)
                 {
-                    //var allEnvironments = _settings.Environments;
-                    //var environmentToRemove = allEnvironments.FirstOrDefault(env => env.ID == Guid.Parse(guidLabel.Text));
-                    var environmentToRemove = _environments.FirstOrDefault(env => env.ID == Guid.Parse(guidLabel.Text));
+                    var allEnvironments = _settings.Environments;
+                    var environmentToRemove = allEnvironments.FirstOrDefault(env => env.ID == Guid.Parse(guidLabel.Text));
                     if (environmentToRemove.ID != Guid.Empty)
                     {
-                        //allEnvironments.Remove(environmentToRemove);
-                        //_settings.Environments = allEnvironments;
-                        // Remove next line after settings are implemented.
-                        _environments.Remove(environmentToRemove);
+                        allEnvironments.Remove(environmentToRemove);
+                        _settings.Environments = allEnvironments;
                         ClearEnvironmentFields();
                     }
                     else
@@ -246,16 +203,12 @@ namespace gr0ssSysTools
             {
                 if (toolsList.SelectedIndex != -1)
                 {
-                    //var allTools = _settings.Tools;
-                    //var toolToRemove = allTools.FirstOrDefault(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
-                    var toolToRemove = _tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
-                    // Switch next line to be toolToRemove != null && toolToRemove.ID != Guid.Empty
-                    if (toolToRemove.ID != Guid.Empty)
+                    var allTools = _settings.Tools;
+                    var toolToRemove = allTools.FirstOrDefault(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+                    if (toolToRemove != null && toolToRemove.ID != Guid.Empty)
                     {
-                        //allTools.Remove(toolToRemove);
-                        //_settings.Tools = allTools;
-                        // Remove next line after settings are implemented.
-                        _tools.Remove(toolToRemove);
+                        allTools.Remove(toolToRemove);
+                        _settings.Tools = allTools;
                         ClearToolFields();
                     }
                     else
@@ -264,9 +217,7 @@ namespace gr0ssSysTools
                 else
                     MessageBox.Show("You need to select a tool before you can delete one...", "Duh", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            //RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
-            // Remove next line when Settings is implemented.
-            RepopulateListFromFile(tabControl.SelectedTab == tabEnvironments, true);
+            RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
         }
 
 #region Clear Methods
@@ -298,17 +249,10 @@ namespace gr0ssSysTools
                 SaveNewRegistryKey();
             else
             {
-                // Remove next line when settings are implemented.
-                SetDictionaryIndexes();
-
                 if (tabControl.SelectedTab == tabEnvironments)
-                    //SetCurrentOrderOfEnvironments();
-                    // Remove next line when settings are implemented.
-                    EnvironmentUtils.SaveEnvironmentsSettings(_environments);
+                    SetCurrentOrderOfEnvironments();
                 else if (tabControl.SelectedTab == tabTools)
-                    //SetCurrentOrderOfTools();
-                    // Remove next line when settings are implemented.
-                    ToolsUtils.SaveToolsSettings(_tools);
+                    SetCurrentOrderOfTools();
             }
         }
 
@@ -329,60 +273,6 @@ namespace gr0ssSysTools
                                 .ToList();
             _settings.Tools = toolsOrdered;
         }
-
-        // Remove method when Settings are implemented.
-        private void SetDictionaryIndexes()
-        {
-            var dictionaryToCopy = new List<FileStruct>();
-            var listIndexes = GetListIndex();
-
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                if (_environments == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
-                    return;
-
-                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
-                                                     .Select(index => _environments.First(env => env.Name == index.Value)));
-                
-                _environments = dictionaryToCopy;
-            }
-            else if (tabControl.SelectedTab == tabTools)
-            {
-                if (_tools == new List<FileStruct>() || listIndexes == new Dictionary<int, string>())
-                    return;
-
-                dictionaryToCopy.AddRange(listIndexes.OrderBy(list => list.Key)
-                                                     .Select(index => _tools.First(env => env.Name == listIndexes.Values.FirstOrDefault())));
-                
-                _tools = dictionaryToCopy;
-            }
-        }
-
-        // Remove method when Settings are implemented.
-        private Dictionary<int, string> GetListIndex()
-        {
-            var dictionaryToReturn = new Dictionary<int, string>();
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                foreach (var item in environmentsList.Items)
-                {
-                    var text = environmentsList.GetItemText(item);
-                    var index = environmentsList.Items.IndexOf(item);
-                    dictionaryToReturn.Add(index, text);
-                }
-            }
-            else if (tabControl.SelectedTab == tabTools)
-            {
-                foreach (var item in toolsList.Items)
-                {
-                    var text = toolsList.GetItemText(item);
-                    var index = toolsList.Items.IndexOf(item);
-                    dictionaryToReturn.Add(index, text);
-                }
-            }
-            return dictionaryToReturn;
-        }
-
 #endregion Save button
 
 #region Move buttons
@@ -405,13 +295,11 @@ namespace gr0ssSysTools
             if (environmentsList.SelectedIndex != -1)
             {
                 var curItem = environmentsList.SelectedItem.ToString();
-                //var itemToLoad = _settings.Environments.FirstOrDefault(env => env.Name == curItem);
-                var itemToLoad = _environments.FirstOrDefault(env => env.Name == curItem);
+                var itemToLoad = _settings.Environments.FirstOrDefault(env => env.Name == curItem);
 
                 guidLabel.Text = itemToLoad.ID.ToString();
                 NameTextbox.Text = curItem;
-                //registryValueTextbox.Text = itemToLoad.SubkeyValue;
-                registryValueTextbox.Text = itemToLoad.ValueKey;
+                registryValueTextbox.Text = itemToLoad.SubkeyValue;
 
                 PopulateHotkeyCombo();
                 hotkeyCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
@@ -419,8 +307,7 @@ namespace gr0ssSysTools
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
 
                 PopulateIconColorCombo();
-
-                // Fix this after settings are implemented.
+                
                 var colorIndex = MiscUtils.GetColorIndex(itemToLoad.IconColor);
                 iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
             }
@@ -431,13 +318,11 @@ namespace gr0ssSysTools
             if (toolsList.SelectedIndex != -1)
             {
                 var curItem = toolsList.SelectedItem.ToString();
-                //var itemToLoad = _settings.Tools.FirstOrDefault(tool => tool.Name == curItem);
-                var itemToLoad = _tools.FirstOrDefault(tool => tool.Name == curItem);
+                var itemToLoad = _settings.Tools.FirstOrDefault(tool => tool.Name == curItem);
 
                 guidToolsLabel.Text = itemToLoad.ID.ToString();
                 toolsNameTextbox.Text = curItem;
-                //DirectoryPathTextbox.Text = itemToLoad.FileLocation;
-                DirectoryPathTextbox.Text = itemToLoad.ValueKey;
+                DirectoryPathTextbox.Text = itemToLoad.FileLocation;
 
                 PopulateHotkeyCombo();
                 hotkeyToolsCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
@@ -480,7 +365,7 @@ namespace gr0ssSysTools
                 // Restore selection
                 environmentsList.SetSelected(newIndex, true);
                 // Save the new order
-                //SetCurrentOrderOfEnvironments();
+                SetCurrentOrderOfEnvironments();
             }
             else if (tabControl.SelectedTab == tabTools)
             {
@@ -504,7 +389,7 @@ namespace gr0ssSysTools
                 // Restore selection
                 toolsList.SetSelected(newIndex, true);
                 // Save the new order
-                //SetCurrentOrderOfTools();
+                SetCurrentOrderOfTools();
             }
         }
 #endregion Move buttons
