@@ -14,6 +14,7 @@ namespace gr0ssSysTools
     public partial class Edit : Form
     {
         private Settings _settings;
+        private bool _loadingValues;
 
         public Edit()
         {
@@ -49,6 +50,8 @@ namespace gr0ssSysTools
             }
             else
             {
+                ClearEnvironmentFields();
+                ClearToolFields();
                 SetupButtonEnabled(true);
                 RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
             }
@@ -223,6 +226,7 @@ namespace gr0ssSysTools
 #region Clear Methods
         private void ClearEnvironmentFields()
         {
+            _loadingValues = true;
             NameTextbox.Text = "";
             registryValueTextbox.Text = "";
             hotkeyCombo.Items.Clear();
@@ -230,15 +234,18 @@ namespace gr0ssSysTools
             iconDisplayTextbox.Text = "";
             iconColorCombo.SelectedIndex = -1;
             guidLabel.Text = "";
+            _loadingValues = false;
         }
 
         private void ClearToolFields()
         {
+            _loadingValues = true;
             toolsNameTextbox.Text = "";
             DirectoryPathTextbox.Text = "";
             hotkeyToolsCombo.Items.Clear();
             hotkeyToolsCombo.Text = "";
             guidToolsLabel.Text = "";
+            _loadingValues = false;
         }
 #endregion Clear Methods
 
@@ -246,17 +253,57 @@ namespace gr0ssSysTools
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (tabControl.SelectedTab == tabGeneral)
+            {
                 SaveNewRegistryKey();
+            }
             else
             {
                 if (tabControl.SelectedTab == tabEnvironments)
-                    SetCurrentOrderOfEnvironments();
+                {
+                    SaveCurrentEnvironment();
+                }
                 else if (tabControl.SelectedTab == tabTools)
-                    SetCurrentOrderOfTools();
+                {
+                    SaveCurrentTool();
+                }
             }
         }
 
-        private void SetCurrentOrderOfEnvironments()
+        private void SaveCurrentEnvironment()
+        {
+            var currentEnvironment = _settings.Environments.First(env => env.ID == Guid.Parse(guidLabel.Text));
+
+            if (currentEnvironment.Name != NameTextbox.Text)
+                currentEnvironment.Name = NameTextbox.Text;
+            if (currentEnvironment.SubkeyValue != registryValueTextbox.Text)
+                currentEnvironment.SubkeyValue = registryValueTextbox.Text;
+            if (currentEnvironment.HotKey != hotkeyCombo.SelectedItem.ToString())
+                currentEnvironment.HotKey = hotkeyCombo.SelectedItem.ToString();
+            if (currentEnvironment.IconLabel != iconDisplayTextbox.Text)
+                currentEnvironment.IconLabel = iconDisplayTextbox.Text;
+            if (currentEnvironment.IconColor != iconColorCombo.SelectedItem.ToString())
+                currentEnvironment.IconColor = iconColorCombo.SelectedItem.ToString();
+
+            RepopulateSelectedTabsListbox(true);
+            SetCurrentOrderOfEnvironmentsAndSave();
+        }
+
+        private void SaveCurrentTool()
+        {
+            var currentTool = _settings.Tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+
+            if (currentTool.Name != toolsNameTextbox.Text)
+                currentTool.Name = toolsNameTextbox.Text;
+            if (currentTool.FileLocation != DirectoryPathTextbox.Text)
+                currentTool.FileLocation = DirectoryPathTextbox.Text;
+            if (currentTool.HotKey != hotkeyToolsCombo.SelectedItem.ToString())
+                currentTool.HotKey = hotkeyToolsCombo.SelectedItem.ToString();
+
+            RepopulateSelectedTabsListbox(false);
+            SetCurrentOrderOfToolsAndSave();
+        }
+
+        private void SetCurrentOrderOfEnvironmentsAndSave()
         {
             var environmentsOrdered = (from object item 
                                        in environmentsList.Items
@@ -265,7 +312,7 @@ namespace gr0ssSysTools
             _settings.Environments = environmentsOrdered;
         }
 
-        private void SetCurrentOrderOfTools()
+        private void SetCurrentOrderOfToolsAndSave()
         {
             var toolsOrdered = (from object item 
                                 in toolsList.Items
@@ -294,6 +341,7 @@ namespace gr0ssSysTools
         {
             if (environmentsList.SelectedIndex != -1)
             {
+                _loadingValues = true;
                 var curItem = environmentsList.SelectedItem.ToString();
                 var itemToLoad = _settings.Environments.FirstOrDefault(env => env.Name == curItem);
 
@@ -311,12 +359,14 @@ namespace gr0ssSysTools
                 var colorIndex = MiscUtils.GetColorIndex(itemToLoad.IconColor);
                 iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
             }
+            _loadingValues = false;
         }
 
         private void toolsList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (toolsList.SelectedIndex != -1)
             {
+                _loadingValues = true;
                 var curItem = toolsList.SelectedItem.ToString();
                 var itemToLoad = _settings.Tools.FirstOrDefault(tool => tool.Name == curItem);
 
@@ -327,6 +377,7 @@ namespace gr0ssSysTools
                 PopulateHotkeyCombo();
                 hotkeyToolsCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
             }
+            _loadingValues = false;
         }
 
         private void TurnOffListEventHandlers()
@@ -365,7 +416,7 @@ namespace gr0ssSysTools
                 // Restore selection
                 environmentsList.SetSelected(newIndex, true);
                 // Save the new order
-                SetCurrentOrderOfEnvironments();
+                SetCurrentOrderOfEnvironmentsAndSave();
             }
             else if (tabControl.SelectedTab == tabTools)
             {
@@ -389,7 +440,7 @@ namespace gr0ssSysTools
                 // Restore selection
                 toolsList.SetSelected(newIndex, true);
                 // Save the new order
-                SetCurrentOrderOfTools();
+                SetCurrentOrderOfToolsAndSave();
             }
         }
 #endregion Move buttons
@@ -445,8 +496,7 @@ namespace gr0ssSysTools
         {
             return (string) Registry.GetValue(RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
         }
-#endregion Registry Key Methods
 
-        
+        #endregion Registry Key Methods
     }
 }
