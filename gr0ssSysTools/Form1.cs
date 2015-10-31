@@ -177,7 +177,11 @@ namespace gr0ssSysTools
         private void menuEdit_Click(object sender, EventArgs e)
         {
             Edit edit = new Edit(_settings, true);
-            edit.Closed += (o, args) => LoadMenu();
+            edit.Closed += (o, args) =>
+            {
+                LoadMenu();
+                SetIcon();
+            };
             edit.Show();
         }
         #endregion OnClick
