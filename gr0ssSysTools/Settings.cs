@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
+using gr0ssSysTools.Parsers;
 using gr0ssSysTools.Properties;
 using gr0ssSysTools.Utils;
 using Microsoft.Win32;
@@ -29,7 +30,7 @@ namespace gr0ssSysTools
             tabControl.SelectedTab = env ? tabEnvironments : tabTools;
         }
 
-        private void Edit_Load(object sender, EventArgs e)
+        private void Settings_Load(object sender, EventArgs e)
         {
             SetupButtonImages();
                         
@@ -45,7 +46,8 @@ namespace gr0ssSysTools
             if (tabControl.SelectedTab == tabGeneral)
             {
                 SetupButtonEnabled(false);
-                RegistryKeyMethods.PopulateRootCombo(rootCombo);
+                RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
+                GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
             }
             else
             {
@@ -254,6 +256,7 @@ namespace gr0ssSysTools
             if (tabControl.SelectedTab == tabGeneral)
             {
                 SaveNewRegistryKey();
+                SaveNewGlobalHotkey();
             }
             else
             {
@@ -266,6 +269,38 @@ namespace gr0ssSysTools
                     SaveCurrentTool();
                 }
             }
+        }
+
+        private void SaveNewGlobalHotkey()
+        {
+            if (firstModifierKeyComboBox.SelectedText == System.Windows.Input.ModifierKeys.None.ToString())
+            {
+                MessageBox.Show("You must first select a valid modifier key.", "Error", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            } 
+            else if (CurrentHotkeyEqualsSavedHotkey()) // If Global Hotkey is the same as LoadedGlobalHotkey then do nothing.
+            {
+                return;
+            }
+            else
+            {
+                _loadedSettings.General.LoadedGlobalHotkey.Hotkey =
+                    GlobalHotkeyParser.ConvertStringToKey(hotkeyComboBox.SelectedText);
+                _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey =
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(firstModifierKeyComboBox.SelectedText);
+                _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey =
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(secondModifierKeyComboBox.SelectedText);
+            }
+        }
+
+        private bool CurrentHotkeyEqualsSavedHotkey()
+        {
+            return _loadedSettings.General.LoadedGlobalHotkey.Hotkey.ToString() ==
+                    hotkeyComboBox.SelectedText &&
+                   _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey.ToString() ==
+                    firstModifierKeyComboBox.SelectedText &&
+                   _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey.ToString() ==
+                    secondModifierKeyComboBox.SelectedText;
         }
 
         private void SaveCurrentEnvironment()
@@ -447,7 +482,7 @@ namespace gr0ssSysTools
 #region Registry Key Methods
         private void checkButton_Click(object sender, EventArgs e)
         {
-            var rootValue = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
 
             MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", @"Current Value of Key",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -455,19 +490,25 @@ namespace gr0ssSysTools
 
         private void SaveNewRegistryKey()
         {
-            if (GetCurrentKeyValue() == string.Empty)
+            if (GetCurrentKeyValue() == string.Empty) // New Key is invalid.
+            {
                 MessageBox.Show("You must first select a valid key.", "Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
-            else
+            }
+            else if (CurrentKeyEqualsSavedKey()) // New Key is Old Key.
             {
-                var confirmMessage = MessageBox.Show("If we save the new registry key, you must restart the program for the new key to take effect.\nAre you sure this is what you want to do?", 
+                return;
+            }
+            else // Save New Key.
+            {
+                var confirmMessage = MessageBox.Show("Are you sure this is what you want to override the currently monitored registry key?", 
                     "Continue With Save", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
 
                 if (confirmMessage != DialogResult.Yes) return;
 
                 var newRegistryKey = new Files.MonitoredRegistryKey
                 {
-                    Root = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                    Root = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
                     Subkey = fieldTextBox.Text
                 };
                 _loadedSettings.MonitoredRegistryKey = newRegistryKey;
@@ -480,7 +521,7 @@ namespace gr0ssSysTools
             rootCombo2.Text = "";
             rootCombo3.Items.Clear();
             rootCombo3.Text = "";
-            RegistryKeyMethods.PopulateRootCombo2(rootCombo, rootCombo2);
+            RegistryKeyUtils.PopulateRootCombo2(rootCombo, rootCombo2);
         }
 
         private void RootCombo2_SelectedIndexChanged(object sender, EventArgs e)
@@ -488,12 +529,20 @@ namespace gr0ssSysTools
             rootCombo3.Items.Clear();
             rootCombo3.Text = "";
 
-            RegistryKeyMethods.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+            RegistryKeyUtils.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+        }
+
+        private bool CurrentKeyEqualsSavedKey()
+        {
+            var currentRoot = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+
+            return currentRoot == _loadedSettings.MonitoredRegistryKey.Root &&
+                   fieldTextBox.Text == _loadedSettings.MonitoredRegistryKey.Subkey;
         }
 
         private string GetCurrentKeyValue()
         {
-            return (string) Registry.GetValue(RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
+            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
         }
 
         #endregion Registry Key Methods

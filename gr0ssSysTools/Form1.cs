@@ -21,6 +21,7 @@ namespace gr0ssSysTools
         
         private LoadedEnvironments _currentLoadedEnvironment;
         private LoadedGlobalHotkey _currentLoadedGlobalHotkey;
+        private MonitoredRegistryKey _currentMonitoredRegistryKey;
         
         private RegistryMonitor _registryMonitor;
         private readonly HotKeyManager _hkManager;
@@ -98,6 +99,7 @@ namespace gr0ssSysTools
             _registryMonitor.RegChanged += OnRegChanged;
             _registryMonitor.Error += OnError;
             _registryMonitor.Start();
+            _currentMonitoredRegistryKey = _loadedSettings.MonitoredRegistryKey;
         }
         
         private void LoadMenu()
@@ -198,6 +200,8 @@ namespace gr0ssSysTools
             Settings settings = new Settings(_loadedSettings, true);
             settings.Closed += (o, args) =>
             {
+                SetNewRegistrykeyIfChanged();
+                SetNewGlobalHotkeyIfChanged();
                 LoadMenu();
                 SetIcon();
             };
@@ -217,12 +221,11 @@ namespace gr0ssSysTools
         
         private void OnRegChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
-            {
-                _currentLoadedEnvironment = _loadedSettings.Environments.Find(env => env.SubkeyValue == (string)Registry.GetValue(_loadedSettings.MonitoredRegistryKey.Root, _loadedSettings.MonitoredRegistryKey.Subkey, ""));
-                SetIcon();
-                ShowEnvironmentChangedBalloonTip();
-            }
+            if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root)) return;
+
+            _currentLoadedEnvironment = _loadedSettings.Environments.Find(env => env.SubkeyValue == (string)Registry.GetValue(_loadedSettings.MonitoredRegistryKey.Root, _loadedSettings.MonitoredRegistryKey.Subkey, ""));
+            SetIcon();
+            ShowEnvironmentChangedBalloonTip();
         }
 
         private void SetIcon()
@@ -241,6 +244,32 @@ namespace gr0ssSysTools
 			}
 
             Icon.Icon = Converter.BitmapToIcon(bmp);
+        }
+
+        private void SetNewGlobalHotkeyIfChanged()
+        {
+            if (_currentLoadedGlobalHotkey == _loadedSettings.General.LoadedGlobalHotkey) return;
+
+            GlobalHotkeyUtils.UnregisterGlobalHotkey(_hkManager, _currentLoadedGlobalHotkey);
+            GlobalHotkeyUtils.RegisterGlobalHotkey(_hkManager, _loadedSettings.General.LoadedGlobalHotkey);
+            _currentLoadedGlobalHotkey = _loadedSettings.General.LoadedGlobalHotkey;
+        }
+
+        private void SetNewRegistrykeyIfChanged()
+        {
+            if (_currentMonitoredRegistryKey == _loadedSettings.MonitoredRegistryKey) return;
+
+            _registryMonitor.Stop();
+            _registryMonitor.Dispose();
+
+            _registryMonitor = new RegistryMonitor(_loadedSettings.MonitoredRegistryKey.Root)
+            {
+                RegChangeNotifyFilter = RegChangeNotifyFilter.Value
+            };
+            _registryMonitor.RegChanged += OnRegChanged;
+            _registryMonitor.Error += OnError;
+            _registryMonitor.Start();
+            _currentMonitoredRegistryKey = _loadedSettings.MonitoredRegistryKey;
         }
 
         private void ShowEnvironmentChangedBalloonTip()

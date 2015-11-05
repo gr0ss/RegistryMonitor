@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Input;
 using gr0ssSysTools.Files;
+using gr0ssSysTools.Parsers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -69,7 +70,7 @@ namespace gr0ssSysTools.FileUtils
                     general.ShowBalloonTips = Convert.ToBoolean(propertyValue);
                     break;
                 case Constants.General.LOADED_GLOBAL_HOTKEY:
-                    general.LoadedGlobalHotkey = ConvertToLoadedGlobalHotkey(propertyValue);
+                    general.LoadedGlobalHotkey = GlobalHotkeyParser.ConvertToLoadedGlobalHotkey(propertyValue);
                     break;
             }
             return general;
@@ -86,19 +87,7 @@ namespace gr0ssSysTools.FileUtils
                 LoadedGlobalHotkey = GetDefaultLoadedGlobalHotkeySettings()
             };
         }
-
-        private static LoadedGlobalHotkey ConvertToLoadedGlobalHotkey(string hotkeyString)
-        {
-            Key key;
-            ModifierKeys key2;
-            ModifierKeys key3;
-            var hotkeyValues = hotkeyString.Split(char.Parse(","));
-            Enum.TryParse(hotkeyValues[0].Split(char.Parse(":"))[1].Replace(" ", ""), out key);
-            Enum.TryParse(hotkeyValues[1].Split(char.Parse(":"))[1].Replace(" ", ""), out key2);
-            Enum.TryParse(hotkeyValues[2].Split(char.Parse(":"))[1].Replace(" ", "").Replace("\r\n}", ""), out key3);
-            return new LoadedGlobalHotkey {Hotkey = key, FirstModifierKey = key2, SecondModifierKey = key3};
-        }
-
+        
         private static LoadedGlobalHotkey GetDefaultLoadedGlobalHotkeySettings()
         {
             return new LoadedGlobalHotkey {Hotkey = Key.Z, FirstModifierKey = ModifierKeys.Windows, SecondModifierKey = ModifierKeys.Alt};

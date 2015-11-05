@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Files\LoadedGlobalHotkey.cs" />
     <Compile Include="FileUtils\GlobalHotkeyUtils.cs" />
+    <Compile Include="Parsers\GlobalHotkeyParser.cs" />
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,7 +132,6 @@
     <Compile Include="FileUtils\EnvironmentUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />
     <Compile Include="Utils\ImageStructs.cs" />
-    <Compile Include="Utils\RegistryKeyMethods.cs" />
     <Compile Include="Utils\RegistryMonitor.cs" />
     <Compile Include="FileUtils\ToolsUtils.cs" />
     <EmbeddedResource Include="AddName.resx">
