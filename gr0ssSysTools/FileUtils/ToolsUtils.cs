@@ -11,7 +11,7 @@ namespace gr0ssSysTools.FileUtils
     {
         private const string TOOLS_FILE_NAME = "tools.json";
 
-        public static void WriteToolsSettings(IEnumerable<Tools> tools)
+        public static void WriteToolsSettings(IEnumerable<LoadedTools> tools)
         {
             string toolJsonFile = Path.Combine(Directory.GetCurrentDirectory(), TOOLS_FILE_NAME);
             
@@ -26,9 +26,9 @@ namespace gr0ssSysTools.FileUtils
             }
         }
 
-        public static List<Tools> ReadToolsSettings()
+        public static List<LoadedTools> ReadToolsSettings()
         {
-            var tools = new List<Tools>();
+            var tools = new List<LoadedTools>();
 
             string toolJsonFile = Path.Combine(Directory.GetCurrentDirectory(), TOOLS_FILE_NAME);
 
@@ -42,7 +42,7 @@ namespace gr0ssSysTools.FileUtils
                 using (StreamReader file = File.OpenText(toolJsonFile))
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    var tool = new Tools();
+                    var tool = new LoadedTools();
 
                     reader.SupportMultipleContent = true;
 
@@ -54,40 +54,40 @@ namespace gr0ssSysTools.FileUtils
                             AddPropertyToTool(tool, child.Path, child.First.ToString());
                         }
                         tools.Add(tool);
-                        tool = new Tools();
+                        tool = new LoadedTools();
                     }
                 }
             }
             return tools;
         }
 
-        private static Tools AddPropertyToTool(Tools tool, string propertyName, string propertyValue)
+        private static LoadedTools AddPropertyToTool(LoadedTools loadedTool, string propertyName, string propertyValue)
         {
             switch (propertyName)
             {
                 case Constants.Tools.ID:
-                    tool.ID = Guid.Parse(propertyValue);
+                    loadedTool.ID = Guid.Parse(propertyValue);
                     break;
                 case Constants.Tools.NAME:
-                    tool.Name = propertyValue;
+                    loadedTool.Name = propertyValue;
                     break;
                 case Constants.Tools.FILE_LOCATION:
-                    tool.FileLocation = propertyValue;
+                    loadedTool.FileLocation = propertyValue;
                     break;
                 case Constants.Tools.HOTKEY:
-                    tool.HotKey = propertyValue;
+                    loadedTool.HotKey = propertyValue;
                     break;
             }
-            return tool;
+            return loadedTool;
         }
 
-        public static List<Tools> GetGenericTools()
+        public static List<LoadedTools> GetGenericTools()
         {
             var fileLocation = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile),
                 "Documents\\AutoIT Scripts\\SetWindowPositions.exe");
-            return new List<Tools>
+            return new List<LoadedTools>
             {
-                new Tools {ID = Guid.NewGuid(), Name = "Set Windows Positions", FileLocation = fileLocation, HotKey = "S"}
+                new LoadedTools {ID = Guid.NewGuid(), Name = "Set Windows Positions", FileLocation = fileLocation, HotKey = "W"}
             };
         }
     }

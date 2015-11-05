@@ -44,7 +44,7 @@
             // 
             this.Icon.ContextMenuStrip = this.menuStrip;
             this.Icon.Icon = ((System.Drawing.Icon)(resources.GetObject("Icon.Icon")));
-            this.Icon.Text = "gr0ss Sys Tools";
+            this.Icon.Text = "gr0ss Sys LoadedTools";
             this.Icon.Visible = true;
             // 
             // menuStrip
@@ -55,14 +55,14 @@
             this.menuEdit,
             this.menuExit});
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(104, 76);
+            this.menuStrip.Size = new System.Drawing.Size(153, 98);
             // 
             // menuTools
             // 
             this.menuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolsMenuWindowPositions});
             this.menuTools.Name = "menuTools";
-            this.menuTools.Size = new System.Drawing.Size(103, 22);
+            this.menuTools.Size = new System.Drawing.Size(152, 22);
             this.menuTools.Text = "&Tools";
             // 
             // toolsMenuWindowPositions
@@ -74,19 +74,19 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // menuEdit
             // 
             this.menuEdit.Name = "menuEdit";
-            this.menuEdit.Size = new System.Drawing.Size(103, 22);
-            this.menuEdit.Text = "&Edit";
+            this.menuEdit.Size = new System.Drawing.Size(152, 22);
+            this.menuEdit.Text = "&Settings";
             this.menuEdit.Click += new System.EventHandler(this.menuEdit_Click);
             // 
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(103, 22);
+            this.menuExit.Size = new System.Drawing.Size(152, 22);
             this.menuExit.Text = "E&xit";
             this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
             // 

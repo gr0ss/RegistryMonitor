@@ -2,11 +2,13 @@
 
 namespace gr0ssSysTools.Files
 {
-    public class Tools
+    public class LoadedEnvironments
     {
         public Guid ID { get; set; }
         public string Name { get; set; }
-        public string FileLocation { get; set; }
+        public string SubkeyValue { get; set; }
         public string HotKey { get; set; }
+        public string IconLabel { get; set; }
+        public string IconColor { get; set; }
     }
 }

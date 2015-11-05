@@ -8,12 +8,12 @@ namespace gr0ssSysTools
 {
     public partial class AddRegistryKey : Form
     {
-        private Settings _settings;
+        private LoadedSettings _loadedSettings;
 
-        public AddRegistryKey(Settings settings)
+        public AddRegistryKey(LoadedSettings loadedSettings)
         {
             InitializeComponent();
-            _settings = settings;
+            _loadedSettings = loadedSettings;
         }
 
         private void AddRegistryKey_Load(object sender, EventArgs e)
@@ -38,12 +38,12 @@ namespace gr0ssSysTools
                     MessageBoxIcon.Error);
             else
             {
-                var newRegistryKey = new Files.RegistryKey
+                var newRegistryKey = new Files.MonitoredRegistryKey
                 {
                     Root = RegistryKeyMethods.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
                     Subkey = fieldTextBox.Text
                 };
-                _settings.RegistryKey = newRegistryKey;
+                _loadedSettings.MonitoredRegistryKey = newRegistryKey;
                 Close();
             }
         }

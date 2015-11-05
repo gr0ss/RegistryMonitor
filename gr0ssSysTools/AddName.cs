@@ -13,13 +13,13 @@ namespace gr0ssSysTools
         private const string ENV_TEXT = "Name of new environment:";
         private const string TOOL_TEXT = "Name of new tool:";
         private bool _isEnv;
-        private Settings _settings;
+        private LoadedSettings _loadedSettings;
 
-        public AddName(bool envTab, Settings settings)
+        public AddName(bool envTab, LoadedSettings loadedSettings)
         {
             InitializeComponent();
             _isEnv = envTab;
-            _settings = settings;
+            _loadedSettings = loadedSettings;
             textLabel.Text = envTab ? ENV_TEXT : TOOL_TEXT;
         }
 
@@ -32,11 +32,11 @@ namespace gr0ssSysTools
         {
             if (_isEnv)
             {
-                _settings.Environments.Add(CreateNewEnvironment());
+                _loadedSettings.Environments.Add(CreateNewEnvironment());
             }
             else
             {
-                _settings.Tools.Add(CreateNewTool());
+                _loadedSettings.Tools.Add(CreateNewTool());
             }
             this.Close();
         }
@@ -46,15 +46,15 @@ namespace gr0ssSysTools
             this.Close();
         }
 
-        private Environments CreateNewEnvironment()
+        private LoadedEnvironments CreateNewEnvironment()
         {
             var newName = nameTextbox.Text;
-            var currentHotkeys = _settings.Environments.Select(env => env.HotKey).ToList();
+            var currentHotkeys = _loadedSettings.Environments.Select(env => env.HotKey).ToList();
             var newUniqueHotkey = MiscUtils.GetFirstUniqueHotkey(newName,currentHotkeys).ToString();
             var iconLabel = newName[0].ToString().ToLower() +
                             newName[1].ToString().ToLower() +
                             newName[2].ToString().ToLower();
-            return new Environments
+            return new LoadedEnvironments
             {
                 ID = Guid.NewGuid(),
                 Name = newName,
@@ -65,12 +65,12 @@ namespace gr0ssSysTools
             };
         }
 
-        private Tools CreateNewTool()
+        private LoadedTools CreateNewTool()
         {
             var newName = nameTextbox.Text;
-            var currentHotkeys = _settings.Tools.Select(env => env.HotKey).ToList();
+            var currentHotkeys = _loadedSettings.Tools.Select(env => env.HotKey).ToList();
             var newUniqueHotkey = MiscUtils.GetFirstUniqueHotkey(newName, currentHotkeys).ToString();
-            return new Tools
+            return new LoadedTools
             {
                 ID = Guid.NewGuid(),
                 Name = newName,

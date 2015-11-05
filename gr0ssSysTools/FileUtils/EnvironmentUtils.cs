@@ -11,7 +11,7 @@ namespace gr0ssSysTools.FileUtils
     {
         private const string ENVIRONMENT_FILE_NAME = "environments.json";
 
-        public static void WriteEnvironmentSettings(IEnumerable<Environments> environments)
+        public static void WriteEnvironmentSettings(IEnumerable<LoadedEnvironments> environments)
         {
             string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), ENVIRONMENT_FILE_NAME);
             
@@ -26,9 +26,9 @@ namespace gr0ssSysTools.FileUtils
             }
         }
 
-        public static List<Environments> ReadEnvironmentsSettings()
+        public static List<LoadedEnvironments> ReadEnvironmentsSettings()
         {
-            var environments = new List<Environments>();
+            var environments = new List<LoadedEnvironments>();
 
             string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), ENVIRONMENT_FILE_NAME);
 
@@ -42,7 +42,7 @@ namespace gr0ssSysTools.FileUtils
                 using (StreamReader file = File.OpenText(environmnentJsonFile))
                 using (JsonTextReader reader = new JsonTextReader(file))
                 {
-                    var env = new Environments();
+                    var env = new LoadedEnvironments();
 
                     reader.SupportMultipleContent = true;
 
@@ -54,48 +54,48 @@ namespace gr0ssSysTools.FileUtils
                             AddPropertyToEnvironment(env, child.Path, child.First.ToString());
                         }
                         environments.Add(env);
-                        env = new Environments();
+                        env = new LoadedEnvironments();
                     }
                 }
             }
             return environments;
         }
 
-        private static Environments AddPropertyToEnvironment(Environments environment, string propertyName, string propertyValue)
+        private static LoadedEnvironments AddPropertyToEnvironment(LoadedEnvironments loadedEnvironment, string propertyName, string propertyValue)
         {
             switch (propertyName)
             {
                 case Constants.Environments.ID:
-                    environment.ID = Guid.Parse(propertyValue);
+                    loadedEnvironment.ID = Guid.Parse(propertyValue);
                     break;
                 case Constants.Environments.NAME:
-                    environment.Name = propertyValue;
+                    loadedEnvironment.Name = propertyValue;
                     break;
                 case Constants.Environments.SUBKEY_VALUE:
-                    environment.SubkeyValue = propertyValue;
+                    loadedEnvironment.SubkeyValue = propertyValue;
                     break;
                 case Constants.Environments.HOTKEY:
-                    environment.HotKey = propertyValue;
+                    loadedEnvironment.HotKey = propertyValue;
                     break;
                 case Constants.Environments.ICON_LABEL:
-                    environment.IconLabel = propertyValue;
+                    loadedEnvironment.IconLabel = propertyValue;
                     break;
                 case Constants.Environments.ICON_COLOR:
-                    environment.IconColor = propertyValue;
+                    loadedEnvironment.IconColor = propertyValue;
                     break;
             }
-            return environment;
+            return loadedEnvironment;
         }
 
-        public static List<Environments> GetGenericEnvironments()
+        public static List<LoadedEnvironments> GetGenericEnvironments()
         {
-            return new List<Environments>
+            return new List<LoadedEnvironments>
             {
-                new Environments {ID = Guid.NewGuid(), Name = "Development", SubkeyValue = "Data\\devDB.xml", HotKey = "D", IconLabel = "dev", IconColor = "Blue"},
-                new Environments {ID = Guid.NewGuid(), Name = "sb1", SubkeyValue = "Data\\sb1DB.xml", HotKey = "1", IconLabel = "sb1", IconColor = "Blue"},
-                new Environments {ID = Guid.NewGuid(), Name = "sb2", SubkeyValue = "Data\\sb2DB.xml", HotKey = "2", IconLabel = "sb2", IconColor = "Blue"},
-                new Environments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconColor = "Blue"},
-                new Environments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconColor = "Red"}
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Development", SubkeyValue = "Data\\devDB.xml", HotKey = "D", IconLabel = "dev", IconColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb1", SubkeyValue = "Data\\sb1DB.xml", HotKey = "1", IconLabel = "sb1", IconColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb2", SubkeyValue = "Data\\sb2DB.xml", HotKey = "2", IconLabel = "sb2", IconColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconColor = "Red"}
             };
         }
     }

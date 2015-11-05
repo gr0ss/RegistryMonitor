@@ -9,23 +9,23 @@ namespace gr0ssSysTools.FileUtils
     {
         private const string REGISTRYKEY_FILE_NAME = "registrykey.json";
 
-        public static void WriteRegistryKeySettings(RegistryKey registryKey, bool firstLoad = false)
+        public static void WriteRegistryKeySettings(MonitoredRegistryKey monitoredRegistryKey, bool firstLoad = false)
         {
             string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_FILE_NAME);
             
             using (StreamWriter file = File.CreateText(environmnentJsonFile))
             using (JsonTextWriter writer = new JsonTextWriter(file))
             {
-                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKey() : registryKey);
+                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKey() : monitoredRegistryKey);
                 writer.WriteRaw(jsonRegistryKey);
             }
         }
 
-        public static RegistryKey ReadRegistryKeySettings()
+        public static MonitoredRegistryKey ReadRegistryKeySettings()
         {
             string registryKeyJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_FILE_NAME);
 
-            var registryKey = new RegistryKey();
+            var registryKey = new MonitoredRegistryKey();
 
             if (!File.Exists(registryKeyJsonFile))
             {
@@ -50,23 +50,23 @@ namespace gr0ssSysTools.FileUtils
             return registryKey;
         }
 
-        private static RegistryKey AddPropertyToRegistryKey(RegistryKey registryKey, string propertyName, string propertyValue)
+        private static MonitoredRegistryKey AddPropertyToRegistryKey(MonitoredRegistryKey monitoredRegistryKey, string propertyName, string propertyValue)
         {
             switch (propertyName)
             {
                 case Constants.RegistryKey.ROOT:
-                    registryKey.Root = propertyValue;
+                    monitoredRegistryKey.Root = propertyValue;
                     break;
                 case Constants.RegistryKey.SUBKEY:
-                    registryKey.Subkey = propertyValue;
+                    monitoredRegistryKey.Subkey = propertyValue;
                     break;
             }
-            return registryKey;
+            return monitoredRegistryKey;
         }
 
-        private static RegistryKey GetInitialRegistryKey()
+        private static MonitoredRegistryKey GetInitialRegistryKey()
         {
-            return new RegistryKey {Root = "", Subkey = ""};
+            return new MonitoredRegistryKey {Root = "", Subkey = ""};
         } 
     }
 }

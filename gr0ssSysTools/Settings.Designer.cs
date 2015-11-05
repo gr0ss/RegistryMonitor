@@ -2,7 +2,7 @@
 
 namespace gr0ssSysTools
 {
-    partial class Edit
+    partial class Settings
     {
         /// <summary>
         /// Required designer variable.
@@ -52,6 +52,7 @@ namespace gr0ssSysTools
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabEnvironments = new System.Windows.Forms.TabPage();
+            this.iconColorCombo = new gr0ssSysTools.Utils.ColorComboBox();
             this.hotkeyCombo = new System.Windows.Forms.ComboBox();
             this.iconColorLabel = new System.Windows.Forms.Label();
             this.iconDisplayTextbox = new System.Windows.Forms.TextBox();
@@ -66,7 +67,6 @@ namespace gr0ssSysTools
             this.rootCombo3 = new System.Windows.Forms.ComboBox();
             this.rootCombo2 = new System.Windows.Forms.ComboBox();
             this.rootCombo = new System.Windows.Forms.ComboBox();
-            this.iconColorCombo = new gr0ssSysTools.Utils.ColorComboBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
@@ -293,6 +293,16 @@ namespace gr0ssSysTools
             this.tabEnvironments.Text = "Environments";
             this.tabEnvironments.UseVisualStyleBackColor = true;
             // 
+            // iconColorCombo
+            // 
+            this.iconColorCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.iconColorCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.iconColorCombo.FormattingEnabled = true;
+            this.iconColorCombo.Location = new System.Drawing.Point(266, 126);
+            this.iconColorCombo.Name = "iconColorCombo";
+            this.iconColorCombo.Size = new System.Drawing.Size(341, 21);
+            this.iconColorCombo.TabIndex = 18;
+            // 
             // hotkeyCombo
             // 
             this.hotkeyCombo.FormattingEnabled = true;
@@ -421,17 +431,7 @@ namespace gr0ssSysTools
             this.rootCombo.TabIndex = 13;
             this.rootCombo.SelectedIndexChanged += new System.EventHandler(this.RootCombo_SelectedIndexChanged);
             // 
-            // iconColorCombo
-            // 
-            this.iconColorCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconColorCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconColorCombo.FormattingEnabled = true;
-            this.iconColorCombo.Location = new System.Drawing.Point(266, 126);
-            this.iconColorCombo.Name = "iconColorCombo";
-            this.iconColorCombo.Size = new System.Drawing.Size(341, 21);
-            this.iconColorCombo.TabIndex = 18;
-            // 
-            // Edit
+            // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -442,8 +442,8 @@ namespace gr0ssSysTools
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.removeButton);
             this.Controls.Add(this.tabControl);
-            this.Name = "Edit";
-            this.Text = "Edit";
+            this.Name = "Settings";
+            this.Text = "Settings";
             this.Load += new System.EventHandler(this.Edit_Load);
             this.tabTools.ResumeLayout(false);
             this.tabTools.PerformLayout();
