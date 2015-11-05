@@ -5,8 +5,8 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
-using System.Windows.Input;
 using FlimFlan.IconEncoder;
+using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
 using GlobalHotKey;
 using Microsoft.Win32;
@@ -19,11 +19,13 @@ namespace gr0ssSysTools
     {
         private LoadedSettings _loadedSettings;
         
-        private Files.LoadedEnvironments _currentLoadedEnvironment;
+        private LoadedEnvironments _currentLoadedEnvironment;
+        private LoadedGlobalHotkey _currentLoadedGlobalHotkey;
         
         private RegistryMonitor _registryMonitor;
         private readonly HotKeyManager _hkManager;
         private readonly ContextMenuStrip _menuStrip;
+        private readonly SuperNotifyIcon _superNotifyIcon;
         private readonly Point? _locationOfIcon;
 
         public Form1()
@@ -34,12 +36,19 @@ namespace gr0ssSysTools
 
             LoadMenu();
             _hkManager = new HotKeyManager();
-            _hkManager.KeyPressed += HkManagerOnKeyPressed;
-            _hkManager.Register(Key.Z, System.Windows.Input.ModifierKeys.Windows | System.Windows.Input.ModifierKeys.Alt);
+            LoadGlobalHotkey();
             _menuStrip = menuStrip;
 
-            SuperNotifyIcon superNotifyIcon = new SuperNotifyIcon {NotifyIcon = Icon};
-            _locationOfIcon = superNotifyIcon.GetLocation();
+            // Gets the location of the systray icon
+            _superNotifyIcon = new SuperNotifyIcon {NotifyIcon = Icon};
+            _locationOfIcon = _superNotifyIcon.GetLocation();
+        }
+
+        private void LoadGlobalHotkey()
+        {
+            _hkManager.KeyPressed += HkManagerOnKeyPressed;
+            GlobalHotkeyUtils.RegisterGlobalHotkey(_hkManager, _loadedSettings.General.LoadedGlobalHotkey);
+            _currentLoadedGlobalHotkey = _loadedSettings.General.LoadedGlobalHotkey;
         }
         
         private void Form1_Load(object sender, EventArgs e)
@@ -180,6 +189,7 @@ namespace gr0ssSysTools
             _registryMonitor.Dispose();
             _hkManager.Dispose();
             _menuStrip.Dispose();
+            _superNotifyIcon.Dispose();
             Icon.Dispose();
         }
 

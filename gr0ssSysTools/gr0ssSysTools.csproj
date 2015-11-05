@@ -97,6 +97,8 @@
     <Compile Include="AddRegistryKey.Designer.cs">
       <DependentUpon>AddRegistryKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Files\LoadedGlobalHotkey.cs" />
+    <Compile Include="FileUtils\GlobalHotkeyUtils.cs" />
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>

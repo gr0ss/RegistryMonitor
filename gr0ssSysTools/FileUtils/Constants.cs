@@ -38,6 +38,7 @@ namespace gr0ssSysTools.FileUtils
             public const string ICON_FONT_SIZE = "IconFontSize";
             public const string ICON_SHAPE = "IconShape";
             public const string SHOW_BALLOON_TIPS = "ShowBalloonTips";
+            public const string LOADED_GLOBAL_HOTKEY = "LoadedGlobalHotkey";
         }
     }
 }
