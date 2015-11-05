@@ -126,19 +126,10 @@ namespace gr0ssSysTools
         private void PopulateIconColorCombo()
         {
             iconColorCombo.Items.Clear();
-            
-            iconColorCombo.Items.Add(new ColorDropDownItem("Dark Gray", Brushes.DarkGray));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Blue", Brushes.Blue));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Brown", Brushes.Brown));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Coral", Brushes.Coral));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Red", Brushes.Red));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Aqua", Brushes.Aqua));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Violet", Brushes.Violet));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Green", Brushes.Green));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Yellow", Brushes.Yellow));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Magenta", Brushes.Magenta));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Wheat", Brushes.Wheat));
-            iconColorCombo.Items.Add(new ColorDropDownItem("Orange", Brushes.Orange));
+            foreach (var color in ColorParser.GetAllColors())
+            {
+                iconColorCombo.Items.Add(new ColorDropDownItem(color, ColorParser.ConvertStringToSolidBrush(color)));
+            }
         }
 
         private void NameTextbox_Leave(object sender, EventArgs e)
@@ -389,8 +380,8 @@ namespace gr0ssSysTools
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
 
                 PopulateIconColorCombo();
-                
-                var colorIndex = MiscUtils.GetColorIndex(itemToLoad.IconColor);
+
+                var colorIndex = Array.FindIndex(ColorParser.GetAllColors(), row => row.Contains(itemToLoad.IconColor));
                 iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
             }
             _loadingValues = false;
@@ -402,7 +393,7 @@ namespace gr0ssSysTools
             {
                 _loadingValues = true;
                 var curItem = toolsList.SelectedItem.ToString();
-                var itemToLoad = _loadedSettings.Tools.FirstOrDefault(tool => tool.Name == curItem);
+                var itemToLoad = _loadedSettings.Tools.First(tool => tool.Name == curItem);
 
                 guidToolsLabel.Text = itemToLoad.ID.ToString();
                 toolsNameTextbox.Text = curItem;

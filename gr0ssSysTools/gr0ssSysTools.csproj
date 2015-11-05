@@ -99,6 +99,7 @@
     </Compile>
     <Compile Include="Files\LoadedGlobalHotkey.cs" />
     <Compile Include="FileUtils\GlobalHotkeyUtils.cs" />
+    <Compile Include="Parsers\ColorParser.cs" />
     <Compile Include="Parsers\GlobalHotkeyParser.cs" />
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>

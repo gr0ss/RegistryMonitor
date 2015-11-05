@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using FlimFlan.IconEncoder;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
+using gr0ssSysTools.Parsers;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryUtils;
@@ -232,7 +233,7 @@ namespace gr0ssSysTools
         {
             var iconFont = _loadedSettings.General.IconFont;
             var fontSize = _loadedSettings.General.IconFontSize;
-            var iconColor = new SolidBrush(Color.FromName(_currentLoadedEnvironment.IconColor));
+            var iconColor = ColorParser.ConvertStringToSolidBrush(_currentLoadedEnvironment.IconColor);
 
             Font font = new Font(iconFont, fontSize);
             Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
