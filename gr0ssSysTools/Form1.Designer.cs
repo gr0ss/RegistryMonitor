@@ -55,14 +55,14 @@
             this.menuEdit,
             this.menuExit});
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(153, 98);
+            this.menuStrip.Size = new System.Drawing.Size(117, 76);
             // 
             // menuTools
             // 
             this.menuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolsMenuWindowPositions});
             this.menuTools.Name = "menuTools";
-            this.menuTools.Size = new System.Drawing.Size(152, 22);
+            this.menuTools.Size = new System.Drawing.Size(116, 22);
             this.menuTools.Text = "&Tools";
             // 
             // toolsMenuWindowPositions
@@ -74,19 +74,19 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(113, 6);
             // 
             // menuEdit
             // 
             this.menuEdit.Name = "menuEdit";
-            this.menuEdit.Size = new System.Drawing.Size(152, 22);
+            this.menuEdit.Size = new System.Drawing.Size(116, 22);
             this.menuEdit.Text = "&Settings";
             this.menuEdit.Click += new System.EventHandler(this.menuEdit_Click);
             // 
             // menuExit
             // 
             this.menuExit.Name = "menuExit";
-            this.menuExit.Size = new System.Drawing.Size(152, 22);
+            this.menuExit.Size = new System.Drawing.Size(116, 22);
             this.menuExit.Text = "E&xit";
             this.menuExit.Click += new System.EventHandler(this.menuExit_Click);
             // 
@@ -101,6 +101,7 @@
             this.ShowInTaskbar = false;
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -164,10 +164,23 @@ namespace gr0ssSysTools
 
         private void menuExit_Click(object sender, EventArgs e)
         {
-            _registryMonitor.Stop();
-            _hkManager.Dispose();
-
             Close();
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            StopAndDisposeProcessesAndEvents();
+            
+            Environment.Exit(0);
+        }
+
+        private void StopAndDisposeProcessesAndEvents()
+        {
+            _registryMonitor.Stop();
+            _registryMonitor.Dispose();
+            _hkManager.Dispose();
+            _menuStrip.Dispose();
+            Icon.Dispose();
         }
 
         private void menuEdit_Click(object sender, EventArgs e)
