@@ -48,6 +48,7 @@ namespace gr0ssSysTools
                 SetupButtonEnabled(false);
                 RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
                 GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
+                GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconSizeComboBox, iconColorComboBox);
             }
             else
             {

@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 using System.Windows.Input;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.Parsers;
+using gr0ssSysTools.Utils;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -91,6 +95,42 @@ namespace gr0ssSysTools.FileUtils
         private static LoadedGlobalHotkey GetDefaultLoadedGlobalHotkeySettings()
         {
             return new LoadedGlobalHotkey {Hotkey = Key.Z, FirstModifierKey = ModifierKeys.Windows, SecondModifierKey = ModifierKeys.Alt};
+        }
+
+        public static void PopulateIconProperties(General generalSettings, ComboBox fontComboBox, ComboBox sizeComboBox, ComboBox colorComboBox)
+        {
+            PopulateFontComboBox(generalSettings.IconFont, fontComboBox);
+            PopulateColorComboBox("Blue", colorComboBox);
+        }
+
+        private static void PopulateFontComboBox(string currentFont, ComboBox fontComboBox)
+        {
+            var listOfFonts = FontFamily.Families;
+
+            foreach (var fontFamily in listOfFonts)
+            {
+                fontComboBox.Items.Add(fontFamily.Name);
+            }
+
+            //Set Selected.
+            //fontComboBox.SelectedItem = listOfFonts.First(lof => lof.Name == currentFont);
+        }
+
+        private static void PopulateSizeComboBox(float currentSize, ComboBox sizeComboBox)
+        {
+            
+        }
+
+        private static void PopulateColorComboBox(string currentColor, ComboBox colorComboBox)
+        {
+            colorComboBox.Items.Clear();
+            foreach (var color in ColorParser.GetAllColors())
+            {
+                colorComboBox.Items.Add(new ColorDropDownItem(color, ColorParser.ConvertStringToSolidBrush(color)));
+            }
+
+            var colorIndex = Array.FindIndex(ColorParser.GetAllColors(), row => row.Contains(currentColor));
+            colorComboBox.SelectedItem = colorComboBox.Items[colorIndex];
         }
     }
 }

@@ -61,22 +61,33 @@ namespace gr0ssSysTools
             this.guidLabel = new System.Windows.Forms.Label();
             this.registryValueLbl = new System.Windows.Forms.Label();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.globalHotkeyGroupBox = new System.Windows.Forms.GroupBox();
+            this.secondModifierKeyComboBox = new System.Windows.Forms.ComboBox();
+            this.firstModifierKeyComboBox = new System.Windows.Forms.ComboBox();
+            this.hotkeyComboBox = new System.Windows.Forms.ComboBox();
             this.registryKeyGroupBox = new System.Windows.Forms.GroupBox();
             this.checkButton = new System.Windows.Forms.Button();
             this.fieldTextBox = new System.Windows.Forms.TextBox();
             this.rootCombo3 = new System.Windows.Forms.ComboBox();
             this.rootCombo2 = new System.Windows.Forms.ComboBox();
             this.rootCombo = new System.Windows.Forms.ComboBox();
-            this.globalHotkeyGroupBox = new System.Windows.Forms.GroupBox();
-            this.secondModifierKeyComboBox = new System.Windows.Forms.ComboBox();
-            this.firstModifierKeyComboBox = new System.Windows.Forms.ComboBox();
-            this.hotkeyComboBox = new System.Windows.Forms.ComboBox();
+            this.iconPropertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.iconColorComboBox = new System.Windows.Forms.ComboBox();
+            this.iconSizeComboBox = new System.Windows.Forms.ComboBox();
+            this.iconFontComboBox = new System.Windows.Forms.ComboBox();
+            this.iconFontLabel = new System.Windows.Forms.Label();
+            this.iconSizeLabel = new System.Windows.Forms.Label();
+            this.iconColorTestLabel = new System.Windows.Forms.Label();
+            this.sampleLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
             this.tabGeneral.SuspendLayout();
-            this.registryKeyGroupBox.SuspendLayout();
             this.globalHotkeyGroupBox.SuspendLayout();
+            this.registryKeyGroupBox.SuspendLayout();
+            this.iconPropertiesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // saveButton
@@ -371,6 +382,7 @@ namespace gr0ssSysTools
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.iconPropertiesGroupBox);
             this.tabGeneral.Controls.Add(this.globalHotkeyGroupBox);
             this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -379,6 +391,42 @@ namespace gr0ssSysTools
             this.tabGeneral.TabIndex = 2;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // globalHotkeyGroupBox
+            // 
+            this.globalHotkeyGroupBox.Controls.Add(this.secondModifierKeyComboBox);
+            this.globalHotkeyGroupBox.Controls.Add(this.firstModifierKeyComboBox);
+            this.globalHotkeyGroupBox.Controls.Add(this.hotkeyComboBox);
+            this.globalHotkeyGroupBox.Location = new System.Drawing.Point(180, 3);
+            this.globalHotkeyGroupBox.Name = "globalHotkeyGroupBox";
+            this.globalHotkeyGroupBox.Size = new System.Drawing.Size(168, 104);
+            this.globalHotkeyGroupBox.TabIndex = 1;
+            this.globalHotkeyGroupBox.TabStop = false;
+            this.globalHotkeyGroupBox.Text = "Global Hotkey";
+            // 
+            // secondModifierKeyComboBox
+            // 
+            this.secondModifierKeyComboBox.FormattingEnabled = true;
+            this.secondModifierKeyComboBox.Location = new System.Drawing.Point(6, 73);
+            this.secondModifierKeyComboBox.Name = "secondModifierKeyComboBox";
+            this.secondModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
+            this.secondModifierKeyComboBox.TabIndex = 18;
+            // 
+            // firstModifierKeyComboBox
+            // 
+            this.firstModifierKeyComboBox.FormattingEnabled = true;
+            this.firstModifierKeyComboBox.Location = new System.Drawing.Point(6, 46);
+            this.firstModifierKeyComboBox.Name = "firstModifierKeyComboBox";
+            this.firstModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
+            this.firstModifierKeyComboBox.TabIndex = 17;
+            // 
+            // hotkeyComboBox
+            // 
+            this.hotkeyComboBox.FormattingEnabled = true;
+            this.hotkeyComboBox.Location = new System.Drawing.Point(6, 19);
+            this.hotkeyComboBox.Name = "hotkeyComboBox";
+            this.hotkeyComboBox.Size = new System.Drawing.Size(152, 21);
+            this.hotkeyComboBox.TabIndex = 16;
             // 
             // registryKeyGroupBox
             // 
@@ -437,41 +485,90 @@ namespace gr0ssSysTools
             this.rootCombo.TabIndex = 13;
             this.rootCombo.SelectedIndexChanged += new System.EventHandler(this.RootCombo_SelectedIndexChanged);
             // 
-            // globalHotkeyGroupBox
+            // iconPropertiesGroupBox
             // 
-            this.globalHotkeyGroupBox.Controls.Add(this.secondModifierKeyComboBox);
-            this.globalHotkeyGroupBox.Controls.Add(this.firstModifierKeyComboBox);
-            this.globalHotkeyGroupBox.Controls.Add(this.hotkeyComboBox);
-            this.globalHotkeyGroupBox.Location = new System.Drawing.Point(180, 3);
-            this.globalHotkeyGroupBox.Name = "globalHotkeyGroupBox";
-            this.globalHotkeyGroupBox.Size = new System.Drawing.Size(168, 104);
-            this.globalHotkeyGroupBox.TabIndex = 1;
-            this.globalHotkeyGroupBox.TabStop = false;
-            this.globalHotkeyGroupBox.Text = "Global Hotkey";
+            this.iconPropertiesGroupBox.Controls.Add(this.pictureBox1);
+            this.iconPropertiesGroupBox.Controls.Add(this.sampleLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconColorTestLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconSizeLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconFontLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconColorComboBox);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconSizeComboBox);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconFontComboBox);
+            this.iconPropertiesGroupBox.Location = new System.Drawing.Point(354, 3);
+            this.iconPropertiesGroupBox.Name = "iconPropertiesGroupBox";
+            this.iconPropertiesGroupBox.Size = new System.Drawing.Size(232, 158);
+            this.iconPropertiesGroupBox.TabIndex = 19;
+            this.iconPropertiesGroupBox.TabStop = false;
+            this.iconPropertiesGroupBox.Text = "Icon Properties";
             // 
-            // secondModifierKeyComboBox
+            // iconColorComboBox
             // 
-            this.secondModifierKeyComboBox.FormattingEnabled = true;
-            this.secondModifierKeyComboBox.Location = new System.Drawing.Point(6, 73);
-            this.secondModifierKeyComboBox.Name = "secondModifierKeyComboBox";
-            this.secondModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.secondModifierKeyComboBox.TabIndex = 18;
+            this.iconColorComboBox.FormattingEnabled = true;
+            this.iconColorComboBox.Location = new System.Drawing.Point(70, 73);
+            this.iconColorComboBox.Name = "iconColorComboBox";
+            this.iconColorComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconColorComboBox.TabIndex = 18;
             // 
-            // firstModifierKeyComboBox
+            // iconSizeComboBox
             // 
-            this.firstModifierKeyComboBox.FormattingEnabled = true;
-            this.firstModifierKeyComboBox.Location = new System.Drawing.Point(6, 46);
-            this.firstModifierKeyComboBox.Name = "firstModifierKeyComboBox";
-            this.firstModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.firstModifierKeyComboBox.TabIndex = 17;
+            this.iconSizeComboBox.FormattingEnabled = true;
+            this.iconSizeComboBox.Location = new System.Drawing.Point(70, 46);
+            this.iconSizeComboBox.Name = "iconSizeComboBox";
+            this.iconSizeComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconSizeComboBox.TabIndex = 17;
             // 
-            // hotkeyComboBox
+            // iconFontComboBox
             // 
-            this.hotkeyComboBox.FormattingEnabled = true;
-            this.hotkeyComboBox.Location = new System.Drawing.Point(6, 19);
-            this.hotkeyComboBox.Name = "hotkeyComboBox";
-            this.hotkeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.hotkeyComboBox.TabIndex = 16;
+            this.iconFontComboBox.FormattingEnabled = true;
+            this.iconFontComboBox.Location = new System.Drawing.Point(70, 19);
+            this.iconFontComboBox.Name = "iconFontComboBox";
+            this.iconFontComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconFontComboBox.TabIndex = 16;
+            // 
+            // iconFontLabel
+            // 
+            this.iconFontLabel.AutoSize = true;
+            this.iconFontLabel.Location = new System.Drawing.Point(9, 22);
+            this.iconFontLabel.Name = "iconFontLabel";
+            this.iconFontLabel.Size = new System.Drawing.Size(55, 13);
+            this.iconFontLabel.TabIndex = 19;
+            this.iconFontLabel.Text = "Icon Font:";
+            // 
+            // iconSizeLabel
+            // 
+            this.iconSizeLabel.AutoSize = true;
+            this.iconSizeLabel.Location = new System.Drawing.Point(10, 49);
+            this.iconSizeLabel.Name = "iconSizeLabel";
+            this.iconSizeLabel.Size = new System.Drawing.Size(54, 13);
+            this.iconSizeLabel.TabIndex = 20;
+            this.iconSizeLabel.Text = "Icon Size:";
+            // 
+            // iconColorTestLabel
+            // 
+            this.iconColorTestLabel.AutoSize = true;
+            this.iconColorTestLabel.Location = new System.Drawing.Point(6, 76);
+            this.iconColorTestLabel.Name = "iconColorTestLabel";
+            this.iconColorTestLabel.Size = new System.Drawing.Size(58, 13);
+            this.iconColorTestLabel.TabIndex = 21;
+            this.iconColorTestLabel.Text = "Icon Color:";
+            // 
+            // sampleLabel
+            // 
+            this.sampleLabel.AutoSize = true;
+            this.sampleLabel.Location = new System.Drawing.Point(6, 117);
+            this.sampleLabel.Name = "sampleLabel";
+            this.sampleLabel.Size = new System.Drawing.Size(45, 13);
+            this.sampleLabel.TabIndex = 22;
+            this.sampleLabel.Text = "Sample:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(70, 99);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(57, 50);
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
             // 
             // Settings
             // 
@@ -493,9 +590,12 @@ namespace gr0ssSysTools
             this.tabEnvironments.ResumeLayout(false);
             this.tabEnvironments.PerformLayout();
             this.tabGeneral.ResumeLayout(false);
+            this.globalHotkeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.PerformLayout();
-            this.globalHotkeyGroupBox.ResumeLayout(false);
+            this.iconPropertiesGroupBox.ResumeLayout(false);
+            this.iconPropertiesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -543,5 +643,14 @@ namespace gr0ssSysTools
         private System.Windows.Forms.ComboBox secondModifierKeyComboBox;
         private System.Windows.Forms.ComboBox firstModifierKeyComboBox;
         private System.Windows.Forms.ComboBox hotkeyComboBox;
+        private System.Windows.Forms.GroupBox iconPropertiesGroupBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label sampleLabel;
+        private System.Windows.Forms.Label iconColorTestLabel;
+        private System.Windows.Forms.Label iconSizeLabel;
+        private System.Windows.Forms.Label iconFontLabel;
+        private System.Windows.Forms.ComboBox iconColorComboBox;
+        private System.Windows.Forms.ComboBox iconSizeComboBox;
+        private System.Windows.Forms.ComboBox iconFontComboBox;
     }
 }
