@@ -72,12 +72,23 @@ namespace gr0ssSysTools
             this.rootCombo2 = new System.Windows.Forms.ComboBox();
             this.rootCombo = new System.Windows.Forms.ComboBox();
             this.showBalloonTipsCheckBox = new System.Windows.Forms.CheckBox();
+            this.iconPropertiesGroupBox = new System.Windows.Forms.GroupBox();
+            this.iconColorComboBox = new System.Windows.Forms.ComboBox();
+            this.iconSizeComboBox = new System.Windows.Forms.ComboBox();
+            this.iconFontComboBox = new System.Windows.Forms.ComboBox();
+            this.iconFontLabel = new System.Windows.Forms.Label();
+            this.iconSizeLabel = new System.Windows.Forms.Label();
+            this.iconColorTestLabel = new System.Windows.Forms.Label();
+            this.sampleLabel = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
             this.tabGeneral.SuspendLayout();
             this.globalHotkeyGroupBox.SuspendLayout();
             this.registryKeyGroupBox.SuspendLayout();
+            this.iconPropertiesGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // saveButton
@@ -373,6 +384,7 @@ namespace gr0ssSysTools
             // tabGeneral
             // 
             this.tabGeneral.Controls.Add(this.showBalloonTipsCheckBox);
+            this.tabGeneral.Controls.Add(this.iconPropertiesGroupBox);
             this.tabGeneral.Controls.Add(this.globalHotkeyGroupBox);
             this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -484,6 +496,90 @@ namespace gr0ssSysTools
             this.showBalloonTipsCheckBox.TabIndex = 2;
             this.showBalloonTipsCheckBox.Text = "Show Balloon Tips";
             this.showBalloonTipsCheckBox.UseVisualStyleBackColor = true;
+            // iconPropertiesGroupBox
+            // 
+            this.iconPropertiesGroupBox.Controls.Add(this.pictureBox1);
+            this.iconPropertiesGroupBox.Controls.Add(this.sampleLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconColorTestLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconSizeLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconFontLabel);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconColorComboBox);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconSizeComboBox);
+            this.iconPropertiesGroupBox.Controls.Add(this.iconFontComboBox);
+            this.iconPropertiesGroupBox.Location = new System.Drawing.Point(354, 3);
+            this.iconPropertiesGroupBox.Name = "iconPropertiesGroupBox";
+            this.iconPropertiesGroupBox.Size = new System.Drawing.Size(232, 158);
+            this.iconPropertiesGroupBox.TabIndex = 19;
+            this.iconPropertiesGroupBox.TabStop = false;
+            this.iconPropertiesGroupBox.Text = "Icon Properties";
+            // 
+            // iconColorComboBox
+            // 
+            this.iconColorComboBox.FormattingEnabled = true;
+            this.iconColorComboBox.Location = new System.Drawing.Point(70, 73);
+            this.iconColorComboBox.Name = "iconColorComboBox";
+            this.iconColorComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconColorComboBox.TabIndex = 18;
+            // 
+            // iconSizeComboBox
+            // 
+            this.iconSizeComboBox.FormattingEnabled = true;
+            this.iconSizeComboBox.Location = new System.Drawing.Point(70, 46);
+            this.iconSizeComboBox.Name = "iconSizeComboBox";
+            this.iconSizeComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconSizeComboBox.TabIndex = 17;
+            // 
+            // iconFontComboBox
+            // 
+            this.iconFontComboBox.FormattingEnabled = true;
+            this.iconFontComboBox.Location = new System.Drawing.Point(70, 19);
+            this.iconFontComboBox.Name = "iconFontComboBox";
+            this.iconFontComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconFontComboBox.TabIndex = 16;
+            // 
+            // iconFontLabel
+            // 
+            this.iconFontLabel.AutoSize = true;
+            this.iconFontLabel.Location = new System.Drawing.Point(9, 22);
+            this.iconFontLabel.Name = "iconFontLabel";
+            this.iconFontLabel.Size = new System.Drawing.Size(55, 13);
+            this.iconFontLabel.TabIndex = 19;
+            this.iconFontLabel.Text = "Icon Font:";
+            // 
+            // iconSizeLabel
+            // 
+            this.iconSizeLabel.AutoSize = true;
+            this.iconSizeLabel.Location = new System.Drawing.Point(10, 49);
+            this.iconSizeLabel.Name = "iconSizeLabel";
+            this.iconSizeLabel.Size = new System.Drawing.Size(54, 13);
+            this.iconSizeLabel.TabIndex = 20;
+            this.iconSizeLabel.Text = "Icon Size:";
+            // 
+            // iconColorTestLabel
+            // 
+            this.iconColorTestLabel.AutoSize = true;
+            this.iconColorTestLabel.Location = new System.Drawing.Point(6, 76);
+            this.iconColorTestLabel.Name = "iconColorTestLabel";
+            this.iconColorTestLabel.Size = new System.Drawing.Size(58, 13);
+            this.iconColorTestLabel.TabIndex = 21;
+            this.iconColorTestLabel.Text = "Icon Color:";
+            // 
+            // sampleLabel
+            // 
+            this.sampleLabel.AutoSize = true;
+            this.sampleLabel.Location = new System.Drawing.Point(6, 117);
+            this.sampleLabel.Name = "sampleLabel";
+            this.sampleLabel.Size = new System.Drawing.Size(45, 13);
+            this.sampleLabel.TabIndex = 22;
+            this.sampleLabel.Text = "Sample:";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(70, 99);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(57, 50);
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
             // 
             // Settings
             // 
@@ -509,6 +605,12 @@ namespace gr0ssSysTools
             this.globalHotkeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.PerformLayout();
+            this.globalHotkeyGroupBox.ResumeLayout(false);
+            this.registryKeyGroupBox.ResumeLayout(false);
+            this.registryKeyGroupBox.PerformLayout();
+            this.iconPropertiesGroupBox.ResumeLayout(false);
+            this.iconPropertiesGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -557,5 +659,14 @@ namespace gr0ssSysTools
         private System.Windows.Forms.ComboBox firstModifierKeyComboBox;
         private System.Windows.Forms.ComboBox hotkeyComboBox;
         private System.Windows.Forms.CheckBox showBalloonTipsCheckBox;
+        private System.Windows.Forms.GroupBox iconPropertiesGroupBox;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label sampleLabel;
+        private System.Windows.Forms.Label iconColorTestLabel;
+        private System.Windows.Forms.Label iconSizeLabel;
+        private System.Windows.Forms.Label iconFontLabel;
+        private System.Windows.Forms.ComboBox iconColorComboBox;
+        private System.Windows.Forms.ComboBox iconSizeComboBox;
+        private System.Windows.Forms.ComboBox iconFontComboBox;
     }
 }
