@@ -48,6 +48,7 @@ namespace gr0ssSysTools
                 SetupButtonEnabled(false);
                 RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
                 GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
+                showBalloonTipsCheckBox.Checked = _loadedSettings.General.ShowBalloonTips;
             }
             else
             {
@@ -248,6 +249,7 @@ namespace gr0ssSysTools
             {
                 SaveNewRegistryKey();
                 SaveNewGlobalHotkey();
+                _loadedSettings.General.ShowBalloonTips = showBalloonTipsCheckBox.Checked;
             }
             else
             {

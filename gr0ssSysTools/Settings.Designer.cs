@@ -61,22 +61,23 @@ namespace gr0ssSysTools
             this.guidLabel = new System.Windows.Forms.Label();
             this.registryValueLbl = new System.Windows.Forms.Label();
             this.tabGeneral = new System.Windows.Forms.TabPage();
+            this.globalHotkeyGroupBox = new System.Windows.Forms.GroupBox();
+            this.secondModifierKeyComboBox = new System.Windows.Forms.ComboBox();
+            this.firstModifierKeyComboBox = new System.Windows.Forms.ComboBox();
+            this.hotkeyComboBox = new System.Windows.Forms.ComboBox();
             this.registryKeyGroupBox = new System.Windows.Forms.GroupBox();
             this.checkButton = new System.Windows.Forms.Button();
             this.fieldTextBox = new System.Windows.Forms.TextBox();
             this.rootCombo3 = new System.Windows.Forms.ComboBox();
             this.rootCombo2 = new System.Windows.Forms.ComboBox();
             this.rootCombo = new System.Windows.Forms.ComboBox();
-            this.globalHotkeyGroupBox = new System.Windows.Forms.GroupBox();
-            this.secondModifierKeyComboBox = new System.Windows.Forms.ComboBox();
-            this.firstModifierKeyComboBox = new System.Windows.Forms.ComboBox();
-            this.hotkeyComboBox = new System.Windows.Forms.ComboBox();
+            this.showBalloonTipsCheckBox = new System.Windows.Forms.CheckBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
             this.tabGeneral.SuspendLayout();
-            this.registryKeyGroupBox.SuspendLayout();
             this.globalHotkeyGroupBox.SuspendLayout();
+            this.registryKeyGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveButton
@@ -371,6 +372,7 @@ namespace gr0ssSysTools
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.showBalloonTipsCheckBox);
             this.tabGeneral.Controls.Add(this.globalHotkeyGroupBox);
             this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
@@ -379,6 +381,42 @@ namespace gr0ssSysTools
             this.tabGeneral.TabIndex = 2;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
+            // 
+            // globalHotkeyGroupBox
+            // 
+            this.globalHotkeyGroupBox.Controls.Add(this.secondModifierKeyComboBox);
+            this.globalHotkeyGroupBox.Controls.Add(this.firstModifierKeyComboBox);
+            this.globalHotkeyGroupBox.Controls.Add(this.hotkeyComboBox);
+            this.globalHotkeyGroupBox.Location = new System.Drawing.Point(180, 3);
+            this.globalHotkeyGroupBox.Name = "globalHotkeyGroupBox";
+            this.globalHotkeyGroupBox.Size = new System.Drawing.Size(168, 104);
+            this.globalHotkeyGroupBox.TabIndex = 1;
+            this.globalHotkeyGroupBox.TabStop = false;
+            this.globalHotkeyGroupBox.Text = "Update Global Hotkey";
+            // 
+            // secondModifierKeyComboBox
+            // 
+            this.secondModifierKeyComboBox.FormattingEnabled = true;
+            this.secondModifierKeyComboBox.Location = new System.Drawing.Point(6, 73);
+            this.secondModifierKeyComboBox.Name = "secondModifierKeyComboBox";
+            this.secondModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
+            this.secondModifierKeyComboBox.TabIndex = 18;
+            // 
+            // firstModifierKeyComboBox
+            // 
+            this.firstModifierKeyComboBox.FormattingEnabled = true;
+            this.firstModifierKeyComboBox.Location = new System.Drawing.Point(6, 46);
+            this.firstModifierKeyComboBox.Name = "firstModifierKeyComboBox";
+            this.firstModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
+            this.firstModifierKeyComboBox.TabIndex = 17;
+            // 
+            // hotkeyComboBox
+            // 
+            this.hotkeyComboBox.FormattingEnabled = true;
+            this.hotkeyComboBox.Location = new System.Drawing.Point(6, 19);
+            this.hotkeyComboBox.Name = "hotkeyComboBox";
+            this.hotkeyComboBox.Size = new System.Drawing.Size(152, 21);
+            this.hotkeyComboBox.TabIndex = 16;
             // 
             // registryKeyGroupBox
             // 
@@ -437,41 +475,15 @@ namespace gr0ssSysTools
             this.rootCombo.TabIndex = 13;
             this.rootCombo.SelectedIndexChanged += new System.EventHandler(this.RootCombo_SelectedIndexChanged);
             // 
-            // globalHotkeyGroupBox
+            // showBalloonTipsCheckBox
             // 
-            this.globalHotkeyGroupBox.Controls.Add(this.secondModifierKeyComboBox);
-            this.globalHotkeyGroupBox.Controls.Add(this.firstModifierKeyComboBox);
-            this.globalHotkeyGroupBox.Controls.Add(this.hotkeyComboBox);
-            this.globalHotkeyGroupBox.Location = new System.Drawing.Point(180, 3);
-            this.globalHotkeyGroupBox.Name = "globalHotkeyGroupBox";
-            this.globalHotkeyGroupBox.Size = new System.Drawing.Size(168, 104);
-            this.globalHotkeyGroupBox.TabIndex = 1;
-            this.globalHotkeyGroupBox.TabStop = false;
-            this.globalHotkeyGroupBox.Text = "Global Hotkey";
-            // 
-            // secondModifierKeyComboBox
-            // 
-            this.secondModifierKeyComboBox.FormattingEnabled = true;
-            this.secondModifierKeyComboBox.Location = new System.Drawing.Point(6, 73);
-            this.secondModifierKeyComboBox.Name = "secondModifierKeyComboBox";
-            this.secondModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.secondModifierKeyComboBox.TabIndex = 18;
-            // 
-            // firstModifierKeyComboBox
-            // 
-            this.firstModifierKeyComboBox.FormattingEnabled = true;
-            this.firstModifierKeyComboBox.Location = new System.Drawing.Point(6, 46);
-            this.firstModifierKeyComboBox.Name = "firstModifierKeyComboBox";
-            this.firstModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.firstModifierKeyComboBox.TabIndex = 17;
-            // 
-            // hotkeyComboBox
-            // 
-            this.hotkeyComboBox.FormattingEnabled = true;
-            this.hotkeyComboBox.Location = new System.Drawing.Point(6, 19);
-            this.hotkeyComboBox.Name = "hotkeyComboBox";
-            this.hotkeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.hotkeyComboBox.TabIndex = 16;
+            this.showBalloonTipsCheckBox.AutoSize = true;
+            this.showBalloonTipsCheckBox.Location = new System.Drawing.Point(180, 113);
+            this.showBalloonTipsCheckBox.Name = "showBalloonTipsCheckBox";
+            this.showBalloonTipsCheckBox.Size = new System.Drawing.Size(114, 17);
+            this.showBalloonTipsCheckBox.TabIndex = 2;
+            this.showBalloonTipsCheckBox.Text = "Show Balloon Tips";
+            this.showBalloonTipsCheckBox.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -493,9 +505,10 @@ namespace gr0ssSysTools
             this.tabEnvironments.ResumeLayout(false);
             this.tabEnvironments.PerformLayout();
             this.tabGeneral.ResumeLayout(false);
+            this.tabGeneral.PerformLayout();
+            this.globalHotkeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.PerformLayout();
-            this.globalHotkeyGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -543,5 +556,6 @@ namespace gr0ssSysTools
         private System.Windows.Forms.ComboBox secondModifierKeyComboBox;
         private System.Windows.Forms.ComboBox firstModifierKeyComboBox;
         private System.Windows.Forms.ComboBox hotkeyComboBox;
+        private System.Windows.Forms.CheckBox showBalloonTipsCheckBox;
     }
 }
