@@ -61,7 +61,8 @@ namespace gr0ssSysTools
                 SubkeyValue = "Data\\DB.xml",
                 HotKey = newUniqueHotkey,
                 IconLabel = iconLabel,
-                IconColor = "Blue"
+                IconTextColor = "White",
+                IconBackgroundColor = "Blue"
             };
         }
 

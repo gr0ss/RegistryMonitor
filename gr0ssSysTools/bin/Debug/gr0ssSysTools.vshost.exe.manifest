@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="gr0ssSysTools.exe" size="85416">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="gr0ssSysTools.exe" size="92072">
       <assemblyIdentity name="gr0ssSysTools" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>1/dSvB1tZp07ka4iswX4j9a7ePW+xRELfQsdmGqipys=</dsig:DigestValue>
+        <dsig:DigestValue>34gM9yy/i3dNvt+jkje5aZcGntfBVdoKWETRaRftb0I=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -85,7 +85,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>oWDAIyYJiTFKKVCpp6ftzwIEbL4KMbByEmrALp42dRQ=</dsig:DigestValue>
+        <dsig:DigestValue>L5nom4ClGmLPKx6wB7dCedKtt7SEaVjQDPgeVUV6c/E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

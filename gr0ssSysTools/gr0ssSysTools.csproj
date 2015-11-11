@@ -97,9 +97,10 @@
     <Compile Include="AddRegistryKey.Designer.cs">
       <DependentUpon>AddRegistryKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExtensionMethods\ColorExtensions.cs" />
+    <Compile Include="ExtensionMethods\NumericExtensions.cs" />
     <Compile Include="Files\LoadedGlobalHotkey.cs" />
     <Compile Include="FileUtils\GlobalHotkeyUtils.cs" />
-    <Compile Include="Parsers\ColorParser.cs" />
     <Compile Include="Parsers\FontParser.cs" />
     <Compile Include="Parsers\GlobalHotkeyParser.cs" />
     <Compile Include="Settings.cs">
@@ -113,7 +114,6 @@
     <Compile Include="Files\MonitoredRegistryKey.cs" />
     <Compile Include="Files\LoadedTools.cs" />
     <Compile Include="FileUtils\Constants.cs" />
-    <Compile Include="FileUtils\FileStructs.cs" />
     <Compile Include="FileUtils\GeneralUtils.cs" />
     <Compile Include="FileUtils\MiscUtils.cs" />
     <Compile Include="FileUtils\RegistryKeyUtils.cs" />
@@ -130,6 +130,7 @@
     <Compile Include="Utils\ColorComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="Utils\Converter.cs" />
     <Compile Include="FileUtils\EnvironmentUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />

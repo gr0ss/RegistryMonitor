@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace gr0ssSysTools.FileUtils
+﻿namespace gr0ssSysTools.FileUtils
 {
     public class Constants
     {
@@ -15,7 +9,8 @@ namespace gr0ssSysTools.FileUtils
             public const string SUBKEY_VALUE = "SubkeyValue";
             public const string HOTKEY = "HotKey";
             public const string ICON_LABEL = "IconLabel";
-            public const string ICON_COLOR = "IconColor";
+            public const string ICON_TEXT_COLOR = "IconTextColor";
+            public const string ICON_BACKGROUND_COLOR = "IconBackgroundColor";
         }
 
         public static class Tools

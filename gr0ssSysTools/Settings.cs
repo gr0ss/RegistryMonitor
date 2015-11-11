@@ -1,8 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Windows.Forms;
+using FlimFlan.IconEncoder;
+using gr0ssSysTools.ExtensionMethods;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Parsers;
 using gr0ssSysTools.Properties;
@@ -49,7 +52,7 @@ namespace gr0ssSysTools
                 RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
                 GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
                 showBalloonTipsCheckBox.Checked = _loadedSettings.General.ShowBalloonTips;
-                GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconSizeComboBox, iconColorComboBox);
+                GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconColorComboBox, iconTextColorComboBox);
             }
             else
             {
@@ -58,6 +61,30 @@ namespace gr0ssSysTools
                 SetupButtonEnabled(true);
                 RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
             }
+        }
+
+        private void UpdateSample(object sender, EventArgs e)
+        {
+            // Make sure all properties are filled in
+            if (iconFontComboBox.SelectedIndex == -1 ||
+                iconColorComboBox.SelectedIndex == -1 ||
+                iconTextColorComboBox.SelectedIndex == -1 ||
+                string.IsNullOrEmpty(iconSizeUpDown.Text) ||
+                string.IsNullOrEmpty(sampleText.Text)) return;
+
+            var size = iconSizeUpDown.Text.ToFloat();
+            if (size <= float.Epsilon) return;
+
+            Font font = new Font(iconFontComboBox.SelectedItem.ToString(), size);
+            Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
+			using (Graphics g = Graphics.FromImage(bmp))
+			{
+                Rectangle rectangle = new Rectangle(0, 0, 16, 16);
+			    g.FillEllipse(iconColorComboBox.SelectedItem.ToString().ToSolidBrush(), rectangle);
+                g.DrawString(sampleText.Text, font, iconTextColorComboBox.SelectedItem.ToString().ToSolidBrush(), 0, 2);
+			}
+
+            samplePicture.Image = Converter.BitmapToIcon(bmp).ToBitmap();
         }
 
 #region Setup and Populate
@@ -122,15 +149,6 @@ namespace gr0ssSysTools
                 hotkeyToolsCombo.Items.Clear();
                 foreach (var c in toolsNameTextbox.Text.Where(c => c.ToString() != " "))
                     hotkeyToolsCombo.Items.Add(c);
-            }
-        }
-
-        private void PopulateIconColorCombo()
-        {
-            iconColorCombo.Items.Clear();
-            foreach (var color in ColorParser.GetAllColors())
-            {
-                iconColorCombo.Items.Add(new ColorDropDownItem(color, ColorParser.ConvertStringToSolidBrush(color)));
             }
         }
 
@@ -226,7 +244,7 @@ namespace gr0ssSysTools
             hotkeyCombo.Items.Clear();
             hotkeyCombo.Text = "";
             iconDisplayTextbox.Text = "";
-            iconColorCombo.SelectedIndex = -1;
+            iconColorBackgroundCombo.SelectedIndex = -1;
             guidLabel.Text = "";
             _loadingValues = false;
         }
@@ -251,6 +269,9 @@ namespace gr0ssSysTools
                 SaveNewRegistryKey();
                 SaveNewGlobalHotkey();
                 _loadedSettings.General.ShowBalloonTips = showBalloonTipsCheckBox.Checked;
+                _loadedSettings.General.IconFont = iconFontComboBox.SelectedItem.ToString();
+                _loadedSettings.General.IconFontSize = iconSizeUpDown.Text.ToFloat();
+                _loadedSettings.General = _loadedSettings.General;
             }
             else
             {
@@ -267,34 +288,34 @@ namespace gr0ssSysTools
 
         private void SaveNewGlobalHotkey()
         {
-            if (firstModifierKeyComboBox.SelectedText == System.Windows.Input.ModifierKeys.None.ToString())
+            if (firstModifierKeyComboBox.Text == System.Windows.Input.ModifierKeys.None.ToString())
             {
                 MessageBox.Show("You must first select a valid modifier key.", "Error", MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             } 
-            else if (CurrentHotkeyEqualsSavedHotkey()) // If Global Hotkey is the same as LoadedGlobalHotkey then do nothing.
+            else if (CurrentHotkeyEqualsSavedHotkey())
             {
                 return;
             }
             else
             {
                 _loadedSettings.General.LoadedGlobalHotkey.Hotkey =
-                    GlobalHotkeyParser.ConvertStringToKey(hotkeyComboBox.SelectedText);
+                    GlobalHotkeyParser.ConvertStringToKey(hotkeyComboBox.Text);
                 _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(firstModifierKeyComboBox.SelectedText);
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(firstModifierKeyComboBox.Text);
                 _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(secondModifierKeyComboBox.SelectedText);
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(secondModifierKeyComboBox.Text);
             }
         }
 
         private bool CurrentHotkeyEqualsSavedHotkey()
         {
             return _loadedSettings.General.LoadedGlobalHotkey.Hotkey.ToString() ==
-                    hotkeyComboBox.SelectedText &&
+                    hotkeyComboBox.Text &&
                    _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey.ToString() ==
-                    firstModifierKeyComboBox.SelectedText &&
+                    firstModifierKeyComboBox.Text &&
                    _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey.ToString() ==
-                    secondModifierKeyComboBox.SelectedText;
+                    secondModifierKeyComboBox.Text;
         }
 
         private void SaveCurrentEnvironment()
@@ -305,12 +326,14 @@ namespace gr0ssSysTools
                 currentEnvironment.Name = NameTextbox.Text;
             if (currentEnvironment.SubkeyValue != registryValueTextbox.Text)
                 currentEnvironment.SubkeyValue = registryValueTextbox.Text;
-            if (currentEnvironment.HotKey != hotkeyCombo.SelectedItem.ToString())
-                currentEnvironment.HotKey = hotkeyCombo.SelectedItem.ToString();
+            if (currentEnvironment.HotKey != hotkeyCombo.Text)
+                currentEnvironment.HotKey = hotkeyCombo.Text;
             if (currentEnvironment.IconLabel != iconDisplayTextbox.Text)
                 currentEnvironment.IconLabel = iconDisplayTextbox.Text;
-            if (currentEnvironment.IconColor != iconColorCombo.SelectedItem.ToString())
-                currentEnvironment.IconColor = iconColorCombo.SelectedItem.ToString();
+            if (currentEnvironment.IconTextColor != iconTextColorCombo.SelectedItem.ToString())
+                currentEnvironment.IconTextColor = iconTextColorCombo.SelectedItem.ToString();
+            if (currentEnvironment.IconBackgroundColor != iconColorBackgroundCombo.SelectedItem.ToString())
+                currentEnvironment.IconBackgroundColor = iconColorBackgroundCombo.SelectedItem.ToString();
 
             RepopulateSelectedTabsListbox(true);
             SetCurrentOrderOfEnvironmentsAndSave();
@@ -324,8 +347,8 @@ namespace gr0ssSysTools
                 currentTool.Name = toolsNameTextbox.Text;
             if (currentTool.FileLocation != DirectoryPathTextbox.Text)
                 currentTool.FileLocation = DirectoryPathTextbox.Text;
-            if (currentTool.HotKey != hotkeyToolsCombo.SelectedItem.ToString())
-                currentTool.HotKey = hotkeyToolsCombo.SelectedItem.ToString();
+            if (currentTool.HotKey != hotkeyToolsCombo.Text)
+                currentTool.HotKey = hotkeyToolsCombo.Text;
 
             RepopulateSelectedTabsListbox(false);
             SetCurrentOrderOfToolsAndSave();
@@ -381,11 +404,8 @@ namespace gr0ssSysTools
                 hotkeyCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
 
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
-
-                PopulateIconColorCombo();
-
-                var colorIndex = Array.FindIndex(ColorParser.GetAllColors(), row => row.Contains(itemToLoad.IconColor));
-                iconColorCombo.SelectedItem = iconColorCombo.Items[colorIndex];
+                ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, iconTextColorCombo);
+                ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, iconColorBackgroundCombo);
             }
             _loadingValues = false;
         }

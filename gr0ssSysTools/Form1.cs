@@ -6,9 +6,11 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using FlimFlan.IconEncoder;
+using gr0ssSysTools.ExtensionMethods;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Parsers;
+using gr0ssSysTools.Utils;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryUtils;
@@ -231,17 +233,13 @@ namespace gr0ssSysTools
 
         private void SetIcon()
         {
-            var iconFont = _loadedSettings.General.IconFont;
-            var fontSize = _loadedSettings.General.IconFontSize;
-            var iconColor = ColorParser.ConvertStringToSolidBrush(_currentLoadedEnvironment.IconColor);
-
-            Font font = new Font(iconFont, fontSize);
+            Font font = new Font(_loadedSettings.General.IconFont, _loadedSettings.General.IconFontSize);
             Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
 			using (Graphics g = Graphics.FromImage(bmp))
 			{
                 Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			    g.FillEllipse(iconColor, rectangle);
-                g.DrawString(_currentLoadedEnvironment.IconLabel, font, Brushes.White, 0, 0);
+			    g.FillEllipse(_currentLoadedEnvironment.IconBackgroundColor.ToSolidBrush(), rectangle);
+                g.DrawString(_currentLoadedEnvironment.IconLabel, font, _currentLoadedEnvironment.IconTextColor.ToSolidBrush(), 0, 1);
 			}
 
             Icon.Icon = Converter.BitmapToIcon(bmp);

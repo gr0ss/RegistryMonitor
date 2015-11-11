@@ -9,6 +9,7 @@ namespace gr0ssSysTools.Files
         public string SubkeyValue { get; set; }
         public string HotKey { get; set; }
         public string IconLabel { get; set; }
-        public string IconColor { get; set; }
+        public string IconTextColor { get; set; }
+        public string IconBackgroundColor { get; set; }
     }
 }

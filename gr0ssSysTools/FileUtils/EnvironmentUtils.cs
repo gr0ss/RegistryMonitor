@@ -80,8 +80,11 @@ namespace gr0ssSysTools.FileUtils
                 case Constants.Environments.ICON_LABEL:
                     loadedEnvironment.IconLabel = propertyValue;
                     break;
-                case Constants.Environments.ICON_COLOR:
-                    loadedEnvironment.IconColor = propertyValue;
+                case Constants.Environments.ICON_TEXT_COLOR:
+                    loadedEnvironment.IconTextColor = propertyValue;
+                    break;
+                case Constants.Environments.ICON_BACKGROUND_COLOR:
+                    loadedEnvironment.IconBackgroundColor = propertyValue;
                     break;
             }
             return loadedEnvironment;
@@ -91,11 +94,11 @@ namespace gr0ssSysTools.FileUtils
         {
             return new List<LoadedEnvironments>
             {
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Development", SubkeyValue = "Data\\devDB.xml", HotKey = "D", IconLabel = "dev", IconColor = "Blue"},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb1", SubkeyValue = "Data\\sb1DB.xml", HotKey = "1", IconLabel = "sb1", IconColor = "Blue"},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb2", SubkeyValue = "Data\\sb2DB.xml", HotKey = "2", IconLabel = "sb2", IconColor = "Blue"},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconColor = "Blue"},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconColor = "Red"}
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Development", SubkeyValue = "Data\\devDB.xml", HotKey = "D", IconLabel = "dev", IconTextColor = "White", IconBackgroundColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb1", SubkeyValue = "Data\\sb1DB.xml", HotKey = "1", IconLabel = "sb1", IconTextColor = "White", IconBackgroundColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb2", SubkeyValue = "Data\\sb2DB.xml", HotKey = "2", IconLabel = "sb2", IconTextColor = "White", IconBackgroundColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconTextColor = "White", IconBackgroundColor = "Blue"},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconTextColor = "White", IconBackgroundColor = "Red"}
             };
         }
     }
