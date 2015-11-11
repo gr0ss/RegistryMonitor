@@ -366,6 +366,7 @@ namespace gr0ssSysTools
             // iconDisplayTextbox
             // 
             this.iconDisplayTextbox.Location = new System.Drawing.Point(167, 139);
+            this.iconDisplayTextbox.MaxLength = 3;
             this.iconDisplayTextbox.Name = "iconDisplayTextbox";
             this.iconDisplayTextbox.Size = new System.Drawing.Size(341, 20);
             this.iconDisplayTextbox.TabIndex = 11;
