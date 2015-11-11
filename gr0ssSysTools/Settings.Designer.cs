@@ -301,9 +301,9 @@ namespace gr0ssSysTools
             // 
             // tabControl
             // 
+            this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.Controls.Add(this.tabEnvironments);
             this.tabControl.Controls.Add(this.tabTools);
-            this.tabControl.Controls.Add(this.tabGeneral);
             this.tabControl.ItemSize = new System.Drawing.Size(76, 18);
             this.tabControl.Location = new System.Drawing.Point(2, 2);
             this.tabControl.Name = "tabControl";

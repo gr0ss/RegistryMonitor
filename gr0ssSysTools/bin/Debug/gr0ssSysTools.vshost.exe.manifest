@@ -54,14 +54,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="gr0ssSysTools.exe" size="198056">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="gr0ssSysTools.exe" size="198568">
       <assemblyIdentity name="gr0ssSysTools" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>FM7Exd5L4K1fFMCzyLi6BCT3LxGu/fBVa3SlG7ZHJjI=</dsig:DigestValue>
+        <dsig:DigestValue>ISJ8qo75yJfum3un8di7Gxhw8+2u/j8oi+NGOPOcC6k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -36,31 +36,67 @@ namespace gr0ssSysTools
         private void Settings_Load(object sender, EventArgs e)
         {
             SetupButtonImages();
-                        
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                environmentsList.Items.Clear();
-                RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
-            }
+
+            tabControl.SelectedTab = tabGeneral;
+            LoadGeneralTab();
+
+            AddToolTipsToForm();
+        }
+
+        private void AddToolTipsToForm()
+        {
+            var balloonToolTip = new ToolTip();
+            SetToolTipValues(balloonToolTip);
+            balloonToolTip.SetToolTip(this.showBalloonTipsCheckBox, "Toggle balloon tips when registry key changes.");
+
+            var fileToolTip = new ToolTip();
+            SetToolTipValues(fileToolTip);
+            fileToolTip.SetToolTip(this.toolsDirectoryButton, "Search for tool.");
+
+            var globalHotkeyToolTip = new ToolTip();
+            SetToolTipValues(globalHotkeyToolTip);
+            globalHotkeyToolTip.SetToolTip(this.globalHotkeyGroupBox, "Update global hotkey to access the context menu.");
+        }
+
+        private void SetToolTipValues(ToolTip toolTip)
+        {
+            toolTip.AutoPopDelay = 6000;
+            toolTip.InitialDelay = 500;
+            toolTip.ReshowDelay = 500;
+            toolTip.ShowAlways = true;
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl.SelectedTab == tabGeneral)
             {
-                SetupButtonEnabled(false);
-                RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
-                GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
-                showBalloonTipsCheckBox.Checked = _loadedSettings.General.ShowBalloonTips;
-                GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconColorComboBox, iconTextColorComboBox);
+                LoadGeneralTab();
             }
             else
             {
-                ClearEnvironmentFields();
-                ClearToolFields();
-                SetupButtonEnabled(true);
-                RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
+                LoadEnvironmentsOrToolsTab();
             }
+        }
+
+        private void LoadGeneralTab()
+        {
+            if (tabControl.SelectedTab != tabGeneral) return;
+
+            SetupButtonEnabled(false);
+            RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
+            GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
+            showBalloonTipsCheckBox.Checked = _loadedSettings.General.ShowBalloonTips;
+            GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconColorComboBox, iconTextColorComboBox);
+        }
+
+        private void LoadEnvironmentsOrToolsTab()
+        {
+            if (tabControl.SelectedTab == tabGeneral) return;
+
+            ClearEnvironmentFields();
+            ClearToolFields();
+            SetupButtonEnabled(true);
+            RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
         }
 
         private void UpdateSample(object sender, EventArgs e)

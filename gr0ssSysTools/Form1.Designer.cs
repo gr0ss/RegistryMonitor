@@ -44,7 +44,7 @@
             // 
             this.Icon.ContextMenuStrip = this.menuStrip;
             this.Icon.Icon = ((System.Drawing.Icon)(resources.GetObject("Icon.Icon")));
-            this.Icon.Text = "gr0ss Sys LoadedTools";
+            this.Icon.Text = "gr0ss Sys Tools";
             this.Icon.Visible = true;
             // 
             // menuStrip
