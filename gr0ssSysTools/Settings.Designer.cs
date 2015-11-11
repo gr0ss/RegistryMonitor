@@ -36,6 +36,7 @@ namespace gr0ssSysTools
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.tabTools = new System.Windows.Forms.TabPage();
+            this.toolsDirectoryButton = new System.Windows.Forms.Button();
             this.guidToolsLabel = new System.Windows.Forms.Label();
             this.hotkeyToolsCombo = new System.Windows.Forms.ComboBox();
             this.hotkeyToolsLabel = new System.Windows.Forms.Label();
@@ -150,6 +151,7 @@ namespace gr0ssSysTools
             // 
             // tabTools
             // 
+            this.tabTools.Controls.Add(this.toolsDirectoryButton);
             this.tabTools.Controls.Add(this.guidToolsLabel);
             this.tabTools.Controls.Add(this.hotkeyToolsCombo);
             this.tabTools.Controls.Add(this.hotkeyToolsLabel);
@@ -166,6 +168,16 @@ namespace gr0ssSysTools
             this.tabTools.TabIndex = 1;
             this.tabTools.Text = "Tools";
             this.tabTools.UseVisualStyleBackColor = true;
+            // 
+            // toolsDirectoryButton
+            // 
+            this.toolsDirectoryButton.Image = global::gr0ssSysTools.Properties.Resources.folder_add16;
+            this.toolsDirectoryButton.Location = new System.Drawing.Point(485, 60);
+            this.toolsDirectoryButton.Name = "toolsDirectoryButton";
+            this.toolsDirectoryButton.Size = new System.Drawing.Size(23, 20);
+            this.toolsDirectoryButton.TabIndex = 22;
+            this.toolsDirectoryButton.UseVisualStyleBackColor = true;
+            this.toolsDirectoryButton.Click += new System.EventHandler(this.toolsDirectoryButton_Click);
             // 
             // guidToolsLabel
             // 
@@ -216,7 +228,7 @@ namespace gr0ssSysTools
             // 
             this.DirectoryPathTextbox.Location = new System.Drawing.Point(167, 60);
             this.DirectoryPathTextbox.Name = "DirectoryPathTextbox";
-            this.DirectoryPathTextbox.Size = new System.Drawing.Size(341, 20);
+            this.DirectoryPathTextbox.Size = new System.Drawing.Size(315, 20);
             this.DirectoryPathTextbox.TabIndex = 10;
             // 
             // toolsNameTextbox
@@ -437,7 +449,7 @@ namespace gr0ssSysTools
             this.iconPropertiesGroupBox.Size = new System.Drawing.Size(164, 230);
             this.iconPropertiesGroupBox.TabIndex = 19;
             this.iconPropertiesGroupBox.TabStop = false;
-            this.iconPropertiesGroupBox.Text = "Icon Properties";
+            this.iconPropertiesGroupBox.Text = "Update Icon Properties";
             // 
             // iconSizeUpDown
             // 
@@ -833,5 +845,6 @@ namespace gr0ssSysTools
         private System.Windows.Forms.Label globalHotkeyLabel;
         private ColorComboBox iconTextColorCombo;
         private System.Windows.Forms.Label iconTextColorLabel;
+        private System.Windows.Forms.Button toolsDirectoryButton;
     }
 }

@@ -560,5 +560,16 @@ namespace gr0ssSysTools
         }
 
         #endregion Registry Key Methods
+
+        private void toolsDirectoryButton_Click(object sender, EventArgs e)
+        {
+            if (toolsList.SelectedIndex == -1) return;
+
+            var openFile = new OpenFileDialog();
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                DirectoryPathTextbox.Text = openFile.FileName;
+            }
+        }
     }
 }

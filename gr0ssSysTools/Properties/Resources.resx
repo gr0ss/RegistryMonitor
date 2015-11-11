@@ -127,6 +127,18 @@
   <data name="Exit_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Exit_16.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="folder_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-add.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_add16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-add16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_add32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-add32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_search16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder-search16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Move_Arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Move Next (Arrow)16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
