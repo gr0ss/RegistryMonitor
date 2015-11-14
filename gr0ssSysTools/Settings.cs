@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using FlimFlan.IconEncoder;
@@ -671,6 +672,19 @@ namespace gr0ssSysTools
             {
                 MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void UpdateLoadedSampleIcon(object sender, EventArgs e)
+        {
+            if (!File.Exists(txtEnvIconFileLocation.Text) ||
+                !txtEnvIconFileLocation.Text.Contains(".ico"))
+            {
+                pictureEnvSampleIcon.Image = null;
+                return;
+            }
+
+            Icon iconFromFile = Icon.ExtractAssociatedIcon(txtEnvIconFileLocation.Text);
+            if (iconFromFile != null) pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
         }
     }
 }

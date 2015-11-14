@@ -98,6 +98,8 @@ namespace gr0ssSysTools
             this.btnEnvIconFileLocation = new System.Windows.Forms.Button();
             this.txtEnvIconFileLocation = new System.Windows.Forms.TextBox();
             this.lblEnvIconFileLocation = new System.Windows.Forms.Label();
+            this.pictureEnvSampleIcon = new System.Windows.Forms.PictureBox();
+            this.lblEnvSampleIcon = new System.Windows.Forms.Label();
             this.iconTextColorComboBox = new gr0ssSysTools.Utils.ColorComboBox();
             this.iconColorComboBox = new gr0ssSysTools.Utils.ColorComboBox();
             this.iconTextColorCombo = new gr0ssSysTools.Utils.ColorComboBox();
@@ -115,6 +117,7 @@ namespace gr0ssSysTools
             this.pnlEnvIconType.SuspendLayout();
             this.pnlEnvDynamicIcon.SuspendLayout();
             this.pnlEnvIconFileLocation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEnvSampleIcon)).BeginInit();
             this.SuspendLayout();
             // 
             // saveButton
@@ -722,7 +725,7 @@ namespace gr0ssSysTools
             this.pnlEnvIcon.Controls.Add(this.pnlEnvIconType);
             this.pnlEnvIcon.Location = new System.Drawing.Point(163, 121);
             this.pnlEnvIcon.Name = "pnlEnvIcon";
-            this.pnlEnvIcon.Size = new System.Drawing.Size(350, 160);
+            this.pnlEnvIcon.Size = new System.Drawing.Size(350, 212);
             this.pnlEnvIcon.TabIndex = 21;
             // 
             // pnlEnvIconType
@@ -775,13 +778,15 @@ namespace gr0ssSysTools
             // 
             // pnlEnvIconFileLocation
             // 
+            this.pnlEnvIconFileLocation.Controls.Add(this.pictureEnvSampleIcon);
+            this.pnlEnvIconFileLocation.Controls.Add(this.lblEnvSampleIcon);
             this.pnlEnvIconFileLocation.Controls.Add(this.btnEnvIconFileLocation);
             this.pnlEnvIconFileLocation.Controls.Add(this.txtEnvIconFileLocation);
             this.pnlEnvIconFileLocation.Controls.Add(this.lblEnvIconFileLocation);
             this.pnlEnvIconFileLocation.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEnvIconFileLocation.Location = new System.Drawing.Point(0, 106);
             this.pnlEnvIconFileLocation.Name = "pnlEnvIconFileLocation";
-            this.pnlEnvIconFileLocation.Size = new System.Drawing.Size(350, 43);
+            this.pnlEnvIconFileLocation.Size = new System.Drawing.Size(350, 83);
             this.pnlEnvIconFileLocation.TabIndex = 2;
             // 
             // btnEnvIconFileLocation
@@ -800,6 +805,7 @@ namespace gr0ssSysTools
             this.txtEnvIconFileLocation.Name = "txtEnvIconFileLocation";
             this.txtEnvIconFileLocation.Size = new System.Drawing.Size(315, 20);
             this.txtEnvIconFileLocation.TabIndex = 24;
+            this.txtEnvIconFileLocation.TextChanged += new System.EventHandler(this.UpdateLoadedSampleIcon);
             // 
             // lblEnvIconFileLocation
             // 
@@ -809,6 +815,23 @@ namespace gr0ssSysTools
             this.lblEnvIconFileLocation.Size = new System.Drawing.Size(97, 13);
             this.lblEnvIconFileLocation.TabIndex = 23;
             this.lblEnvIconFileLocation.Text = "Icon File Location: ";
+            // 
+            // pictureEnvSampleIcon
+            // 
+            this.pictureEnvSampleIcon.Location = new System.Drawing.Point(78, 45);
+            this.pictureEnvSampleIcon.Name = "pictureEnvSampleIcon";
+            this.pictureEnvSampleIcon.Size = new System.Drawing.Size(32, 32);
+            this.pictureEnvSampleIcon.TabIndex = 27;
+            this.pictureEnvSampleIcon.TabStop = false;
+            // 
+            // lblEnvSampleIcon
+            // 
+            this.lblEnvSampleIcon.AutoSize = true;
+            this.lblEnvSampleIcon.Location = new System.Drawing.Point(3, 53);
+            this.lblEnvSampleIcon.Name = "lblEnvSampleIcon";
+            this.lblEnvSampleIcon.Size = new System.Drawing.Size(69, 13);
+            this.lblEnvSampleIcon.TabIndex = 26;
+            this.lblEnvSampleIcon.Text = "Sample Icon:";
             // 
             // iconTextColorComboBox
             // 
@@ -888,6 +911,7 @@ namespace gr0ssSysTools
             this.pnlEnvDynamicIcon.PerformLayout();
             this.pnlEnvIconFileLocation.ResumeLayout(false);
             this.pnlEnvIconFileLocation.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEnvSampleIcon)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -966,5 +990,7 @@ namespace gr0ssSysTools
         private System.Windows.Forms.Button btnEnvIconFileLocation;
         private System.Windows.Forms.TextBox txtEnvIconFileLocation;
         private System.Windows.Forms.Label lblEnvIconFileLocation;
+        private System.Windows.Forms.PictureBox pictureEnvSampleIcon;
+        private System.Windows.Forms.Label lblEnvSampleIcon;
     }
 }
