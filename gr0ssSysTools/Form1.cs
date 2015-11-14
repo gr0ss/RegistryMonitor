@@ -200,7 +200,7 @@ namespace gr0ssSysTools
 
         private void menuEdit_Click(object sender, EventArgs e)
         {
-            Settings settings = new Settings(_loadedSettings, true);
+            Settings settings = new Settings(_loadedSettings);
             settings.Closed += (o, args) =>
             {
                 SetNewRegistrykeyIfChanged();

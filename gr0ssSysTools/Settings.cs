@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using FlimFlan.IconEncoder;
@@ -24,20 +25,19 @@ namespace gr0ssSysTools
             InitializeComponent();
         }
 
-        public Settings(LoadedSettings loadedSettings, bool env)
+        public Settings(LoadedSettings loadedSettings)
         {
             InitializeComponent();
             
             _loadedSettings = loadedSettings;
 
-            tabControl.SelectedTab = env ? tabEnvironments : tabTools;
+            tabControl.SelectedTab = tabGeneral;
         }
 
         private void Settings_Load(object sender, EventArgs e)
         {
             SetupButtonImages();
-
-            tabControl.SelectedTab = tabGeneral;
+            
             LoadGeneralTab();
 
             AddToolTipsToForm();
@@ -87,6 +87,7 @@ namespace gr0ssSysTools
             GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
             showBalloonTipsCheckBox.Checked = _loadedSettings.General.ShowBalloonTips;
             GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconColorComboBox, iconTextColorComboBox);
+            iconSizeUpDown.Text = _loadedSettings.General.IconFontSize.ToString(CultureInfo.InvariantCulture);
         }
 
         private void LoadEnvironmentsOrToolsTab()
