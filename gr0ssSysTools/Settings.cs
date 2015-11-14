@@ -98,6 +98,8 @@ namespace gr0ssSysTools
             ClearToolFields();
             SetupButtonEnabled(true);
             RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
+            if (tabControl.SelectedTab == tabEnvironments)
+                radioEnvDynamicIcon.Checked = true;
         }
 
         private void UpdateSample(object sender, EventArgs e)
@@ -136,8 +138,6 @@ namespace gr0ssSysTools
                 {
                     environmentsList.Items.Add(key.Name);
                 }
-
-                radioEnvDynamicIcon.Checked = true;
             }
             else
             {
@@ -283,9 +283,12 @@ namespace gr0ssSysTools
             hotkeyCombo.Items.Clear();
             hotkeyCombo.Text = "";
             iconDisplayTextbox.Text = "";
+            iconTextColorCombo.SelectedIndex = -1;
             iconColorBackgroundCombo.SelectedIndex = -1;
             guidLabel.Text = "";
             _loadingValues = false;
+            radioEnvDynamicIcon.Checked = true;
+            txtEnvIconFileLocation.Text = "";
         }
 
         private void ClearToolFields()
@@ -373,9 +376,10 @@ namespace gr0ssSysTools
                 currentEnvironment.IconTextColor = iconTextColorCombo.SelectedItem.ToString();
             if (currentEnvironment.IconBackgroundColor != iconColorBackgroundCombo.SelectedItem.ToString())
                 currentEnvironment.IconBackgroundColor = iconColorBackgroundCombo.SelectedItem.ToString();
-            //if (currentEnvironment.LoadIcon != dynamicIconRadio.Checked)
-            //    currentEnvironment.LoadIcon = dynamicIconRadio.Checked;
-            //if (currentEnvironment.IconFileLocation != icond)
+            if (currentEnvironment.LoadIcon != radioEnvIconFromFile.Checked)
+                currentEnvironment.LoadIcon = radioEnvIconFromFile.Checked;
+            if (currentEnvironment.IconFileLocation != txtEnvIconFileLocation.Text)
+                currentEnvironment.IconFileLocation = txtEnvIconFileLocation.Text;
 
             RepopulateSelectedTabsListbox(true);
             SetCurrentOrderOfEnvironmentsAndSave();
@@ -448,6 +452,11 @@ namespace gr0ssSysTools
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
                 ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, iconTextColorCombo);
                 ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, iconColorBackgroundCombo);
+
+                radioEnvIconFromFile.Checked = itemToLoad.LoadIcon;
+                radioEnvDynamicIcon.Checked = !itemToLoad.LoadIcon;
+
+                txtEnvIconFileLocation.Text = itemToLoad.IconFileLocation;
             }
             _loadingValues = false;
         }
