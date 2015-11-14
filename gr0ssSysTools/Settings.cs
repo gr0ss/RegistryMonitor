@@ -138,6 +138,12 @@ namespace gr0ssSysTools
                 {
                     environmentsList.Items.Add(key.Name);
                 }
+
+                if (string.IsNullOrEmpty(guidLabel.Text)) return;
+
+                var currentEnvironment = _loadedSettings.Environments
+                                                        .First(environment => environment.ID == Guid.Parse(guidLabel.Text));
+                environmentsList.SelectedIndex = environmentsList.Items.IndexOf(currentEnvironment.Name);
             }
             else
             {
@@ -147,6 +153,11 @@ namespace gr0ssSysTools
                 {
                     toolsList.Items.Add(key.Name);
                 }
+
+                if (string.IsNullOrEmpty(guidToolsLabel.Text)) return;
+
+                var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+                toolsList.SelectedIndex = toolsList.Items.IndexOf(currentTool.Name);
             }
         }
         
@@ -617,9 +628,16 @@ namespace gr0ssSysTools
             if (toolsList.SelectedIndex == -1) return;
 
             var openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
+
+            if (openFile.ShowDialog() != DialogResult.OK) return;
+
+            if (openFile.CheckFileExists)
             {
                 DirectoryPathTextbox.Text = openFile.FileName;
+            }
+            else
+            {
+                MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -634,6 +652,24 @@ namespace gr0ssSysTools
             {
                 pnlEnvIconFileLocation.Visible = false;
                 pnlEnvDynamicIcon.Visible = true;
+            }
+        }
+
+        private void btnEnvIconFileLocation_Clicked(object sender, EventArgs e)
+        {
+            if (environmentsList.SelectedIndex == -1) return;
+
+            var openFile = new OpenFileDialog {Filter = "Icon Files|*.ico"};
+
+            if (openFile.ShowDialog() != DialogResult.OK) return;
+
+            if (openFile.CheckFileExists)
+            {
+                txtEnvIconFileLocation.Text = openFile.FileName;
+            }
+            else
+            {
+                MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

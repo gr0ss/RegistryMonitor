@@ -177,7 +177,7 @@ namespace gr0ssSysTools
             this.tabTools.Location = new System.Drawing.Point(4, 22);
             this.tabTools.Name = "tabTools";
             this.tabTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTools.Size = new System.Drawing.Size(1081, 239);
+            this.tabTools.Size = new System.Drawing.Size(517, 239);
             this.tabTools.TabIndex = 1;
             this.tabTools.Text = "Tools";
             this.tabTools.UseVisualStyleBackColor = true;
@@ -333,7 +333,7 @@ namespace gr0ssSysTools
             this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Size = new System.Drawing.Size(1081, 239);
+            this.tabGeneral.Size = new System.Drawing.Size(517, 239);
             this.tabGeneral.TabIndex = 2;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
@@ -792,6 +792,7 @@ namespace gr0ssSysTools
             this.btnEnvIconFileLocation.Size = new System.Drawing.Size(23, 20);
             this.btnEnvIconFileLocation.TabIndex = 25;
             this.btnEnvIconFileLocation.UseVisualStyleBackColor = true;
+            this.btnEnvIconFileLocation.Click += new System.EventHandler(this.btnEnvIconFileLocation_Clicked);
             // 
             // txtEnvIconFileLocation
             // 
