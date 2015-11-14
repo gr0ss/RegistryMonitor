@@ -136,6 +136,8 @@ namespace gr0ssSysTools
                 {
                     environmentsList.Items.Add(key.Name);
                 }
+
+                radioEnvDynamicIcon.Checked = true;
             }
             else
             {
@@ -371,6 +373,9 @@ namespace gr0ssSysTools
                 currentEnvironment.IconTextColor = iconTextColorCombo.SelectedItem.ToString();
             if (currentEnvironment.IconBackgroundColor != iconColorBackgroundCombo.SelectedItem.ToString())
                 currentEnvironment.IconBackgroundColor = iconColorBackgroundCombo.SelectedItem.ToString();
+            //if (currentEnvironment.LoadIcon != dynamicIconRadio.Checked)
+            //    currentEnvironment.LoadIcon = dynamicIconRadio.Checked;
+            //if (currentEnvironment.IconFileLocation != icond)
 
             RepopulateSelectedTabsListbox(true);
             SetCurrentOrderOfEnvironmentsAndSave();
@@ -606,6 +611,20 @@ namespace gr0ssSysTools
             if (openFile.ShowDialog() == DialogResult.OK)
             {
                 DirectoryPathTextbox.Text = openFile.FileName;
+            }
+        }
+
+        private void iconRadioButtons_CheckChanged(object sender, EventArgs e)
+        {
+            if (radioEnvIconFromFile.Checked)
+            {
+                pnlEnvIconFileLocation.Visible = true;
+                pnlEnvDynamicIcon.Visible = false;
+            }
+            else if (radioEnvDynamicIcon.Checked)
+            {
+                pnlEnvIconFileLocation.Visible = false;
+                pnlEnvDynamicIcon.Visible = true;
             }
         }
     }

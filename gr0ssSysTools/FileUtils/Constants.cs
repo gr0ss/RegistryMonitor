@@ -11,6 +11,8 @@
             public const string ICON_LABEL = "IconLabel";
             public const string ICON_TEXT_COLOR = "IconTextColor";
             public const string ICON_BACKGROUND_COLOR = "IconBackgroundColor";
+            public const string LOAD_ICON = "LoadIcon";
+            public const string ICON_FILE_LOCATION = "IconFileLocation";
         }
 
         public static class Tools
