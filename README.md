@@ -9,10 +9,6 @@ Features:
  - Ability to setup/alter hotkeys for those registry key values and global hotkey to open menu on systray.
  - Ability to add links to commonly used executables such as scripts you write, with hotkeys for easy access.
 
-## Disclaimer
-
-This is my first github project so I'm just getting my feet wet and seeing if it is a worth while thing for me to do.  
-
 ## Installation
 
 1. Clone To Desktop
