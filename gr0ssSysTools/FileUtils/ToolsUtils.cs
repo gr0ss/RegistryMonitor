@@ -65,16 +65,16 @@ namespace gr0ssSysTools.FileUtils
         {
             switch (propertyName)
             {
-                case Constants.Tools.ID:
+                case FileConstants.Tools.ID:
                     loadedTool.ID = Guid.Parse(propertyValue);
                     break;
-                case Constants.Tools.NAME:
+                case FileConstants.Tools.NAME:
                     loadedTool.Name = propertyValue;
                     break;
-                case Constants.Tools.FILE_LOCATION:
+                case FileConstants.Tools.FILE_LOCATION:
                     loadedTool.FileLocation = propertyValue;
                     break;
-                case Constants.Tools.HOTKEY:
+                case FileConstants.Tools.HOTKEY:
                     loadedTool.HotKey = propertyValue;
                     break;
             }

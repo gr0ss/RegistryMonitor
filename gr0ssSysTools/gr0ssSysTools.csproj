@@ -112,7 +112,7 @@
     <Compile Include="Files\General.cs" />
     <Compile Include="Files\MonitoredRegistryKey.cs" />
     <Compile Include="Files\LoadedTools.cs" />
-    <Compile Include="FileUtils\Constants.cs" />
+    <Compile Include="FileUtils\FileConstants.cs" />
     <Compile Include="FileUtils\GeneralUtils.cs" />
     <Compile Include="FileUtils\MiscUtils.cs" />
     <Compile Include="FileUtils\RegistryKeyUtils.cs" />

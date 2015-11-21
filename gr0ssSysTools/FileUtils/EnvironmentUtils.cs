@@ -65,31 +65,31 @@ namespace gr0ssSysTools.FileUtils
         {
             switch (propertyName)
             {
-                case Constants.Environments.ID:
+                case FileConstants.Environments.ID:
                     loadedEnvironment.ID = Guid.Parse(propertyValue);
                     break;
-                case Constants.Environments.NAME:
+                case FileConstants.Environments.NAME:
                     loadedEnvironment.Name = propertyValue;
                     break;
-                case Constants.Environments.SUBKEY_VALUE:
+                case FileConstants.Environments.SUBKEY_VALUE:
                     loadedEnvironment.SubkeyValue = propertyValue;
                     break;
-                case Constants.Environments.HOTKEY:
+                case FileConstants.Environments.HOTKEY:
                     loadedEnvironment.HotKey = propertyValue;
                     break;
-                case Constants.Environments.ICON_LABEL:
+                case FileConstants.Environments.ICON_LABEL:
                     loadedEnvironment.IconLabel = propertyValue;
                     break;
-                case Constants.Environments.ICON_TEXT_COLOR:
+                case FileConstants.Environments.ICON_TEXT_COLOR:
                     loadedEnvironment.IconTextColor = propertyValue;
                     break;
-                case Constants.Environments.ICON_BACKGROUND_COLOR:
+                case FileConstants.Environments.ICON_BACKGROUND_COLOR:
                     loadedEnvironment.IconBackgroundColor = propertyValue;
                     break;
-                case Constants.Environments.LOAD_ICON:
+                case FileConstants.Environments.LOAD_ICON:
                     loadedEnvironment.LoadIcon = bool.Parse(propertyValue);
                     break;
-                case Constants.Environments.ICON_FILE_LOCATION:
+                case FileConstants.Environments.ICON_FILE_LOCATION:
                     loadedEnvironment.IconFileLocation = propertyValue;
                     break;
             }
