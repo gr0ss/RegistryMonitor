@@ -610,18 +610,9 @@ namespace gr0ssSysTools
         {
             if (toolsList.SelectedIndex == -1) return;
 
-            var openFile = new OpenFileDialog();
-
-            if (openFile.ShowDialog() != DialogResult.OK) return;
-
-            if (openFile.CheckFileExists)
-            {
-                DirectoryPathTextbox.Text = openFile.FileName;
-            }
-            else
-            {
-                MessageBox.Show(Resources.Tool_Doesnt_Exist, Resources.Tool_Doesnt_Exist_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var file = OpenFileDialogUtils.FindFileInFolder(Constants.FileDialogFilters.ExecutableFilesOnly);
+            if (!string.IsNullOrEmpty(file))
+                DirectoryPathTextbox.Text = file;
         }
 
         private void iconRadioButtons_CheckChanged(object sender, EventArgs e)
@@ -642,18 +633,9 @@ namespace gr0ssSysTools
         {
             if (environmentsList.SelectedIndex == -1) return;
 
-            var openFile = new OpenFileDialog {Filter = Constants.FileDialogFilters.IconFilesOnly};
-
-            if (openFile.ShowDialog() != DialogResult.OK) return;
-
-            if (openFile.CheckFileExists)
-            {
-                txtEnvIconFileLocation.Text = openFile.FileName;
-            }
-            else
-            {
-                MessageBox.Show(Resources.Tool_Doesnt_Exist, Resources.Tool_Doesnt_Exist_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            var file = OpenFileDialogUtils.FindFileInFolder(Constants.FileDialogFilters.IconFilesOnly);
+            if (!string.IsNullOrEmpty(file))
+                txtEnvIconFileLocation.Text = file;
         }
 
         private void UpdateLoadedSampleIcon(object sender, EventArgs e)
