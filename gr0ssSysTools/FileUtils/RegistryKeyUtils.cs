@@ -57,10 +57,10 @@ namespace gr0ssSysTools.FileUtils
         {
             switch (propertyName)
             {
-                case Constants.RegistryKey.ROOT:
+                case FileConstants.RegistryKey.ROOT:
                     monitoredRegistryKey.Root = propertyValue;
                     break;
-                case Constants.RegistryKey.SUBKEY:
+                case FileConstants.RegistryKey.SUBKEY:
                     monitoredRegistryKey.Subkey = propertyValue;
                     break;
             }

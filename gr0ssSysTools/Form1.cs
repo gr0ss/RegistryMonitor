@@ -9,7 +9,6 @@ using FlimFlan.IconEncoder;
 using gr0ssSysTools.ExtensionMethods;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
-using gr0ssSysTools.Parsers;
 using gr0ssSysTools.Properties;
 using gr0ssSysTools.Utils;
 using GlobalHotKey;
@@ -69,10 +68,10 @@ namespace gr0ssSysTools
         {
             if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
             {
-                var newUserMessage = MessageBox.Show("As this is your first time running the program, we need you to select the registry key you would like to monitor.",
-                    "New User Registry Monitoring Setup",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Information);
+                var newUserMessage = MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKeyToMonitor,
+                                                     Constants.RegistryKeyMessages.SelectRegistryKeyToMonitorCaption,
+                                                     MessageBoxButtons.OKCancel,
+                                                     MessageBoxIcon.Information);
 
                 if (newUserMessage == DialogResult.OK)
                 {
@@ -81,7 +80,7 @@ namespace gr0ssSysTools
                     addRegistry.Show();
                 }
                 else
-                    Environment.Exit(0);                
+                    Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);                
             }
             else
                 LoadRegistryMonitor();
@@ -90,7 +89,7 @@ namespace gr0ssSysTools
         private void RegistryKeyAdded_EventHandler(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
-                Environment.Exit(0);
+                Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);
             else
                 LoadRegistryMonitor();
         }
@@ -168,7 +167,9 @@ namespace gr0ssSysTools
             }
             else
             {
-                MessageBox.Show($"Couldn't find anything to run at {currentTool.FileLocation}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Constants.ToolMessages.CouldntFindTool}{currentTool.FileLocation}", 
+                                   Constants.ToolMessages.CouldntFindToolCaption, 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -190,7 +191,7 @@ namespace gr0ssSysTools
         {
             StopAndDisposeProcessesAndEvents();
             
-            Environment.Exit(0);
+            Environment.Exit(Constants.EnvironmentExitCodes.Success);
         }
 
         private void StopAndDisposeProcessesAndEvents()
@@ -224,11 +225,9 @@ namespace gr0ssSysTools
         #region Registry
         private void SetRegistry()
         {
-            if (!string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
-            {
-                Registry.SetValue(_loadedSettings.MonitoredRegistryKey.Root, _loadedSettings.MonitoredRegistryKey.Subkey, _currentLoadedEnvironment.SubkeyValue);
-                SetIcon();
-            }
+            if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root)) return;
+            Registry.SetValue(_loadedSettings.MonitoredRegistryKey.Root, _loadedSettings.MonitoredRegistryKey.Subkey, _currentLoadedEnvironment.SubkeyValue);
+            SetIcon();
         }
         
         private void OnRegChanged(object sender, EventArgs e)
@@ -244,7 +243,7 @@ namespace gr0ssSysTools
         {
             if (_currentLoadedEnvironment.LoadIcon && 
                 File.Exists(_currentLoadedEnvironment.IconFileLocation) &&
-                _currentLoadedEnvironment.IconFileLocation.Contains(".ico", StringComparison.OrdinalIgnoreCase))
+                _currentLoadedEnvironment.IconFileLocation.Contains(Constants.FileExtensions.IconExtension, StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
@@ -253,7 +252,9 @@ namespace gr0ssSysTools
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Constants.IconMessages.ErrorLoadingIcon + ex, 
+                                    Constants.IconMessages.ErrorLoadingIconCaption, 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Icon.Icon = Resources.Exit_16;
                 }
             }
@@ -302,21 +303,23 @@ namespace gr0ssSysTools
         {
             if (!_loadedSettings.General.ShowBalloonTips) return;
 
-            Icon.BalloonTipTitle = "Environment Has Changed";
-            Icon.BalloonTipText = $"The environment has been changed to {_currentLoadedEnvironment.Name}";
-            Icon.ShowBalloonTip(3000);
+            Icon.BalloonTipTitle = Constants.BalloonTips.IconTitle;
+            Icon.BalloonTipText = $"{Constants.BalloonTips.IconCaption} {_currentLoadedEnvironment.Name}";
+            Icon.ShowBalloonTip(1000);
         }
 
         private void OnError(object sender, ErrorEventArgs e)
 		{
             if (InvokeRequired)
             {
-                BeginInvoke(new ErrorEventHandler(OnError), new object[] { sender, e });
+                BeginInvoke(new ErrorEventHandler(OnError), sender, e);
                 return;
             }
 
-            MessageBox.Show("Error: " + e.GetException().InnerException, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Console.WriteLine("Error: " + e.GetException().InnerException);
+            MessageBox.Show(Constants.Messages.Error + e.GetException().InnerException, 
+                            Constants.Messages.ErrorCaption, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.WriteLine(Constants.Messages.Error + e.GetException().InnerException);
 		}
         #endregion Registry
     }

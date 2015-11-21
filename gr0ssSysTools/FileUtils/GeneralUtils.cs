@@ -61,19 +61,19 @@ namespace gr0ssSysTools.FileUtils
         {
             switch (propertyName)
             {
-                case Constants.General.ICON_FONT:
+                case FileConstants.General.ICON_FONT:
                     general.IconFont = propertyValue;
                     break;
-                case Constants.General.ICON_FONT_SIZE:
+                case FileConstants.General.ICON_FONT_SIZE:
                     general.IconFontSize = propertyValue.ToFloat();
                     break;
-                case Constants.General.ICON_SHAPE:
+                case FileConstants.General.ICON_SHAPE:
                     general.IconShape = propertyValue;
                     break;
-                case Constants.General.SHOW_BALLOON_TIPS:
+                case FileConstants.General.SHOW_BALLOON_TIPS:
                     general.ShowBalloonTips = Convert.ToBoolean(propertyValue);
                     break;
-                case Constants.General.LOADED_GLOBAL_HOTKEY:
+                case FileConstants.General.LOADED_GLOBAL_HOTKEY:
                     general.LoadedGlobalHotkey = GlobalHotkeyParser.ConvertToLoadedGlobalHotkey(propertyValue);
                     break;
             }

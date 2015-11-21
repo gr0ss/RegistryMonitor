@@ -151,15 +151,4 @@
   <data name="Open_Folder32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Open-Folder32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Error_Loading_Icon_Caption" xml:space="preserve">
-    <value>Error Loading Icon</value>
-  </data>
-  <data name="Exception" xml:space="preserve">
-    <value>Exception:</value>
-  </data>
-  <data name="Error_Loading_Icon" xml:space="preserve">
-    <value>There was an error loading your icon.
-Exception:
-</value>
-  </data>
 </root>

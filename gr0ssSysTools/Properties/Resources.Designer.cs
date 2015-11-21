@@ -81,35 +81,6 @@ namespace gr0ssSysTools.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error loading your icon.
-        ///Exception:
-        ///.
-        /// </summary>
-        internal static string Error_Loading_Icon {
-            get {
-                return ResourceManager.GetString("Error_Loading_Icon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error Loading Icon.
-        /// </summary>
-        internal static string Error_Loading_Icon_Caption {
-            get {
-                return ResourceManager.GetString("Error_Loading_Icon_Caption", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Exception:.
-        /// </summary>
-        internal static string Exception {
-            get {
-                return ResourceManager.GetString("Exception", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Exit_16 {

@@ -1,6 +1,6 @@
 ﻿namespace gr0ssSysTools.FileUtils
 {
-    public class Constants
+    public class FileConstants
     {
         public static class Environments
         {

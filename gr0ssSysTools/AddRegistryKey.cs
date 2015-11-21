@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
+using gr0ssSysTools.Properties;
 using gr0ssSysTools.Utils;
 using Microsoft.Win32;
 
@@ -25,8 +26,12 @@ namespace gr0ssSysTools
         {
             var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
 
-            MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", @"Current Value of Key",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
+                            $"{rootValue}\\{fieldTextBox.Text}" +
+                            $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
+                            $"{GetCurrentKeyValue()}", 
+                            Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -34,8 +39,11 @@ namespace gr0ssSysTools
             var keyValue = GetCurrentKeyValue();
 
             if (keyValue == string.Empty)
-                MessageBox.Show("You must first select a valid key.", "Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+            {
+                MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKey, 
+                                Constants.RegistryKeyMessages.SelectRegistryKeyCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 var newRegistryKey = new Files.MonitoredRegistryKey
@@ -50,7 +58,7 @@ namespace gr0ssSysTools
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Environment.Exit(Constants.EnvironmentExitCodes.FailedToFindRegistryKey);
         }
 
         #region Populate Combos
