@@ -610,9 +610,7 @@ namespace gr0ssSysTools
         {
             if (toolsList.SelectedIndex == -1) return;
 
-            var file = OpenFileDialogUtils.FindFileInFolder(Constants.FileDialogFilters.ExecutableFilesOnly);
-            if (!string.IsNullOrEmpty(file))
-                DirectoryPathTextbox.Text = file;
+            OpenFileDialogUtils.FindFile(DirectoryPathTextbox, Constants.FileDialogFilters.ExecutableFilesOnly);
         }
 
         private void iconRadioButtons_CheckChanged(object sender, EventArgs e)
@@ -633,9 +631,7 @@ namespace gr0ssSysTools
         {
             if (environmentsList.SelectedIndex == -1) return;
 
-            var file = OpenFileDialogUtils.FindFileInFolder(Constants.FileDialogFilters.IconFilesOnly);
-            if (!string.IsNullOrEmpty(file))
-                txtEnvIconFileLocation.Text = file;
+            OpenFileDialogUtils.FindFile(txtEnvIconFileLocation, Constants.FileDialogFilters.IconFilesOnly);
         }
 
         private void UpdateLoadedSampleIcon(object sender, EventArgs e)
