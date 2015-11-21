@@ -10,6 +10,7 @@ using gr0ssSysTools.ExtensionMethods;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Parsers;
+using gr0ssSysTools.Properties;
 using gr0ssSysTools.Utils;
 using GlobalHotKey;
 using Microsoft.Win32;
@@ -32,6 +33,8 @@ namespace gr0ssSysTools
         private readonly SuperNotifyIcon _superNotifyIcon;
         private readonly Point? _locationOfIcon;
 
+        private bool _settingsAlreadyRunning;
+
         public Form1()
         {
             InitializeComponent();
@@ -46,6 +49,8 @@ namespace gr0ssSysTools
             // Gets the location of the systray icon
             _superNotifyIcon = new SuperNotifyIcon {NotifyIcon = Icon};
             _locationOfIcon = _superNotifyIcon.GetLocation();
+
+            _settingsAlreadyRunning = false;
         }
 
         private void LoadGlobalHotkey()
@@ -200,6 +205,8 @@ namespace gr0ssSysTools
 
         private void menuEdit_Click(object sender, EventArgs e)
         {
+            if (_settingsAlreadyRunning) return;
+
             Settings settings = new Settings(_loadedSettings);
             settings.Closed += (o, args) =>
             {
@@ -207,7 +214,9 @@ namespace gr0ssSysTools
                 SetNewGlobalHotkeyIfChanged();
                 LoadMenu();
                 SetIcon();
+                _settingsAlreadyRunning = false;
             };
+            _settingsAlreadyRunning = true;
             settings.Show();
         }
         #endregion OnClick
@@ -233,16 +242,34 @@ namespace gr0ssSysTools
 
         private void SetIcon()
         {
-            Font font = new Font(_loadedSettings.General.IconFont, _loadedSettings.General.IconFontSize);
-            Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
-			using (Graphics g = Graphics.FromImage(bmp))
-			{
-                Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			    g.FillEllipse(_currentLoadedEnvironment.IconBackgroundColor.ToSolidBrush(), rectangle);
-                g.DrawString(_currentLoadedEnvironment.IconLabel, font, _currentLoadedEnvironment.IconTextColor.ToSolidBrush(), 0, 1);
-			}
+            if (_currentLoadedEnvironment.LoadIcon && 
+                File.Exists(_currentLoadedEnvironment.IconFileLocation) &&
+                _currentLoadedEnvironment.IconFileLocation.Contains(".ico", StringComparison.OrdinalIgnoreCase))
+            {
+                try
+                {
+                    var iconFromFile = new Icon(_currentLoadedEnvironment.IconFileLocation, 16, 16);
+                    Icon.Icon = iconFromFile;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Icon.Icon = Resources.Exit_16;
+                }
+            }
+            else
+            {
+                Font font = new Font(_loadedSettings.General.IconFont, _loadedSettings.General.IconFontSize);
+                Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
+			    using (Graphics g = Graphics.FromImage(bmp))
+			    {
+                    Rectangle rectangle = new Rectangle(0, 0, 16, 16);
+			        g.FillEllipse(_currentLoadedEnvironment.IconBackgroundColor.ToSolidBrush(), rectangle);
+                    g.DrawString(_currentLoadedEnvironment.IconLabel, font, _currentLoadedEnvironment.IconTextColor.ToSolidBrush(), 0, 1);
+			    }
 
-            Icon.Icon = Converter.BitmapToIcon(bmp);
+                Icon.Icon = Converter.BitmapToIcon(bmp);
+            }
         }
 
         private void SetNewGlobalHotkeyIfChanged()

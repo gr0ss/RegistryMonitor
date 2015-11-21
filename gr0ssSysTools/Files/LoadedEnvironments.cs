@@ -11,5 +11,7 @@ namespace gr0ssSysTools.Files
         public string IconLabel { get; set; }
         public string IconTextColor { get; set; }
         public string IconBackgroundColor { get; set; }
+        public bool LoadIcon { get; set; }
+        public string IconFileLocation { get; set; }
     }
 }

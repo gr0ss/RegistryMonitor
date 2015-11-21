@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using FlimFlan.IconEncoder;
@@ -98,6 +99,8 @@ namespace gr0ssSysTools
             ClearToolFields();
             SetupButtonEnabled(true);
             RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
+            if (tabControl.SelectedTab == tabEnvironments)
+                radioEnvDynamicIcon.Checked = true;
         }
 
         private void UpdateSample(object sender, EventArgs e)
@@ -136,6 +139,12 @@ namespace gr0ssSysTools
                 {
                     environmentsList.Items.Add(key.Name);
                 }
+
+                if (string.IsNullOrEmpty(guidLabel.Text)) return;
+
+                var currentEnvironment = _loadedSettings.Environments
+                                                        .First(environment => environment.ID == Guid.Parse(guidLabel.Text));
+                environmentsList.SelectedIndex = environmentsList.Items.IndexOf(currentEnvironment.Name);
             }
             else
             {
@@ -145,6 +154,11 @@ namespace gr0ssSysTools
                 {
                     toolsList.Items.Add(key.Name);
                 }
+
+                if (string.IsNullOrEmpty(guidToolsLabel.Text)) return;
+
+                var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+                toolsList.SelectedIndex = toolsList.Items.IndexOf(currentTool.Name);
             }
         }
         
@@ -171,6 +185,8 @@ namespace gr0ssSysTools
             var arrowDownPicture = Resources.Move_Arrow;
             arrowDownPicture.RotateFlip(RotateFlipType.Rotate270FlipY);
             moveDownButton.Image = arrowDownPicture;
+
+            //btnEnvIconFileLocation.Image = Resources.Open_Folder16;
         }
 
         private void PopulateHotkeyCombo()
@@ -281,9 +297,12 @@ namespace gr0ssSysTools
             hotkeyCombo.Items.Clear();
             hotkeyCombo.Text = "";
             iconDisplayTextbox.Text = "";
+            iconTextColorCombo.SelectedIndex = -1;
             iconColorBackgroundCombo.SelectedIndex = -1;
             guidLabel.Text = "";
             _loadingValues = false;
+            radioEnvDynamicIcon.Checked = true;
+            txtEnvIconFileLocation.Text = "";
         }
 
         private void ClearToolFields()
@@ -371,6 +390,10 @@ namespace gr0ssSysTools
                 currentEnvironment.IconTextColor = iconTextColorCombo.SelectedItem.ToString();
             if (currentEnvironment.IconBackgroundColor != iconColorBackgroundCombo.SelectedItem.ToString())
                 currentEnvironment.IconBackgroundColor = iconColorBackgroundCombo.SelectedItem.ToString();
+            if (currentEnvironment.LoadIcon != radioEnvIconFromFile.Checked)
+                currentEnvironment.LoadIcon = radioEnvIconFromFile.Checked;
+            if (currentEnvironment.IconFileLocation != txtEnvIconFileLocation.Text)
+                currentEnvironment.IconFileLocation = txtEnvIconFileLocation.Text;
 
             RepopulateSelectedTabsListbox(true);
             SetCurrentOrderOfEnvironmentsAndSave();
@@ -443,6 +466,11 @@ namespace gr0ssSysTools
                 iconDisplayTextbox.Text = itemToLoad.IconLabel;
                 ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, iconTextColorCombo);
                 ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, iconColorBackgroundCombo);
+
+                radioEnvIconFromFile.Checked = itemToLoad.LoadIcon;
+                radioEnvDynamicIcon.Checked = !itemToLoad.LoadIcon;
+
+                txtEnvIconFileLocation.Text = itemToLoad.IconFileLocation;
             }
             _loadingValues = false;
         }
@@ -603,9 +631,69 @@ namespace gr0ssSysTools
             if (toolsList.SelectedIndex == -1) return;
 
             var openFile = new OpenFileDialog();
-            if (openFile.ShowDialog() == DialogResult.OK)
+
+            if (openFile.ShowDialog() != DialogResult.OK) return;
+
+            if (openFile.CheckFileExists)
             {
                 DirectoryPathTextbox.Text = openFile.FileName;
+            }
+            else
+            {
+                MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void iconRadioButtons_CheckChanged(object sender, EventArgs e)
+        {
+            if (radioEnvIconFromFile.Checked)
+            {
+                pnlEnvIconFileLocation.Visible = true;
+                pnlEnvDynamicIcon.Visible = false;
+            }
+            else if (radioEnvDynamicIcon.Checked)
+            {
+                pnlEnvIconFileLocation.Visible = false;
+                pnlEnvDynamicIcon.Visible = true;
+            }
+        }
+
+        private void btnEnvIconFileLocation_Clicked(object sender, EventArgs e)
+        {
+            if (environmentsList.SelectedIndex == -1) return;
+
+            var openFile = new OpenFileDialog {Filter = "Icon Files|*.ico"};
+
+            if (openFile.ShowDialog() != DialogResult.OK) return;
+
+            if (openFile.CheckFileExists)
+            {
+                txtEnvIconFileLocation.Text = openFile.FileName;
+            }
+            else
+            {
+                MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void UpdateLoadedSampleIcon(object sender, EventArgs e)
+        {
+            if (!File.Exists(txtEnvIconFileLocation.Text) ||
+                !txtEnvIconFileLocation.Text.Contains(".ico", StringComparison.OrdinalIgnoreCase))
+            {
+                pictureEnvSampleIcon.Image = null;
+                return;
+            }
+            
+            try
+            {
+                var iconFromFile = new Icon(txtEnvIconFileLocation.Text, 16, 16);
+                pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pictureEnvSampleIcon.Image = Resources.Exit_16.ToBitmap();
             }
         }
     }

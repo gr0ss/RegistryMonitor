@@ -133,12 +133,6 @@
   <data name="folder_add16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder-add16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="folder_add32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder-add32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="folder_search16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder-search16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Move_Arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Move Next (Arrow)16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -147,5 +141,25 @@
   </data>
   <data name="Star_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Star_32.ICO;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open_Folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open-Folder.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open_Folder16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open-Folder16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open_Folder32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Open-Folder32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Error_Loading_Icon_Caption" xml:space="preserve">
+    <value>Error Loading Icon</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>Exception:</value>
+  </data>
+  <data name="Error_Loading_Icon" xml:space="preserve">
+    <value>There was an error loading your icon.
+Exception:
+</value>
   </data>
 </root>

@@ -75,7 +75,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
@@ -98,7 +97,7 @@
       <DependentUpon>AddRegistryKey.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethods\ColorExtensions.cs" />
-    <Compile Include="ExtensionMethods\NumericExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Files\LoadedGlobalHotkey.cs" />
     <Compile Include="FileUtils\GlobalHotkeyUtils.cs" />
     <Compile Include="Parsers\FontParser.cs" />
@@ -159,7 +158,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="gr0ssSysTools_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -224,6 +222,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\folder-search16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open-Folder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open-Folder16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Open-Folder32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
