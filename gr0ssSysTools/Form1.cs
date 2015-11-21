@@ -9,9 +9,7 @@ using FlimFlan.IconEncoder;
 using gr0ssSysTools.ExtensionMethods;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
-using gr0ssSysTools.Parsers;
 using gr0ssSysTools.Properties;
-using gr0ssSysTools.Utils;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryUtils;
@@ -69,8 +67,8 @@ namespace gr0ssSysTools
         {
             if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
             {
-                var newUserMessage = MessageBox.Show("As this is your first time running the program, we need you to select the registry key you would like to monitor.",
-                    "New User Registry Monitoring Setup",
+                var newUserMessage = MessageBox.Show(Resources.Select_Registry_Key_To_Monitor,
+                    Resources.Select_Registry_Key_To_Monitor_Caption,
                     MessageBoxButtons.OKCancel,
                     MessageBoxIcon.Information);
 
@@ -168,7 +166,7 @@ namespace gr0ssSysTools
             }
             else
             {
-                MessageBox.Show($"Couldn't find anything to run at {currentTool.FileLocation}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Couldn't find anything to run at {currentTool.FileLocation}", Resources.Error_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -224,11 +222,9 @@ namespace gr0ssSysTools
         #region Registry
         private void SetRegistry()
         {
-            if (!string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
-            {
-                Registry.SetValue(_loadedSettings.MonitoredRegistryKey.Root, _loadedSettings.MonitoredRegistryKey.Subkey, _currentLoadedEnvironment.SubkeyValue);
-                SetIcon();
-            }
+            if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root)) return;
+            Registry.SetValue(_loadedSettings.MonitoredRegistryKey.Root, _loadedSettings.MonitoredRegistryKey.Subkey, _currentLoadedEnvironment.SubkeyValue);
+            SetIcon();
         }
         
         private void OnRegChanged(object sender, EventArgs e)
@@ -311,12 +307,12 @@ namespace gr0ssSysTools
 		{
             if (InvokeRequired)
             {
-                BeginInvoke(new ErrorEventHandler(OnError), new object[] { sender, e });
+                BeginInvoke(new ErrorEventHandler(OnError), sender, e);
                 return;
             }
 
-            MessageBox.Show("Error: " + e.GetException().InnerException, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Console.WriteLine("Error: " + e.GetException().InnerException);
+            MessageBox.Show(Resources.Error + e.GetException().InnerException, Resources.Error_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.WriteLine(Resources.Error + e.GetException().InnerException);
 		}
         #endregion Registry
     }

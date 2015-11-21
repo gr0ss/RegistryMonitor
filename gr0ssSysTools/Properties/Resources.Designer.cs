@@ -81,6 +81,24 @@ namespace gr0ssSysTools.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: .
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string Error_Caption {
+            get {
+                return ResourceManager.GetString("Error_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error loading your icon.
         ///Exception:
         ///.
@@ -97,6 +115,42 @@ namespace gr0ssSysTools.Properties {
         internal static string Error_Loading_Icon_Caption {
             get {
                 return ResourceManager.GetString("Error_Loading_Icon_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error retrieving the environment you selected..
+        /// </summary>
+        internal static string Error_Retrieving_Environment {
+            get {
+                return ResourceManager.GetString("Error_Retrieving_Environment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Retrieving Environment.
+        /// </summary>
+        internal static string Error_Retrieving_Environment_Caption {
+            get {
+                return ResourceManager.GetString("Error_Retrieving_Environment_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error retrieving the tool you selected..
+        /// </summary>
+        internal static string Error_Retrieving_Tool {
+            get {
+                return ResourceManager.GetString("Error_Retrieving_Tool", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Retrieving Tool.
+        /// </summary>
+        internal static string Error_Retrieving_Tool_Caption {
+            get {
+                return ResourceManager.GetString("Error_Retrieving_Tool_Caption", resourceCulture);
             }
         }
         
@@ -180,6 +234,24 @@ namespace gr0ssSysTools.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure this is what you want to override the currently monitored registry key with?.
+        /// </summary>
+        internal static string Override_Registry_Key {
+            get {
+                return ResourceManager.GetString("Override_Registry_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue With Save.
+        /// </summary>
+        internal static string Override_Registry_Key_Caption {
+            get {
+                return ResourceManager.GetString("Override_Registry_Key_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Save {
@@ -190,12 +262,120 @@ namespace gr0ssSysTools.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You need to select an environment before you can delete one....
+        /// </summary>
+        internal static string Select_Environment_To_Delete {
+            get {
+                return ResourceManager.GetString("Select_Environment_To_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Select Environment.
+        /// </summary>
+        internal static string Select_Environment_To_Delete_Caption {
+            get {
+                return ResourceManager.GetString("Select_Environment_To_Delete_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must first select a valid modifier key..
+        /// </summary>
+        internal static string Select_Global_Hotkey_To_Save {
+            get {
+                return ResourceManager.GetString("Select_Global_Hotkey_To_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Finding Modifier Key.
+        /// </summary>
+        internal static string Select_Global_Hotkey_To_Save_Caption {
+            get {
+                return ResourceManager.GetString("Select_Global_Hotkey_To_Save_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must first select a valid registry key..
+        /// </summary>
+        internal static string Select_Registry_Key {
+            get {
+                return ResourceManager.GetString("Select_Registry_Key", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error Saving Registry Key.
+        /// </summary>
+        internal static string Select_Registry_Key_Caption {
+            get {
+                return ResourceManager.GetString("Select_Registry_Key_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to As this is your first time running the program, we need you to select the registry key you would like to monitor..
+        /// </summary>
+        internal static string Select_Registry_Key_To_Monitor {
+            get {
+                return ResourceManager.GetString("Select_Registry_Key_To_Monitor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New User Registry Monitoring Setup.
+        /// </summary>
+        internal static string Select_Registry_Key_To_Monitor_Caption {
+            get {
+                return ResourceManager.GetString("Select_Registry_Key_To_Monitor_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You need to select a tool before you can delete one....
+        /// </summary>
+        internal static string Select_Tool_To_Delete {
+            get {
+                return ResourceManager.GetString("Select_Tool_To_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please Select Tool.
+        /// </summary>
+        internal static string Select_Tool_To_Delete_Caption {
+            get {
+                return ResourceManager.GetString("Select_Tool_To_Delete_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon Star_32 {
             get {
                 object obj = ResourceManager.GetObject("Star_32", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The file you selected doesn&apos;t appear to exist, please select a file that does..
+        /// </summary>
+        internal static string Tool_Doesnt_Exist {
+            get {
+                return ResourceManager.GetString("Tool_Doesnt_Exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid File.
+        /// </summary>
+        internal static string Tool_Doesnt_Exist_Caption {
+            get {
+                return ResourceManager.GetString("Tool_Doesnt_Exist_Caption", resourceCulture);
             }
         }
     }

@@ -185,8 +185,6 @@ namespace gr0ssSysTools
             var arrowDownPicture = Resources.Move_Arrow;
             arrowDownPicture.RotateFlip(RotateFlipType.Rotate270FlipY);
             moveDownButton.Image = arrowDownPicture;
-
-            //btnEnvIconFileLocation.Image = Resources.Open_Folder16;
         }
 
         private void PopulateHotkeyCombo()
@@ -241,9 +239,6 @@ namespace gr0ssSysTools
                 var toolIndex = toolsList.Items.Count - 1;
                 toolsList.SelectedIndex = toolIndex;
             }
-
-            // Remove Event handler
-            //Events.Dispose();
         }
         
         private void removeButton_Click(object sender, EventArgs e)
@@ -254,17 +249,17 @@ namespace gr0ssSysTools
                 {
                     var allEnvironments = _loadedSettings.Environments;
                     var environmentToRemove = allEnvironments.FirstOrDefault(env => env.ID == Guid.Parse(guidLabel.Text));
-                    if (environmentToRemove.ID != Guid.Empty)
+                    if (environmentToRemove?.ID != Guid.Empty)
                     {
                         allEnvironments.Remove(environmentToRemove);
                         _loadedSettings.Environments = allEnvironments;
                         ClearEnvironmentFields();
                     }
                     else
-                        MessageBox.Show("Error retrieving environment", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Resources.Error_Retrieving_Environment, Resources.Error_Retrieving_Environment_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                    MessageBox.Show("You need to select an environment before you can delete one...", "Duh", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.Select_Environment_To_Delete, Resources.Select_Environment_To_Delete_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 
             }
             else if (tabControl.SelectedTab == tabTools)
@@ -280,10 +275,10 @@ namespace gr0ssSysTools
                         ClearToolFields();
                     }
                     else
-                        MessageBox.Show("Error retrieving tool", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(Resources.Error_Retrieving_Tool, Resources.Error_Retrieving_Tool_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                    MessageBox.Show("You need to select a tool before you can delete one...", "Duh", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.Select_Tool_To_Delete, Resources.Select_Tool_To_Delete_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
         }
@@ -346,7 +341,7 @@ namespace gr0ssSysTools
         {
             if (firstModifierKeyComboBox.Text == System.Windows.Input.ModifierKeys.None.ToString())
             {
-                MessageBox.Show("You must first select a valid modifier key.", "Error", MessageBoxButtons.OK,
+                MessageBox.Show(Resources.Select_Global_Hotkey_To_Save, Resources.Select_Global_Hotkey_To_Save_Caption, MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
             } 
             else if (CurrentHotkeyEqualsSavedHotkey())
@@ -456,21 +451,24 @@ namespace gr0ssSysTools
                 var curItem = environmentsList.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Environments.FirstOrDefault(env => env.Name == curItem);
 
-                guidLabel.Text = itemToLoad.ID.ToString();
-                NameTextbox.Text = curItem;
-                registryValueTextbox.Text = itemToLoad.SubkeyValue;
+                if (itemToLoad != null)
+                {
+                    guidLabel.Text = itemToLoad.ID.ToString();
+                    NameTextbox.Text = curItem;
+                    registryValueTextbox.Text = itemToLoad.SubkeyValue;
 
-                PopulateHotkeyCombo();
-                hotkeyCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                    PopulateHotkeyCombo();
+                    hotkeyCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
 
-                iconDisplayTextbox.Text = itemToLoad.IconLabel;
-                ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, iconTextColorCombo);
-                ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, iconColorBackgroundCombo);
+                    iconDisplayTextbox.Text = itemToLoad.IconLabel;
+                    ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, iconTextColorCombo);
+                    ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, iconColorBackgroundCombo);
 
-                radioEnvIconFromFile.Checked = itemToLoad.LoadIcon;
-                radioEnvDynamicIcon.Checked = !itemToLoad.LoadIcon;
+                    radioEnvIconFromFile.Checked = itemToLoad.LoadIcon;
+                    radioEnvDynamicIcon.Checked = !itemToLoad.LoadIcon;
 
-                txtEnvIconFileLocation.Text = itemToLoad.IconFileLocation;
+                    txtEnvIconFileLocation.Text = itemToLoad.IconFileLocation;
+                }
             }
             _loadingValues = false;
         }
@@ -571,8 +569,7 @@ namespace gr0ssSysTools
         {
             if (GetCurrentKeyValue() == string.Empty) // New Key is invalid.
             {
-                MessageBox.Show("You must first select a valid key.", "Error", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Select_Registry_Key, Resources.Select_Registry_Key_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (CurrentKeyEqualsSavedKey()) // New Key is Old Key.
             {
@@ -580,8 +577,7 @@ namespace gr0ssSysTools
             }
             else // Save New Key.
             {
-                var confirmMessage = MessageBox.Show("Are you sure this is what you want to override the currently monitored registry key?", 
-                    "Continue With Save", MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+                var confirmMessage = MessageBox.Show(Resources.Override_Registry_Key, Resources.Override_Registry_Key_Caption, MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
 
                 if (confirmMessage != DialogResult.Yes) return;
 
@@ -640,7 +636,7 @@ namespace gr0ssSysTools
             }
             else
             {
-                MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Tool_Doesnt_Exist, Resources.Tool_Doesnt_Exist_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -672,7 +668,7 @@ namespace gr0ssSysTools
             }
             else
             {
-                MessageBox.Show("The file you selected doesn't appear to exist, please select a file that does.", "Oops", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.Tool_Doesnt_Exist, Resources.Tool_Doesnt_Exist_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

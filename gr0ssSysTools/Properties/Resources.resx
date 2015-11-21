@@ -162,4 +162,64 @@
 Exception:
 </value>
   </data>
+  <data name="Error_Retrieving_Environment_Caption" xml:space="preserve">
+    <value>Error Retrieving Environment</value>
+  </data>
+  <data name="Error_Retrieving_Environment" xml:space="preserve">
+    <value>There was an error retrieving the environment you selected.</value>
+  </data>
+  <data name="Select_Environment_To_Delete" xml:space="preserve">
+    <value>You need to select an environment before you can delete one...</value>
+  </data>
+  <data name="Select_Environment_To_Delete_Caption" xml:space="preserve">
+    <value>Please Select Environment</value>
+  </data>
+  <data name="Error_Retrieving_Tool_Caption" xml:space="preserve">
+    <value>Error Retrieving Tool</value>
+  </data>
+  <data name="Error_Retrieving_Tool" xml:space="preserve">
+    <value>There was an error retrieving the tool you selected.</value>
+  </data>
+  <data name="Select_Tool_To_Delete" xml:space="preserve">
+    <value>You need to select a tool before you can delete one...</value>
+  </data>
+  <data name="Select_Tool_To_Delete_Caption" xml:space="preserve">
+    <value>Please Select Tool</value>
+  </data>
+  <data name="Select_Global_Hotkey_To_Save" xml:space="preserve">
+    <value>You must first select a valid modifier key.</value>
+  </data>
+  <data name="Select_Global_Hotkey_To_Save_Caption" xml:space="preserve">
+    <value>Error Finding Modifier Key</value>
+  </data>
+  <data name="Select_Registry_Key" xml:space="preserve">
+    <value>You must first select a valid registry key.</value>
+  </data>
+  <data name="Select_Registry_Key_Caption" xml:space="preserve">
+    <value>Error Saving Registry Key</value>
+  </data>
+  <data name="Override_Registry_Key" xml:space="preserve">
+    <value>Are you sure this is what you want to override the currently monitored registry key with?</value>
+  </data>
+  <data name="Override_Registry_Key_Caption" xml:space="preserve">
+    <value>Continue With Save</value>
+  </data>
+  <data name="Tool_Doesnt_Exist" xml:space="preserve">
+    <value>The file you selected doesn't appear to exist, please select a file that does.</value>
+  </data>
+  <data name="Tool_Doesnt_Exist_Caption" xml:space="preserve">
+    <value>Invalid File</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error: </value>
+  </data>
+  <data name="Error_Caption" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Select_Registry_Key_To_Monitor" xml:space="preserve">
+    <value>As this is your first time running the program, we need you to select the registry key you would like to monitor.</value>
+  </data>
+  <data name="Select_Registry_Key_To_Monitor_Caption" xml:space="preserve">
+    <value>New User Registry Monitoring Setup</value>
+  </data>
 </root>
