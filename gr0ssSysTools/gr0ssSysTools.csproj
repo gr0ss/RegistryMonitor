@@ -97,7 +97,7 @@
       <DependentUpon>AddRegistryKey.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtensionMethods\ColorExtensions.cs" />
-    <Compile Include="ExtensionMethods\NumericExtensions.cs" />
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="Files\LoadedGlobalHotkey.cs" />
     <Compile Include="FileUtils\GlobalHotkeyUtils.cs" />
     <Compile Include="Parsers\FontParser.cs" />

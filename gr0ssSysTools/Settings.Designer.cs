@@ -56,8 +56,6 @@ namespace gr0ssSysTools
             this.showBalloonTipsCheckBox = new System.Windows.Forms.CheckBox();
             this.iconPropertiesGroupBox = new System.Windows.Forms.GroupBox();
             this.iconSizeUpDown = new System.Windows.Forms.NumericUpDown();
-            this.iconTextColorComboBox = new gr0ssSysTools.Utils.ColorComboBox();
-            this.iconColorComboBox = new gr0ssSysTools.Utils.ColorComboBox();
             this.textSampleColorLabel = new System.Windows.Forms.Label();
             this.samplePicture = new System.Windows.Forms.PictureBox();
             this.sampleLabel = new System.Windows.Forms.Label();
@@ -92,11 +90,9 @@ namespace gr0ssSysTools
             this.lblEnvIconFileLocation = new System.Windows.Forms.Label();
             this.pnlEnvDynamicIcon = new System.Windows.Forms.Panel();
             this.iconTextLabel = new System.Windows.Forms.Label();
-            this.iconTextColorCombo = new gr0ssSysTools.Utils.ColorComboBox();
             this.iconDisplayTextbox = new System.Windows.Forms.TextBox();
             this.iconTextColorLabel = new System.Windows.Forms.Label();
             this.iconColorLabel = new System.Windows.Forms.Label();
-            this.iconColorBackgroundCombo = new gr0ssSysTools.Utils.ColorComboBox();
             this.pnlEnvIconType = new System.Windows.Forms.Panel();
             this.radioEnvIconFromFile = new System.Windows.Forms.RadioButton();
             this.radioEnvDynamicIcon = new System.Windows.Forms.RadioButton();
@@ -104,6 +100,10 @@ namespace gr0ssSysTools
             this.hotkeyLabel = new System.Windows.Forms.Label();
             this.guidLabel = new System.Windows.Forms.Label();
             this.registryValueLbl = new System.Windows.Forms.Label();
+            this.iconTextColorComboBox = new gr0ssSysTools.Utils.ColorComboBox();
+            this.iconColorComboBox = new gr0ssSysTools.Utils.ColorComboBox();
+            this.iconTextColorCombo = new gr0ssSysTools.Utils.ColorComboBox();
+            this.iconColorBackgroundCombo = new gr0ssSysTools.Utils.ColorComboBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -180,7 +180,7 @@ namespace gr0ssSysTools
             this.tabTools.Location = new System.Drawing.Point(4, 22);
             this.tabTools.Name = "tabTools";
             this.tabTools.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTools.Size = new System.Drawing.Size(1031, 239);
+            this.tabTools.Size = new System.Drawing.Size(517, 239);
             this.tabTools.TabIndex = 1;
             this.tabTools.Text = "Tools";
             this.tabTools.UseVisualStyleBackColor = true;
@@ -336,7 +336,7 @@ namespace gr0ssSysTools
             this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
-            this.tabGeneral.Size = new System.Drawing.Size(1031, 239);
+            this.tabGeneral.Size = new System.Drawing.Size(517, 239);
             this.tabGeneral.TabIndex = 2;
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
@@ -401,28 +401,6 @@ namespace gr0ssSysTools
             0,
             0});
             this.iconSizeUpDown.ValueChanged += new System.EventHandler(this.UpdateSample);
-            // 
-            // iconTextColorComboBox
-            // 
-            this.iconTextColorComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconTextColorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconTextColorComboBox.FormattingEnabled = true;
-            this.iconTextColorComboBox.Location = new System.Drawing.Point(6, 111);
-            this.iconTextColorComboBox.Name = "iconTextColorComboBox";
-            this.iconTextColorComboBox.Size = new System.Drawing.Size(152, 21);
-            this.iconTextColorComboBox.TabIndex = 30;
-            this.iconTextColorComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
-            // 
-            // iconColorComboBox
-            // 
-            this.iconColorComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconColorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconColorComboBox.FormattingEnabled = true;
-            this.iconColorComboBox.Location = new System.Drawing.Point(6, 151);
-            this.iconColorComboBox.Name = "iconColorComboBox";
-            this.iconColorComboBox.Size = new System.Drawing.Size(152, 21);
-            this.iconColorComboBox.TabIndex = 29;
-            this.iconColorComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
             // 
             // textSampleColorLabel
             // 
@@ -759,16 +737,6 @@ namespace gr0ssSysTools
             this.iconTextLabel.TabIndex = 10;
             this.iconTextLabel.Text = "Icon Display Text: ";
             // 
-            // iconTextColorCombo
-            // 
-            this.iconTextColorCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconTextColorCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconTextColorCombo.FormattingEnabled = true;
-            this.iconTextColorCombo.Location = new System.Drawing.Point(3, 58);
-            this.iconTextColorCombo.Name = "iconTextColorCombo";
-            this.iconTextColorCombo.Size = new System.Drawing.Size(168, 21);
-            this.iconTextColorCombo.TabIndex = 20;
-            // 
             // iconDisplayTextbox
             // 
             this.iconDisplayTextbox.Location = new System.Drawing.Point(3, 19);
@@ -794,16 +762,6 @@ namespace gr0ssSysTools
             this.iconColorLabel.Size = new System.Drawing.Size(122, 13);
             this.iconColorLabel.TabIndex = 12;
             this.iconColorLabel.Text = "Icon Background Color: ";
-            // 
-            // iconColorBackgroundCombo
-            // 
-            this.iconColorBackgroundCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconColorBackgroundCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconColorBackgroundCombo.FormattingEnabled = true;
-            this.iconColorBackgroundCombo.Location = new System.Drawing.Point(176, 58);
-            this.iconColorBackgroundCombo.Name = "iconColorBackgroundCombo";
-            this.iconColorBackgroundCombo.Size = new System.Drawing.Size(168, 21);
-            this.iconColorBackgroundCombo.TabIndex = 18;
             // 
             // pnlEnvIconType
             // 
@@ -874,6 +832,48 @@ namespace gr0ssSysTools
             this.registryValueLbl.Size = new System.Drawing.Size(81, 13);
             this.registryValueLbl.TabIndex = 2;
             this.registryValueLbl.Text = "Registry Value: ";
+            // 
+            // iconTextColorComboBox
+            // 
+            this.iconTextColorComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.iconTextColorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.iconTextColorComboBox.FormattingEnabled = true;
+            this.iconTextColorComboBox.Location = new System.Drawing.Point(6, 111);
+            this.iconTextColorComboBox.Name = "iconTextColorComboBox";
+            this.iconTextColorComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconTextColorComboBox.TabIndex = 30;
+            this.iconTextColorComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
+            // 
+            // iconColorComboBox
+            // 
+            this.iconColorComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.iconColorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.iconColorComboBox.FormattingEnabled = true;
+            this.iconColorComboBox.Location = new System.Drawing.Point(6, 151);
+            this.iconColorComboBox.Name = "iconColorComboBox";
+            this.iconColorComboBox.Size = new System.Drawing.Size(152, 21);
+            this.iconColorComboBox.TabIndex = 29;
+            this.iconColorComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
+            // 
+            // iconTextColorCombo
+            // 
+            this.iconTextColorCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.iconTextColorCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.iconTextColorCombo.FormattingEnabled = true;
+            this.iconTextColorCombo.Location = new System.Drawing.Point(3, 58);
+            this.iconTextColorCombo.Name = "iconTextColorCombo";
+            this.iconTextColorCombo.Size = new System.Drawing.Size(168, 21);
+            this.iconTextColorCombo.TabIndex = 20;
+            // 
+            // iconColorBackgroundCombo
+            // 
+            this.iconColorBackgroundCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.iconColorBackgroundCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.iconColorBackgroundCombo.FormattingEnabled = true;
+            this.iconColorBackgroundCombo.Location = new System.Drawing.Point(176, 58);
+            this.iconColorBackgroundCombo.Name = "iconColorBackgroundCombo";
+            this.iconColorBackgroundCombo.Size = new System.Drawing.Size(168, 21);
+            this.iconColorBackgroundCombo.TabIndex = 18;
             // 
             // Settings
             // 

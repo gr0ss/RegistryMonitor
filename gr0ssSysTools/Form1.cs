@@ -244,7 +244,7 @@ namespace gr0ssSysTools
         {
             if (_currentLoadedEnvironment.LoadIcon && 
                 File.Exists(_currentLoadedEnvironment.IconFileLocation) &&
-                _currentLoadedEnvironment.IconFileLocation.Contains(".ico"))
+                _currentLoadedEnvironment.IconFileLocation.Contains(".ico", StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
@@ -253,7 +253,7 @@ namespace gr0ssSysTools
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("There was an error loading your icon.\r\nException:\r\n" + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Icon.Icon = Resources.Exit_16;
                 }
             }

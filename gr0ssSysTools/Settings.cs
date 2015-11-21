@@ -185,6 +185,8 @@ namespace gr0ssSysTools
             var arrowDownPicture = Resources.Move_Arrow;
             arrowDownPicture.RotateFlip(RotateFlipType.Rotate270FlipY);
             moveDownButton.Image = arrowDownPicture;
+
+            //btnEnvIconFileLocation.Image = Resources.Open_Folder16;
         }
 
         private void PopulateHotkeyCombo()
@@ -677,15 +679,22 @@ namespace gr0ssSysTools
         private void UpdateLoadedSampleIcon(object sender, EventArgs e)
         {
             if (!File.Exists(txtEnvIconFileLocation.Text) ||
-                !txtEnvIconFileLocation.Text.Contains(".ico"))
+                !txtEnvIconFileLocation.Text.Contains(".ico", StringComparison.OrdinalIgnoreCase))
             {
                 pictureEnvSampleIcon.Image = null;
                 return;
             }
             
-            var iconFromFile = new Icon(txtEnvIconFileLocation.Text, 16, 16);
-            
-            pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
+            try
+            {
+                var iconFromFile = new Icon(txtEnvIconFileLocation.Text, 16, 16);
+                pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                pictureEnvSampleIcon.Image = Resources.Exit_16.ToBitmap();
+            }
         }
     }
 }
