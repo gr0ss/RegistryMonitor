@@ -46,25 +46,9 @@ namespace gr0ssSysTools
 
         private void AddToolTipsToForm()
         {
-            var balloonToolTip = new ToolTip();
-            SetToolTipValues(balloonToolTip);
-            balloonToolTip.SetToolTip(this.showBalloonTipsCheckBox, "Toggle balloon tips when registry key changes.");
-
-            var fileToolTip = new ToolTip();
-            SetToolTipValues(fileToolTip);
-            fileToolTip.SetToolTip(this.toolsDirectoryButton, "Search for tool.");
-
-            var globalHotkeyToolTip = new ToolTip();
-            SetToolTipValues(globalHotkeyToolTip);
-            globalHotkeyToolTip.SetToolTip(this.globalHotkeyGroupBox, "Update global hotkey to access the context menu.");
-        }
-
-        private void SetToolTipValues(ToolTip toolTip)
-        {
-            toolTip.AutoPopDelay = 6000;
-            toolTip.InitialDelay = 500;
-            toolTip.ReshowDelay = 500;
-            toolTip.ShowAlways = true;
+            ToolTipUtils.AddToolTip(this.showBalloonTipsCheckBox, Constants.BalloonTips.ShowBalloonTipsCheckBoxCaption);
+            ToolTipUtils.AddToolTip(this.toolsDirectoryButton, Constants.BalloonTips.ToolsDirectoryButtonCaption);
+            ToolTipUtils.AddToolTip(this.globalHotkeyGroupBox, Constants.BalloonTips.GlobalHotkeyGroupBoxCaption);
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -675,7 +659,7 @@ namespace gr0ssSysTools
         private void UpdateLoadedSampleIcon(object sender, EventArgs e)
         {
             if (!File.Exists(txtEnvIconFileLocation.Text) ||
-                !txtEnvIconFileLocation.Text.Contains(".ico", StringComparison.OrdinalIgnoreCase))
+                !txtEnvIconFileLocation.Text.Contains(Constants.FileExtensions.IconExtension, StringComparison.OrdinalIgnoreCase))
             {
                 pictureEnvSampleIcon.Image = null;
                 return;

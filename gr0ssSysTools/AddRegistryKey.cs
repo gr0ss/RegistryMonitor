@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
+using gr0ssSysTools.Utils;
 using Microsoft.Win32;
 
 namespace gr0ssSysTools
@@ -49,7 +50,7 @@ namespace gr0ssSysTools
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
-            Environment.Exit(0);
+            Environment.Exit(Constants.EnvironmentExitCodes.FailedToFindRegistryKey);
         }
 
         #region Populate Combos

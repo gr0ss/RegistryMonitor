@@ -130,12 +130,14 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Utils\ColorUtils.cs" />
+    <Compile Include="Utils\Constants.cs" />
     <Compile Include="Utils\Converter.cs" />
     <Compile Include="FileUtils\EnvironmentUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />
     <Compile Include="Utils\ImageStructs.cs" />
     <Compile Include="Utils\RegistryMonitor.cs" />
     <Compile Include="FileUtils\ToolsUtils.cs" />
+    <Compile Include="Utils\ToolTipUtils.cs" />
     <EmbeddedResource Include="AddName.resx">
       <DependentUpon>AddName.cs</DependentUpon>
     </EmbeddedResource>

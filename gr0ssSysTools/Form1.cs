@@ -10,6 +10,7 @@ using gr0ssSysTools.ExtensionMethods;
 using gr0ssSysTools.Files;
 using gr0ssSysTools.FileUtils;
 using gr0ssSysTools.Properties;
+using gr0ssSysTools.Utils;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryUtils;
@@ -79,7 +80,7 @@ namespace gr0ssSysTools
                     addRegistry.Show();
                 }
                 else
-                    Environment.Exit(0);                
+                    Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);                
             }
             else
                 LoadRegistryMonitor();
@@ -88,7 +89,7 @@ namespace gr0ssSysTools
         private void RegistryKeyAdded_EventHandler(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
-                Environment.Exit(0);
+                Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);
             else
                 LoadRegistryMonitor();
         }
@@ -188,7 +189,7 @@ namespace gr0ssSysTools
         {
             StopAndDisposeProcessesAndEvents();
             
-            Environment.Exit(0);
+            Environment.Exit(Constants.EnvironmentExitCodes.Success);
         }
 
         private void StopAndDisposeProcessesAndEvents()
@@ -240,7 +241,7 @@ namespace gr0ssSysTools
         {
             if (_currentLoadedEnvironment.LoadIcon && 
                 File.Exists(_currentLoadedEnvironment.IconFileLocation) &&
-                _currentLoadedEnvironment.IconFileLocation.Contains(".ico", StringComparison.OrdinalIgnoreCase))
+                _currentLoadedEnvironment.IconFileLocation.Contains(Constants.FileExtensions.IconExtension, StringComparison.OrdinalIgnoreCase))
             {
                 try
                 {
@@ -298,9 +299,9 @@ namespace gr0ssSysTools
         {
             if (!_loadedSettings.General.ShowBalloonTips) return;
 
-            Icon.BalloonTipTitle = "Environment Has Changed";
-            Icon.BalloonTipText = $"The environment has been changed to {_currentLoadedEnvironment.Name}";
-            Icon.ShowBalloonTip(3000);
+            Icon.BalloonTipTitle = Constants.BalloonTips.IconTitle;
+            Icon.BalloonTipText = $"{Constants.BalloonTips.IconCaption} {_currentLoadedEnvironment.Name}";
+            Icon.ShowBalloonTip(1000);
         }
 
         private void OnError(object sender, ErrorEventArgs e)
