@@ -240,10 +240,18 @@ namespace gr0ssSysTools
                         ClearEnvironmentFields();
                     }
                     else
-                        MessageBox.Show(Resources.Error_Retrieving_Environment, Resources.Error_Retrieving_Environment_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        MessageBox.Show(Constants.EnvironmentMessages.ErrorRetrievingEnvironment,
+                                        Constants.EnvironmentMessages.ErrorRetrievingEnvironmentCaption, 
+                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
-                    MessageBox.Show(Resources.Select_Environment_To_Delete, Resources.Select_Environment_To_Delete_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    MessageBox.Show(Constants.EnvironmentMessages.SelectEnvironmentToDelete, 
+                                    Constants.EnvironmentMessages.SelectEnvironmentToDeleteCaption, 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 
             }
             else if (tabControl.SelectedTab == tabTools)
@@ -259,10 +267,18 @@ namespace gr0ssSysTools
                         ClearToolFields();
                     }
                     else
-                        MessageBox.Show(Resources.Error_Retrieving_Tool, Resources.Error_Retrieving_Tool_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    {
+                        MessageBox.Show(Constants.ToolMessages.ErrorRetrievingTool,
+                            Constants.ToolMessages.ErrorRetrievingToolCaption,
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 else
-                    MessageBox.Show(Resources.Select_Tool_To_Delete, Resources.Select_Tool_To_Delete_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    MessageBox.Show(Constants.ToolMessages.SelectToolToDelete, 
+                                    Constants.ToolMessages.SelectToolToDeleteCaption, 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
         }
@@ -325,8 +341,9 @@ namespace gr0ssSysTools
         {
             if (firstModifierKeyComboBox.Text == System.Windows.Input.ModifierKeys.None.ToString())
             {
-                MessageBox.Show(Resources.Select_Global_Hotkey_To_Save, Resources.Select_Global_Hotkey_To_Save_Caption, MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show(Constants.HotkeyMessages.SelectGlobalHotkeyToSave, 
+                                Constants.HotkeyMessages.SelectGlobalHotkeyToSaveCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
             else if (CurrentHotkeyEqualsSavedHotkey())
             {
@@ -545,15 +562,21 @@ namespace gr0ssSysTools
         {
             var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
 
-            MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", @"Current Value of Key",
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
+                            $"{rootValue}\\{fieldTextBox.Text}" +
+                            $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
+                            $"{GetCurrentKeyValue()}", 
+                            Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void SaveNewRegistryKey()
         {
             if (GetCurrentKeyValue() == string.Empty) // New Key is invalid.
             {
-                MessageBox.Show(Resources.Select_Registry_Key, Resources.Select_Registry_Key_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKey, 
+                                Constants.RegistryKeyMessages.SelectRegistryKeyCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (CurrentKeyEqualsSavedKey()) // New Key is Old Key.
             {
@@ -561,7 +584,9 @@ namespace gr0ssSysTools
             }
             else // Save New Key.
             {
-                var confirmMessage = MessageBox.Show(Resources.Override_Registry_Key, Resources.Override_Registry_Key_Caption, MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+                var confirmMessage = MessageBox.Show(Constants.RegistryKeyMessages.OverrideRegistryKey, 
+                                                     Constants.RegistryKeyMessages.OverrideRegistryKeyCaption, 
+                                                     MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
 
                 if (confirmMessage != DialogResult.Yes) return;
 
@@ -650,7 +675,9 @@ namespace gr0ssSysTools
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Constants.IconMessages.ErrorLoadingIcon + ex, 
+                                Constants.IconMessages.ErrorLoadingIconCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 pictureEnvSampleIcon.Image = Resources.Exit_16.ToBitmap();
             }
         }

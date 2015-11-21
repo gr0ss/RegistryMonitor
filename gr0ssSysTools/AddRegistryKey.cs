@@ -26,8 +26,12 @@ namespace gr0ssSysTools
         {
             var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
 
-            MessageBox.Show($"The current registry key selected is:\n{rootValue}\\{fieldTextBox.Text}\n\nIt has a value of:\n{GetCurrentKeyValue()}", 
-                @"Current Value of Key", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
+                            $"{rootValue}\\{fieldTextBox.Text}" +
+                            $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
+                            $"{GetCurrentKeyValue()}", 
+                            Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -35,7 +39,11 @@ namespace gr0ssSysTools
             var keyValue = GetCurrentKeyValue();
 
             if (keyValue == string.Empty)
-                MessageBox.Show(Resources.Select_Registry_Key, Resources.Select_Registry_Key_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            {
+                MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKey, 
+                                Constants.RegistryKeyMessages.SelectRegistryKeyCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             else
             {
                 var newRegistryKey = new Files.MonitoredRegistryKey

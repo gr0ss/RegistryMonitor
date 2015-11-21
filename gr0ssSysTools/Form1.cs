@@ -68,10 +68,10 @@ namespace gr0ssSysTools
         {
             if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
             {
-                var newUserMessage = MessageBox.Show(Resources.Select_Registry_Key_To_Monitor,
-                    Resources.Select_Registry_Key_To_Monitor_Caption,
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Information);
+                var newUserMessage = MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKeyToMonitor,
+                                                     Constants.RegistryKeyMessages.SelectRegistryKeyToMonitorCaption,
+                                                     MessageBoxButtons.OKCancel,
+                                                     MessageBoxIcon.Information);
 
                 if (newUserMessage == DialogResult.OK)
                 {
@@ -167,7 +167,9 @@ namespace gr0ssSysTools
             }
             else
             {
-                MessageBox.Show($"Couldn't find anything to run at {currentTool.FileLocation}", Resources.Error_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"{Constants.ToolMessages.CouldntFindTool}{currentTool.FileLocation}", 
+                                   Constants.ToolMessages.CouldntFindToolCaption, 
+                                   MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -250,7 +252,9 @@ namespace gr0ssSysTools
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(Resources.Error_Loading_Icon + ex, Resources.Error_Loading_Icon_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(Constants.IconMessages.ErrorLoadingIcon + ex, 
+                                    Constants.IconMessages.ErrorLoadingIconCaption, 
+                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                     Icon.Icon = Resources.Exit_16;
                 }
             }
@@ -312,8 +316,10 @@ namespace gr0ssSysTools
                 return;
             }
 
-            MessageBox.Show(Resources.Error + e.GetException().InnerException, Resources.Error_Caption, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Console.WriteLine(Resources.Error + e.GetException().InnerException);
+            MessageBox.Show(Constants.Messages.Error + e.GetException().InnerException, 
+                            Constants.Messages.ErrorCaption, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Console.WriteLine(Constants.Messages.Error + e.GetException().InnerException);
 		}
         #endregion Registry
     }
