@@ -248,8 +248,8 @@ namespace gr0ssSysTools
             {
                 try
                 {
-                    Icon iconFromFile = System.Drawing.Icon.ExtractAssociatedIcon(_currentLoadedEnvironment.IconFileLocation);
-                    if (iconFromFile != null) Icon.Icon = iconFromFile;
+                    var iconFromFile = new Icon(_currentLoadedEnvironment.IconFileLocation, 16, 16);
+                    Icon.Icon = iconFromFile;
                 }
                 catch (Exception ex)
                 {

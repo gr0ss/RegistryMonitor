@@ -682,9 +682,10 @@ namespace gr0ssSysTools
                 pictureEnvSampleIcon.Image = null;
                 return;
             }
-
-            Icon iconFromFile = Icon.ExtractAssociatedIcon(txtEnvIconFileLocation.Text);
-            if (iconFromFile != null) pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
+            
+            var iconFromFile = new Icon(txtEnvIconFileLocation.Text, 16, 16);
+            
+            pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
         }
     }
 }
