@@ -1,4 +1,4 @@
-# gr0ssSysTools
+# RegistryMonitor
 
 The purpose of this project is to continually monitor a single registry key and update a systray icon to reflect what the value of the registry key currently is.  This project is being made to be vague and open to people using it however they see fit.  For my personal use, I use it to tell me what database I am currently connected to, and for the ability to change databases with 2 hotkeys instead of manually editing the registry every time I want to switch databases.
 
