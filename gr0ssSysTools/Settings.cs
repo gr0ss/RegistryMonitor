@@ -37,14 +37,14 @@ namespace gr0ssSysTools
 
         private void Settings_Load(object sender, EventArgs e)
         {
-            SetupButtonImages();
+            LoadButtonImages();
             
             LoadGeneralTab();
 
-            AddToolTipsToForm();
+            LoadToolTips();
         }
 
-        private void AddToolTipsToForm()
+        private void LoadToolTips()
         {
             ToolTipUtils.AddToolTip(this.showBalloonTipsCheckBox, Constants.BalloonTips.ShowBalloonTipsCheckBoxCaption);
             ToolTipUtils.AddToolTip(this.toolsDirectoryButton, Constants.BalloonTips.ToolsDirectoryButtonCaption);
@@ -156,7 +156,7 @@ namespace gr0ssSysTools
             moveDownButton.Enabled = enabled;
         }
         
-        private void SetupButtonImages()
+        private void LoadButtonImages()
         {
             addButton.Image = Resources.Add;
             removeButton.Image = Resources.Delete;
@@ -642,7 +642,7 @@ namespace gr0ssSysTools
         {
             if (environmentsList.SelectedIndex == -1) return;
 
-            var openFile = new OpenFileDialog {Filter = "Icon Files|*.ico"};
+            var openFile = new OpenFileDialog {Filter = Constants.FileDialogFilters.IconFilesOnly};
 
             if (openFile.ShowDialog() != DialogResult.OK) return;
 

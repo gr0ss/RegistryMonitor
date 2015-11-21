@@ -7,6 +7,12 @@
             public const string IconExtension = ".ico";
         }
 
+        public static class FileDialogFilters
+        {
+            public const string IconFilesOnly = "Icon Files|*.ico";
+            public const string ExecutableFilesOnly = "Executable Files|*.exe";
+        }
+
         public static class EnvironmentExitCodes
         {
             public const int Success = 0;
