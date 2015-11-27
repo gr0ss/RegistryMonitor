@@ -42,16 +42,16 @@ namespace RegistryMonitor
             this.comboToolHotkey = new System.Windows.Forms.ComboBox();
             this.lblToolHotkey = new System.Windows.Forms.Label();
             this.lstToolAllTools = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblToolAllTools = new System.Windows.Forms.Label();
             this.txtToolFileLocation = new System.Windows.Forms.TextBox();
             this.txtToolName = new System.Windows.Forms.TextBox();
-            this.directoryPathLbl = new System.Windows.Forms.Label();
-            this.LblToolName = new System.Windows.Forms.Label();
-            this.LblEnvName = new System.Windows.Forms.Label();
+            this.lblToolFileLocation = new System.Windows.Forms.Label();
+            this.lblToolName = new System.Windows.Forms.Label();
+            this.lblEnvName = new System.Windows.Forms.Label();
             this.txtEnvRegistryValue = new System.Windows.Forms.TextBox();
             this.txtEnvName = new System.Windows.Forms.TextBox();
             this.lstEnvAllEnvironments = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblEnvAllEnvironments = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
             this.checkGeneralShowBalloonTips = new System.Windows.Forms.CheckBox();
@@ -93,19 +93,19 @@ namespace RegistryMonitor
             this.txtEnvIconFileLocation = new System.Windows.Forms.TextBox();
             this.lblEnvIconFileLocation = new System.Windows.Forms.Label();
             this.pnlEnvDynamicIcon = new System.Windows.Forms.Panel();
-            this.iconTextLabel = new System.Windows.Forms.Label();
+            this.lblEnvIconDisplayText = new System.Windows.Forms.Label();
             this.comboEnvIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
             this.txtEnvIconDisplayText = new System.Windows.Forms.TextBox();
-            this.iconTextColorLabel = new System.Windows.Forms.Label();
-            this.iconColorLabel = new System.Windows.Forms.Label();
+            this.lblEnvIconTextColor = new System.Windows.Forms.Label();
+            this.lblEnvIconBackgroundColor = new System.Windows.Forms.Label();
             this.comboEnvIconBackgroundColor = new RegistryMonitor.Utils.ColorComboBox();
             this.pnlEnvIconType = new System.Windows.Forms.Panel();
             this.radioEnvIconFromFile = new System.Windows.Forms.RadioButton();
             this.radioEnvDynamicIcon = new System.Windows.Forms.RadioButton();
             this.comboEnvHotkey = new System.Windows.Forms.ComboBox();
-            this.hotkeyLabel = new System.Windows.Forms.Label();
+            this.lblEnvHotkey = new System.Windows.Forms.Label();
             this.lblEnvCurrentEnvironmentGuid = new System.Windows.Forms.Label();
-            this.registryValueLbl = new System.Windows.Forms.Label();
+            this.lblEnvRegistryValue = new System.Windows.Forms.Label();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -174,11 +174,11 @@ namespace RegistryMonitor
             this.tabTools.Controls.Add(this.comboToolHotkey);
             this.tabTools.Controls.Add(this.lblToolHotkey);
             this.tabTools.Controls.Add(this.lstToolAllTools);
-            this.tabTools.Controls.Add(this.label2);
+            this.tabTools.Controls.Add(this.lblToolAllTools);
             this.tabTools.Controls.Add(this.txtToolFileLocation);
             this.tabTools.Controls.Add(this.txtToolName);
-            this.tabTools.Controls.Add(this.directoryPathLbl);
-            this.tabTools.Controls.Add(this.LblToolName);
+            this.tabTools.Controls.Add(this.lblToolFileLocation);
+            this.tabTools.Controls.Add(this.lblToolName);
             this.tabTools.Location = new System.Drawing.Point(4, 22);
             this.tabTools.Name = "tabTools";
             this.tabTools.Padding = new System.Windows.Forms.Padding(3);
@@ -233,14 +233,14 @@ namespace RegistryMonitor
             this.lstToolAllTools.TabIndex = 12;
             this.lstToolAllTools.SelectedIndexChanged += new System.EventHandler(this.LstToolAllToolsSelectedIndexChanged);
             // 
-            // label2
+            // lblToolAllTools
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(33, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Tools";
+            this.lblToolAllTools.AutoSize = true;
+            this.lblToolAllTools.Location = new System.Drawing.Point(11, 5);
+            this.lblToolAllTools.Name = "lblToolAllTools";
+            this.lblToolAllTools.Size = new System.Drawing.Size(33, 13);
+            this.lblToolAllTools.TabIndex = 11;
+            this.lblToolAllTools.Text = "Tools";
             // 
             // txtToolFileLocation
             // 
@@ -257,32 +257,32 @@ namespace RegistryMonitor
             this.txtToolName.TabIndex = 9;
             this.txtToolName.Leave += new System.EventHandler(this.NameTextbox_Leave);
             // 
-            // directoryPathLbl
+            // lblToolFileLocation
             // 
-            this.directoryPathLbl.AutoSize = true;
-            this.directoryPathLbl.Location = new System.Drawing.Point(167, 44);
-            this.directoryPathLbl.Name = "directoryPathLbl";
-            this.directoryPathLbl.Size = new System.Drawing.Size(73, 13);
-            this.directoryPathLbl.TabIndex = 8;
-            this.directoryPathLbl.Text = "File Location: ";
+            this.lblToolFileLocation.AutoSize = true;
+            this.lblToolFileLocation.Location = new System.Drawing.Point(167, 44);
+            this.lblToolFileLocation.Name = "lblToolFileLocation";
+            this.lblToolFileLocation.Size = new System.Drawing.Size(73, 13);
+            this.lblToolFileLocation.TabIndex = 8;
+            this.lblToolFileLocation.Text = "File Location: ";
             // 
-            // LblToolName
+            // lblToolName
             // 
-            this.LblToolName.AutoSize = true;
-            this.LblToolName.Location = new System.Drawing.Point(167, 5);
-            this.LblToolName.Name = "LblToolName";
-            this.LblToolName.Size = new System.Drawing.Size(41, 13);
-            this.LblToolName.TabIndex = 7;
-            this.LblToolName.Text = "Name: ";
+            this.lblToolName.AutoSize = true;
+            this.lblToolName.Location = new System.Drawing.Point(167, 5);
+            this.lblToolName.Name = "lblToolName";
+            this.lblToolName.Size = new System.Drawing.Size(41, 13);
+            this.lblToolName.TabIndex = 7;
+            this.lblToolName.Text = "Name: ";
             // 
-            // LblEnvName
+            // lblEnvName
             // 
-            this.LblEnvName.AutoSize = true;
-            this.LblEnvName.Location = new System.Drawing.Point(167, 5);
-            this.LblEnvName.Name = "LblEnvName";
-            this.LblEnvName.Size = new System.Drawing.Size(41, 13);
-            this.LblEnvName.TabIndex = 1;
-            this.LblEnvName.Text = "Name: ";
+            this.lblEnvName.AutoSize = true;
+            this.lblEnvName.Location = new System.Drawing.Point(167, 5);
+            this.lblEnvName.Name = "lblEnvName";
+            this.lblEnvName.Size = new System.Drawing.Size(41, 13);
+            this.lblEnvName.TabIndex = 1;
+            this.lblEnvName.Text = "Name: ";
             // 
             // txtEnvRegistryValue
             // 
@@ -308,14 +308,14 @@ namespace RegistryMonitor
             this.lstEnvAllEnvironments.TabIndex = 6;
             this.lstEnvAllEnvironments.SelectedIndexChanged += new System.EventHandler(this.LstEnvAllEnvironmentsSelectedIndexChanged);
             // 
-            // label1
+            // lblEnvAllEnvironments
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 5);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Environments:";
+            this.lblEnvAllEnvironments.AutoSize = true;
+            this.lblEnvAllEnvironments.Location = new System.Drawing.Point(11, 5);
+            this.lblEnvAllEnvironments.Name = "lblEnvAllEnvironments";
+            this.lblEnvAllEnvironments.Size = new System.Drawing.Size(74, 13);
+            this.lblEnvAllEnvironments.TabIndex = 5;
+            this.lblEnvAllEnvironments.Text = "Environments:";
             // 
             // tabControl
             // 
@@ -656,14 +656,14 @@ namespace RegistryMonitor
             this.tabEnvironments.Controls.Add(this.checkEnvDisplayOnMenu);
             this.tabEnvironments.Controls.Add(this.pnlEnvIcon);
             this.tabEnvironments.Controls.Add(this.comboEnvHotkey);
-            this.tabEnvironments.Controls.Add(this.hotkeyLabel);
+            this.tabEnvironments.Controls.Add(this.lblEnvHotkey);
             this.tabEnvironments.Controls.Add(this.lblEnvCurrentEnvironmentGuid);
             this.tabEnvironments.Controls.Add(this.lstEnvAllEnvironments);
-            this.tabEnvironments.Controls.Add(this.label1);
+            this.tabEnvironments.Controls.Add(this.lblEnvAllEnvironments);
             this.tabEnvironments.Controls.Add(this.txtEnvRegistryValue);
             this.tabEnvironments.Controls.Add(this.txtEnvName);
-            this.tabEnvironments.Controls.Add(this.registryValueLbl);
-            this.tabEnvironments.Controls.Add(this.LblEnvName);
+            this.tabEnvironments.Controls.Add(this.lblEnvRegistryValue);
+            this.tabEnvironments.Controls.Add(this.lblEnvName);
             this.tabEnvironments.Location = new System.Drawing.Point(4, 22);
             this.tabEnvironments.Name = "tabEnvironments";
             this.tabEnvironments.Padding = new System.Windows.Forms.Padding(3);
@@ -751,11 +751,11 @@ namespace RegistryMonitor
             // 
             // pnlEnvDynamicIcon
             // 
-            this.pnlEnvDynamicIcon.Controls.Add(this.iconTextLabel);
+            this.pnlEnvDynamicIcon.Controls.Add(this.lblEnvIconDisplayText);
             this.pnlEnvDynamicIcon.Controls.Add(this.comboEnvIconTextColor);
             this.pnlEnvDynamicIcon.Controls.Add(this.txtEnvIconDisplayText);
-            this.pnlEnvDynamicIcon.Controls.Add(this.iconTextColorLabel);
-            this.pnlEnvDynamicIcon.Controls.Add(this.iconColorLabel);
+            this.pnlEnvDynamicIcon.Controls.Add(this.lblEnvIconTextColor);
+            this.pnlEnvDynamicIcon.Controls.Add(this.lblEnvIconBackgroundColor);
             this.pnlEnvDynamicIcon.Controls.Add(this.comboEnvIconBackgroundColor);
             this.pnlEnvDynamicIcon.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEnvDynamicIcon.Location = new System.Drawing.Point(0, 23);
@@ -763,14 +763,14 @@ namespace RegistryMonitor
             this.pnlEnvDynamicIcon.Size = new System.Drawing.Size(350, 83);
             this.pnlEnvDynamicIcon.TabIndex = 1;
             // 
-            // iconTextLabel
+            // lblEnvIconDisplayText
             // 
-            this.iconTextLabel.AutoSize = true;
-            this.iconTextLabel.Location = new System.Drawing.Point(3, 3);
-            this.iconTextLabel.Name = "iconTextLabel";
-            this.iconTextLabel.Size = new System.Drawing.Size(95, 13);
-            this.iconTextLabel.TabIndex = 10;
-            this.iconTextLabel.Text = "Icon Display Text: ";
+            this.lblEnvIconDisplayText.AutoSize = true;
+            this.lblEnvIconDisplayText.Location = new System.Drawing.Point(3, 3);
+            this.lblEnvIconDisplayText.Name = "lblEnvIconDisplayText";
+            this.lblEnvIconDisplayText.Size = new System.Drawing.Size(95, 13);
+            this.lblEnvIconDisplayText.TabIndex = 10;
+            this.lblEnvIconDisplayText.Text = "Icon Display Text: ";
             // 
             // comboEnvIconTextColor
             // 
@@ -790,23 +790,23 @@ namespace RegistryMonitor
             this.txtEnvIconDisplayText.Size = new System.Drawing.Size(341, 20);
             this.txtEnvIconDisplayText.TabIndex = 11;
             // 
-            // iconTextColorLabel
+            // lblEnvIconTextColor
             // 
-            this.iconTextColorLabel.AutoSize = true;
-            this.iconTextColorLabel.Location = new System.Drawing.Point(3, 42);
-            this.iconTextColorLabel.Name = "iconTextColorLabel";
-            this.iconTextColorLabel.Size = new System.Drawing.Size(85, 13);
-            this.iconTextColorLabel.TabIndex = 19;
-            this.iconTextColorLabel.Text = "Icon Text Color: ";
+            this.lblEnvIconTextColor.AutoSize = true;
+            this.lblEnvIconTextColor.Location = new System.Drawing.Point(3, 42);
+            this.lblEnvIconTextColor.Name = "lblEnvIconTextColor";
+            this.lblEnvIconTextColor.Size = new System.Drawing.Size(85, 13);
+            this.lblEnvIconTextColor.TabIndex = 19;
+            this.lblEnvIconTextColor.Text = "Icon Text Color: ";
             // 
-            // iconColorLabel
+            // lblEnvIconBackgroundColor
             // 
-            this.iconColorLabel.AutoSize = true;
-            this.iconColorLabel.Location = new System.Drawing.Point(176, 42);
-            this.iconColorLabel.Name = "iconColorLabel";
-            this.iconColorLabel.Size = new System.Drawing.Size(122, 13);
-            this.iconColorLabel.TabIndex = 12;
-            this.iconColorLabel.Text = "Icon Background Color: ";
+            this.lblEnvIconBackgroundColor.AutoSize = true;
+            this.lblEnvIconBackgroundColor.Location = new System.Drawing.Point(176, 42);
+            this.lblEnvIconBackgroundColor.Name = "lblEnvIconBackgroundColor";
+            this.lblEnvIconBackgroundColor.Size = new System.Drawing.Size(122, 13);
+            this.lblEnvIconBackgroundColor.TabIndex = 12;
+            this.lblEnvIconBackgroundColor.Text = "Icon Background Color: ";
             // 
             // comboEnvIconBackgroundColor
             // 
@@ -860,14 +860,14 @@ namespace RegistryMonitor
             this.comboEnvHotkey.Size = new System.Drawing.Size(68, 21);
             this.comboEnvHotkey.TabIndex = 18;
             // 
-            // hotkeyLabel
+            // lblEnvHotkey
             // 
-            this.hotkeyLabel.AutoSize = true;
-            this.hotkeyLabel.Location = new System.Drawing.Point(439, 44);
-            this.hotkeyLabel.Name = "hotkeyLabel";
-            this.hotkeyLabel.Size = new System.Drawing.Size(47, 13);
-            this.hotkeyLabel.TabIndex = 8;
-            this.hotkeyLabel.Text = "Hotkey: ";
+            this.lblEnvHotkey.AutoSize = true;
+            this.lblEnvHotkey.Location = new System.Drawing.Point(439, 44);
+            this.lblEnvHotkey.Name = "lblEnvHotkey";
+            this.lblEnvHotkey.Size = new System.Drawing.Size(47, 13);
+            this.lblEnvHotkey.TabIndex = 8;
+            this.lblEnvHotkey.Text = "Hotkey: ";
             // 
             // lblEnvCurrentEnvironmentGuid
             // 
@@ -879,14 +879,14 @@ namespace RegistryMonitor
             this.lblEnvCurrentEnvironmentGuid.Text = "ID";
             this.lblEnvCurrentEnvironmentGuid.Visible = false;
             // 
-            // registryValueLbl
+            // lblEnvRegistryValue
             // 
-            this.registryValueLbl.AutoSize = true;
-            this.registryValueLbl.Location = new System.Drawing.Point(167, 44);
-            this.registryValueLbl.Name = "registryValueLbl";
-            this.registryValueLbl.Size = new System.Drawing.Size(81, 13);
-            this.registryValueLbl.TabIndex = 2;
-            this.registryValueLbl.Text = "Registry Value: ";
+            this.lblEnvRegistryValue.AutoSize = true;
+            this.lblEnvRegistryValue.Location = new System.Drawing.Point(167, 44);
+            this.lblEnvRegistryValue.Name = "lblEnvRegistryValue";
+            this.lblEnvRegistryValue.Size = new System.Drawing.Size(81, 13);
+            this.lblEnvRegistryValue.TabIndex = 2;
+            this.lblEnvRegistryValue.Text = "Registry Value: ";
             // 
             // Settings
             // 
@@ -939,25 +939,25 @@ namespace RegistryMonitor
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.TabPage tabTools;
         private System.Windows.Forms.ListBox lstToolAllTools;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblToolAllTools;
         private System.Windows.Forms.TextBox txtToolFileLocation;
         private System.Windows.Forms.TextBox txtToolName;
-        private System.Windows.Forms.Label directoryPathLbl;
-        private System.Windows.Forms.Label LblToolName;
-        private System.Windows.Forms.Label LblEnvName;
+        private System.Windows.Forms.Label lblToolFileLocation;
+        private System.Windows.Forms.Label lblToolName;
+        private System.Windows.Forms.Label lblEnvName;
         private System.Windows.Forms.TextBox txtEnvRegistryValue;
         private System.Windows.Forms.TextBox txtEnvName;
         private System.Windows.Forms.ListBox lstEnvAllEnvironments;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblEnvAllEnvironments;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabEnvironments;
-        private System.Windows.Forms.Label registryValueLbl;
+        private System.Windows.Forms.Label lblEnvRegistryValue;
         private System.Windows.Forms.Label lblEnvCurrentEnvironmentGuid;
         private System.Windows.Forms.ComboBox comboEnvHotkey;
-        private System.Windows.Forms.Label iconColorLabel;
+        private System.Windows.Forms.Label lblEnvIconBackgroundColor;
         private System.Windows.Forms.TextBox txtEnvIconDisplayText;
-        private System.Windows.Forms.Label iconTextLabel;
-        private System.Windows.Forms.Label hotkeyLabel;
+        private System.Windows.Forms.Label lblEnvIconDisplayText;
+        private System.Windows.Forms.Label lblEnvHotkey;
         private ColorComboBox comboEnvIconBackgroundColor;
         private System.Windows.Forms.Label lblToolCurrentToolGuid;
         private System.Windows.Forms.ComboBox comboToolHotkey;
@@ -993,7 +993,7 @@ namespace RegistryMonitor
         private System.Windows.Forms.Label lblGeneralModifierKeys;
         private System.Windows.Forms.Label lblGeneralGlobalHotkey;
         private ColorComboBox comboEnvIconTextColor;
-        private System.Windows.Forms.Label iconTextColorLabel;
+        private System.Windows.Forms.Label lblEnvIconTextColor;
         private System.Windows.Forms.Button btnToolFileLocation;
         private System.Windows.Forms.Panel pnlEnvIcon;
         private System.Windows.Forms.Panel pnlEnvDynamicIcon;
