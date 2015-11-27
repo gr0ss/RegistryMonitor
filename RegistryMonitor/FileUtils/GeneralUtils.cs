@@ -19,12 +19,21 @@ namespace RegistryMonitor.FileUtils
         public static void WriteGeneralSettings(General general)
         {
             string generalJsonFile = Path.Combine(Directory.GetCurrentDirectory(), GENERAL_FILE_NAME);
-            
-            using (StreamWriter file = File.CreateText(generalJsonFile))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
+
+            try
             {
-                var jsonGeneralSettings = JsonConvert.SerializeObject(general);
-                writer.WriteRaw(jsonGeneralSettings);
+                using (StreamWriter file = File.CreateText(generalJsonFile))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    var jsonGeneralSettings = JsonConvert.SerializeObject(general);
+                    writer.WriteRaw(jsonGeneralSettings);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Constants.GeneralMessages.ErrorWritingFile}{ex}", 
+                    Constants.GeneralMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
 
@@ -41,17 +50,26 @@ namespace RegistryMonitor.FileUtils
             }
             else
             {
-                using (StreamReader file = File.OpenText(generalJsonFile))
-                using (JsonTextReader reader = new JsonTextReader(file))
+                try
                 {
-                    while (reader.Read())
+                    using (StreamReader file = File.OpenText(generalJsonFile))
+                    using (JsonTextReader reader = new JsonTextReader(file))
                     {
-                        JObject o3 = (JObject) JToken.ReadFrom(reader);
-                        foreach (var child in o3.Children())
+                        while (reader.Read())
                         {
-                            AddPropertyToGeneralSettings(generalSettings, child.Path, child.First.ToString());
+                            JObject o3 = (JObject) JToken.ReadFrom(reader);
+                            foreach (var child in o3.Children())
+                            {
+                                AddPropertyToGeneralSettings(generalSettings, child.Path, child.First.ToString());
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{Constants.GeneralMessages.ErrorWritingFile}{ex}", 
+                        Constants.GeneralMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
                 }
             }
             return generalSettings;

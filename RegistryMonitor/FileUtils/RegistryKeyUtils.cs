@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RegistryMonitor.Files;
+using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
 {
@@ -15,12 +17,21 @@ namespace RegistryMonitor.FileUtils
         public static void WriteRegistryKeySettings(MonitoredRegistryKey monitoredRegistryKey, bool firstLoad = false)
         {
             string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), REGISTRYKEY_FILE_NAME);
-            
-            using (StreamWriter file = File.CreateText(environmnentJsonFile))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
+
+            try
             {
-                var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKey() : monitoredRegistryKey);
-                writer.WriteRaw(jsonRegistryKey);
+                using (StreamWriter file = File.CreateText(environmnentJsonFile))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
+                {
+                    var jsonRegistryKey = JsonConvert.SerializeObject(firstLoad ? GetInitialRegistryKey() : monitoredRegistryKey);
+                    writer.WriteRaw(jsonRegistryKey);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Constants.RegistryKeyMessages.ErrorWritingFile}{ex}", 
+                    Constants.RegistryKeyMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
 
@@ -37,17 +48,26 @@ namespace RegistryMonitor.FileUtils
             }
             else
             {
-                using (StreamReader file = File.OpenText(registryKeyJsonFile))
-                using (JsonTextReader reader = new JsonTextReader(file))
+                try
                 {
-                    while (reader.Read())
+                    using (StreamReader file = File.OpenText(registryKeyJsonFile))
+                    using (JsonTextReader reader = new JsonTextReader(file))
                     {
-                        JObject o3 = (JObject) JToken.ReadFrom(reader);
-                        foreach (var child in o3.Children())
+                        while (reader.Read())
                         {
-                            AddPropertyToRegistryKey(registryKey, child.Path, child.First.ToString());
+                            JObject o3 = (JObject) JToken.ReadFrom(reader);
+                            foreach (var child in o3.Children())
+                            {
+                                AddPropertyToRegistryKey(registryKey, child.Path, child.First.ToString());
+                            }
                         }
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{Constants.RegistryKeyMessages.ErrorWritingFile}{ex}", 
+                        Constants.RegistryKeyMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
                 }
             }
             return registryKey;

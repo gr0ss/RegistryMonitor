@@ -57,6 +57,12 @@ namespace RegistryMonitor.Utils
             public const string CurrentSelectedKey = "The current registry key selected is:\n";
             public const string CurrentValueOfKey = "\n\nIt has a value of:\n";
             public const string CurrentValueOfKeyCaption = "Current Value of Key";
+
+            public const string ErrorReadingFile = "Error reading registry key from file\r\nException:\r\n";
+            public const string ErrorReadingFileCaption = "Error Reading Registry Key";
+
+            public const string ErrorWritingFile = "Error writing registry key to file\r\nException:\r\n";
+            public const string ErrorWritingFileCaption = "Error Writing Registry Key";
         }
 
         public static class ToolMessages
@@ -72,6 +78,12 @@ namespace RegistryMonitor.Utils
 
             public const string CouldntFindTool = "Couldn't find anything to run at ";
             public const string CouldntFindToolCaption = "Cant Find Tool";
+
+            public const string ErrorReadingFile = "Error reading tools from file\r\nException:\r\n";
+            public const string ErrorReadingFileCaption = "Error Reading Tools";
+
+            public const string ErrorWritingFile = "Error writing tools to file\r\nException:\r\n";
+            public const string ErrorWritingFileCaption = "Error Writing Tools";
         }
 
         public static class EnvironmentMessages
@@ -81,6 +93,21 @@ namespace RegistryMonitor.Utils
 
             public const string SelectEnvironmentToDelete = "You need to select an environment before you can delete one...";
             public const string SelectEnvironmentToDeleteCaption = "Please Select Environment";
+
+            public const string ErrorReadingFile = "Error reading environments from file\r\nException:\r\n";
+            public const string ErrorReadingFileCaption = "Error Reading Environments";
+
+            public const string ErrorWritingFile = "Error writing environments to file\r\nException:\r\n";
+            public const string ErrorWritingFileCaption = "Error Writing Environments";
+        }
+
+        public static class GeneralMessages
+        {
+            public const string ErrorReadingFile = "Error reading settings from file\r\nException:\r\n";
+            public const string ErrorReadingFileCaption = "Error Reading Settings";
+
+            public const string ErrorWritingFile = "Error writing settings to file\r\nException:\r\n";
+            public const string ErrorWritingFileCaption = "Error Writing Settings"; 
         }
 
         public static class Messages

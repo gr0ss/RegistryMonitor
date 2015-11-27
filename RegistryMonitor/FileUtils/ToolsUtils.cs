@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using RegistryMonitor.Files;
+using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
 {
@@ -14,15 +16,24 @@ namespace RegistryMonitor.FileUtils
         public static void WriteToolsSettings(IEnumerable<LoadedTools> tools)
         {
             string toolJsonFile = Path.Combine(Directory.GetCurrentDirectory(), TOOLS_FILE_NAME);
-            
-            using (StreamWriter file = File.CreateText(toolJsonFile))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
+
+            try
             {
-                foreach (var tool in tools)
+                using (StreamWriter file = File.CreateText(toolJsonFile))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
-                    var jsonTool = JsonConvert.SerializeObject(tool);
-                    writer.WriteRaw(jsonTool);
+                    foreach (var tool in tools)
+                    {
+                        var jsonTool = JsonConvert.SerializeObject(tool);
+                        writer.WriteRaw(jsonTool);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Constants.ToolMessages.ErrorWritingFile}{ex}", 
+                    Constants.ToolMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
 
@@ -39,23 +50,32 @@ namespace RegistryMonitor.FileUtils
             }
             else
             {
-                using (StreamReader file = File.OpenText(toolJsonFile))
-                using (JsonTextReader reader = new JsonTextReader(file))
+                try
                 {
-                    var tool = new LoadedTools();
-
-                    reader.SupportMultipleContent = true;
-
-                    while (reader.Read())
+                    using (StreamReader file = File.OpenText(toolJsonFile))
+                    using (JsonTextReader reader = new JsonTextReader(file))
                     {
-                        JObject o3 = (JObject) JToken.ReadFrom(reader);
-                        foreach (var child in o3.Children())
+                        var tool = new LoadedTools();
+
+                        reader.SupportMultipleContent = true;
+
+                        while (reader.Read())
                         {
-                            AddPropertyToTool(tool, child.Path, child.First.ToString());
+                            JObject o3 = (JObject) JToken.ReadFrom(reader);
+                            foreach (var child in o3.Children())
+                            {
+                                AddPropertyToTool(tool, child.Path, child.First.ToString());
+                            }
+                            tools.Add(tool);
+                            tool = new LoadedTools();
                         }
-                        tools.Add(tool);
-                        tool = new LoadedTools();
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{Constants.ToolMessages.ErrorWritingFile}{ex}", 
+                        Constants.ToolMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
                 }
             }
             return tools;

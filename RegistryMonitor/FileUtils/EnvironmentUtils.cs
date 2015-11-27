@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RegistryMonitor.Files;
+using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
 {
@@ -14,15 +16,24 @@ namespace RegistryMonitor.FileUtils
         public static void WriteEnvironmentSettings(IEnumerable<LoadedEnvironments> environments)
         {
             string environmnentJsonFile = Path.Combine(Directory.GetCurrentDirectory(), ENVIRONMENT_FILE_NAME);
-            
-            using (StreamWriter file = File.CreateText(environmnentJsonFile))
-            using (JsonTextWriter writer = new JsonTextWriter(file))
+
+            try
             {
-                foreach (var environment in environments)
+                using (StreamWriter file = File.CreateText(environmnentJsonFile))
+                using (JsonTextWriter writer = new JsonTextWriter(file))
                 {
-                    var jsonEnvironment = JsonConvert.SerializeObject(environment);
-                    writer.WriteRaw(jsonEnvironment);
+                    foreach (var environment in environments)
+                    {
+                        var jsonEnvironment = JsonConvert.SerializeObject(environment);
+                        writer.WriteRaw(jsonEnvironment);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{Constants.EnvironmentMessages.ErrorWritingFile}{ex}", 
+                    Constants.EnvironmentMessages.ErrorWritingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw;
             }
         }
 
@@ -39,23 +50,32 @@ namespace RegistryMonitor.FileUtils
             }
             else
             {
-                using (StreamReader file = File.OpenText(environmnentJsonFile))
-                using (JsonTextReader reader = new JsonTextReader(file))
+                try
                 {
-                    var env = new LoadedEnvironments();
-
-                    reader.SupportMultipleContent = true;
-
-                    while (reader.Read())
+                    using (StreamReader file = File.OpenText(environmnentJsonFile))
+                    using (JsonTextReader reader = new JsonTextReader(file))
                     {
-                        JObject o3 = (JObject) JToken.ReadFrom(reader);
-                        foreach (var child in o3.Children())
+                        var env = new LoadedEnvironments();
+
+                        reader.SupportMultipleContent = true;
+
+                        while (reader.Read())
                         {
-                            AddPropertyToEnvironment(env, child.Path, child.First.ToString());
+                            JObject o3 = (JObject) JToken.ReadFrom(reader);
+                            foreach (var child in o3.Children())
+                            {
+                                AddPropertyToEnvironment(env, child.Path, child.First.ToString());
+                            }
+                            environments.Add(env);
+                            env = new LoadedEnvironments();
                         }
-                        environments.Add(env);
-                        env = new LoadedEnvironments();
                     }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"{Constants.EnvironmentMessages.ErrorReadingFile}{ex}", 
+                    Constants.EnvironmentMessages.ErrorReadingFileCaption, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
                 }
             }
             return environments;
