@@ -37,87 +37,87 @@ namespace RegistryMonitor
             this.addButton = new System.Windows.Forms.Button();
             this.removeButton = new System.Windows.Forms.Button();
             this.tabTools = new System.Windows.Forms.TabPage();
-            this.toolsDirectoryButton = new System.Windows.Forms.Button();
-            this.guidToolsLabel = new System.Windows.Forms.Label();
-            this.hotkeyToolsCombo = new System.Windows.Forms.ComboBox();
-            this.hotkeyToolsLabel = new System.Windows.Forms.Label();
-            this.toolsList = new System.Windows.Forms.ListBox();
+            this.btnToolFileLocation = new System.Windows.Forms.Button();
+            this.lblToolCurrentToolGuid = new System.Windows.Forms.Label();
+            this.comboToolHotkey = new System.Windows.Forms.ComboBox();
+            this.lblToolHotkey = new System.Windows.Forms.Label();
+            this.lstToolAllTools = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.DirectoryPathTextbox = new System.Windows.Forms.TextBox();
-            this.toolsNameTextbox = new System.Windows.Forms.TextBox();
+            this.txtToolFileLocation = new System.Windows.Forms.TextBox();
+            this.txtToolName = new System.Windows.Forms.TextBox();
             this.directoryPathLbl = new System.Windows.Forms.Label();
-            this.toolNameLbl = new System.Windows.Forms.Label();
-            this.nameLbl = new System.Windows.Forms.Label();
-            this.registryValueTextbox = new System.Windows.Forms.TextBox();
-            this.NameTextbox = new System.Windows.Forms.TextBox();
-            this.environmentsList = new System.Windows.Forms.ListBox();
+            this.LblToolName = new System.Windows.Forms.Label();
+            this.LblEnvName = new System.Windows.Forms.Label();
+            this.txtEnvRegistryValue = new System.Windows.Forms.TextBox();
+            this.txtEnvName = new System.Windows.Forms.TextBox();
+            this.lstEnvAllEnvironments = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabGeneral = new System.Windows.Forms.TabPage();
-            this.showBalloonTipsCheckBox = new System.Windows.Forms.CheckBox();
-            this.iconPropertiesGroupBox = new System.Windows.Forms.GroupBox();
-            this.iconSizeUpDown = new System.Windows.Forms.NumericUpDown();
+            this.checkGeneralShowBalloonTips = new System.Windows.Forms.CheckBox();
+            this.groupGeneralIconProperties = new System.Windows.Forms.GroupBox();
+            this.upDownGeneralIconSize = new System.Windows.Forms.NumericUpDown();
             this.textSampleColorLabel = new System.Windows.Forms.Label();
-            this.samplePicture = new System.Windows.Forms.PictureBox();
+            this.picGeneralIconSample = new System.Windows.Forms.PictureBox();
             this.sampleLabel = new System.Windows.Forms.Label();
             this.sampleTextLabel = new System.Windows.Forms.Label();
-            this.sampleText = new System.Windows.Forms.TextBox();
+            this.txtGeneralIconSampleText = new System.Windows.Forms.TextBox();
             this.iconColorTextLabel = new System.Windows.Forms.Label();
             this.iconSizeLabel = new System.Windows.Forms.Label();
             this.iconFontLabel = new System.Windows.Forms.Label();
-            this.iconFontComboBox = new System.Windows.Forms.ComboBox();
-            this.globalHotkeyGroupBox = new System.Windows.Forms.GroupBox();
+            this.comboGeneralIconFont = new System.Windows.Forms.ComboBox();
+            this.groupGeneralGlobalHotkey = new System.Windows.Forms.GroupBox();
             this.optionalModifierKeysLabel = new System.Windows.Forms.Label();
             this.globalHotkeyLabel = new System.Windows.Forms.Label();
-            this.secondModifierKeyComboBox = new System.Windows.Forms.ComboBox();
-            this.firstModifierKeyComboBox = new System.Windows.Forms.ComboBox();
-            this.hotkeyComboBox = new System.Windows.Forms.ComboBox();
+            this.comboGeneralSecondModifierKey = new System.Windows.Forms.ComboBox();
+            this.comboGeneralFirstModifierKey = new System.Windows.Forms.ComboBox();
+            this.comboGeneralGlobalHotkey = new System.Windows.Forms.ComboBox();
             this.registryKeyGroupBox = new System.Windows.Forms.GroupBox();
             this.registryKeyNameLabel = new System.Windows.Forms.Label();
             this.registrySubRootLabel = new System.Windows.Forms.Label();
             this.registryRootLabel = new System.Windows.Forms.Label();
             this.checkButton = new System.Windows.Forms.Button();
-            this.fieldTextBox = new System.Windows.Forms.TextBox();
-            this.rootCombo3 = new System.Windows.Forms.ComboBox();
-            this.rootCombo2 = new System.Windows.Forms.ComboBox();
-            this.rootCombo = new System.Windows.Forms.ComboBox();
+            this.txtGeneralRegistryKeyField = new System.Windows.Forms.TextBox();
+            this.comboGeneralRegistryKeyRoot3 = new System.Windows.Forms.ComboBox();
+            this.comboGeneralRegistryKeyRoot2 = new System.Windows.Forms.ComboBox();
+            this.comboGeneralRegistryKeyRoot = new System.Windows.Forms.ComboBox();
             this.tabEnvironments = new System.Windows.Forms.TabPage();
             this.pnlEnvIcon = new System.Windows.Forms.Panel();
             this.pnlEnvIconFileLocation = new System.Windows.Forms.Panel();
-            this.pictureEnvSampleIcon = new System.Windows.Forms.PictureBox();
+            this.picEnvSampleIcon = new System.Windows.Forms.PictureBox();
             this.lblEnvSampleIcon = new System.Windows.Forms.Label();
             this.btnEnvIconFileLocation = new System.Windows.Forms.Button();
             this.txtEnvIconFileLocation = new System.Windows.Forms.TextBox();
             this.lblEnvIconFileLocation = new System.Windows.Forms.Label();
             this.pnlEnvDynamicIcon = new System.Windows.Forms.Panel();
             this.iconTextLabel = new System.Windows.Forms.Label();
-            this.iconDisplayTextbox = new System.Windows.Forms.TextBox();
+            this.txtEnvIconDisplayText = new System.Windows.Forms.TextBox();
             this.iconTextColorLabel = new System.Windows.Forms.Label();
             this.iconColorLabel = new System.Windows.Forms.Label();
             this.pnlEnvIconType = new System.Windows.Forms.Panel();
             this.radioEnvIconFromFile = new System.Windows.Forms.RadioButton();
             this.radioEnvDynamicIcon = new System.Windows.Forms.RadioButton();
-            this.hotkeyCombo = new System.Windows.Forms.ComboBox();
+            this.comboEnvHotkey = new System.Windows.Forms.ComboBox();
             this.hotkeyLabel = new System.Windows.Forms.Label();
-            this.guidLabel = new System.Windows.Forms.Label();
+            this.lblEnvCurrentEnvironmentGuid = new System.Windows.Forms.Label();
             this.registryValueLbl = new System.Windows.Forms.Label();
             this.checkEnvDisplayOnMenu = new System.Windows.Forms.CheckBox();
-            this.iconTextColorComboBox = new RegistryMonitor.Utils.ColorComboBox();
-            this.iconColorComboBox = new RegistryMonitor.Utils.ColorComboBox();
-            this.iconTextColorCombo = new RegistryMonitor.Utils.ColorComboBox();
-            this.iconColorBackgroundCombo = new RegistryMonitor.Utils.ColorComboBox();
+            this.comboGeneralIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
+            this.comboGeneralIconColor = new RegistryMonitor.Utils.ColorComboBox();
+            this.comboEnvIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
+            this.comboEnvIconBackgroundColor = new RegistryMonitor.Utils.ColorComboBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
-            this.iconPropertiesGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconSizeUpDown)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.samplePicture)).BeginInit();
-            this.globalHotkeyGroupBox.SuspendLayout();
+            this.groupGeneralIconProperties.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownGeneralIconSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGeneralIconSample)).BeginInit();
+            this.groupGeneralGlobalHotkey.SuspendLayout();
             this.registryKeyGroupBox.SuspendLayout();
             this.tabEnvironments.SuspendLayout();
             this.pnlEnvIcon.SuspendLayout();
             this.pnlEnvIconFileLocation.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEnvSampleIcon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnvSampleIcon)).BeginInit();
             this.pnlEnvDynamicIcon.SuspendLayout();
             this.pnlEnvIconType.SuspendLayout();
             this.SuspendLayout();
@@ -169,16 +169,16 @@ namespace RegistryMonitor
             // 
             // tabTools
             // 
-            this.tabTools.Controls.Add(this.toolsDirectoryButton);
-            this.tabTools.Controls.Add(this.guidToolsLabel);
-            this.tabTools.Controls.Add(this.hotkeyToolsCombo);
-            this.tabTools.Controls.Add(this.hotkeyToolsLabel);
-            this.tabTools.Controls.Add(this.toolsList);
+            this.tabTools.Controls.Add(this.btnToolFileLocation);
+            this.tabTools.Controls.Add(this.lblToolCurrentToolGuid);
+            this.tabTools.Controls.Add(this.comboToolHotkey);
+            this.tabTools.Controls.Add(this.lblToolHotkey);
+            this.tabTools.Controls.Add(this.lstToolAllTools);
             this.tabTools.Controls.Add(this.label2);
-            this.tabTools.Controls.Add(this.DirectoryPathTextbox);
-            this.tabTools.Controls.Add(this.toolsNameTextbox);
+            this.tabTools.Controls.Add(this.txtToolFileLocation);
+            this.tabTools.Controls.Add(this.txtToolName);
             this.tabTools.Controls.Add(this.directoryPathLbl);
-            this.tabTools.Controls.Add(this.toolNameLbl);
+            this.tabTools.Controls.Add(this.LblToolName);
             this.tabTools.Location = new System.Drawing.Point(4, 22);
             this.tabTools.Name = "tabTools";
             this.tabTools.Padding = new System.Windows.Forms.Padding(3);
@@ -187,51 +187,51 @@ namespace RegistryMonitor
             this.tabTools.Text = "Tools";
             this.tabTools.UseVisualStyleBackColor = true;
             // 
-            // toolsDirectoryButton
+            // btnToolFileLocation
             // 
-            this.toolsDirectoryButton.Image = global::RegistryMonitor.Properties.Resources.folder_add16;
-            this.toolsDirectoryButton.Location = new System.Drawing.Point(485, 60);
-            this.toolsDirectoryButton.Name = "toolsDirectoryButton";
-            this.toolsDirectoryButton.Size = new System.Drawing.Size(23, 20);
-            this.toolsDirectoryButton.TabIndex = 22;
-            this.toolsDirectoryButton.UseVisualStyleBackColor = true;
-            this.toolsDirectoryButton.Click += new System.EventHandler(this.toolsDirectoryButton_Click);
+            this.btnToolFileLocation.Image = global::RegistryMonitor.Properties.Resources.folder_add16;
+            this.btnToolFileLocation.Location = new System.Drawing.Point(485, 60);
+            this.btnToolFileLocation.Name = "btnToolFileLocation";
+            this.btnToolFileLocation.Size = new System.Drawing.Size(23, 20);
+            this.btnToolFileLocation.TabIndex = 22;
+            this.btnToolFileLocation.UseVisualStyleBackColor = true;
+            this.btnToolFileLocation.Click += new System.EventHandler(this.toolsDirectoryButton_Click);
             // 
-            // guidToolsLabel
+            // lblToolCurrentToolGuid
             // 
-            this.guidToolsLabel.AutoSize = true;
-            this.guidToolsLabel.Location = new System.Drawing.Point(214, 5);
-            this.guidToolsLabel.Name = "guidToolsLabel";
-            this.guidToolsLabel.Size = new System.Drawing.Size(18, 13);
-            this.guidToolsLabel.TabIndex = 21;
-            this.guidToolsLabel.Text = "ID";
-            this.guidToolsLabel.Visible = false;
+            this.lblToolCurrentToolGuid.AutoSize = true;
+            this.lblToolCurrentToolGuid.Location = new System.Drawing.Point(214, 5);
+            this.lblToolCurrentToolGuid.Name = "lblToolCurrentToolGuid";
+            this.lblToolCurrentToolGuid.Size = new System.Drawing.Size(18, 13);
+            this.lblToolCurrentToolGuid.TabIndex = 21;
+            this.lblToolCurrentToolGuid.Text = "ID";
+            this.lblToolCurrentToolGuid.Visible = false;
             // 
-            // hotkeyToolsCombo
+            // comboToolHotkey
             // 
-            this.hotkeyToolsCombo.FormattingEnabled = true;
-            this.hotkeyToolsCombo.Location = new System.Drawing.Point(167, 99);
-            this.hotkeyToolsCombo.Name = "hotkeyToolsCombo";
-            this.hotkeyToolsCombo.Size = new System.Drawing.Size(341, 21);
-            this.hotkeyToolsCombo.TabIndex = 20;
+            this.comboToolHotkey.FormattingEnabled = true;
+            this.comboToolHotkey.Location = new System.Drawing.Point(167, 99);
+            this.comboToolHotkey.Name = "comboToolHotkey";
+            this.comboToolHotkey.Size = new System.Drawing.Size(341, 21);
+            this.comboToolHotkey.TabIndex = 20;
             // 
-            // hotkeyToolsLabel
+            // lblToolHotkey
             // 
-            this.hotkeyToolsLabel.AutoSize = true;
-            this.hotkeyToolsLabel.Location = new System.Drawing.Point(167, 83);
-            this.hotkeyToolsLabel.Name = "hotkeyToolsLabel";
-            this.hotkeyToolsLabel.Size = new System.Drawing.Size(47, 13);
-            this.hotkeyToolsLabel.TabIndex = 19;
-            this.hotkeyToolsLabel.Text = "Hotkey: ";
+            this.lblToolHotkey.AutoSize = true;
+            this.lblToolHotkey.Location = new System.Drawing.Point(167, 83);
+            this.lblToolHotkey.Name = "lblToolHotkey";
+            this.lblToolHotkey.Size = new System.Drawing.Size(47, 13);
+            this.lblToolHotkey.TabIndex = 19;
+            this.lblToolHotkey.Text = "Hotkey: ";
             // 
-            // toolsList
+            // lstToolAllTools
             // 
-            this.toolsList.FormattingEnabled = true;
-            this.toolsList.Location = new System.Drawing.Point(7, 21);
-            this.toolsList.Name = "toolsList";
-            this.toolsList.Size = new System.Drawing.Size(154, 212);
-            this.toolsList.TabIndex = 12;
-            this.toolsList.SelectedIndexChanged += new System.EventHandler(this.toolsList_SelectedIndexChanged);
+            this.lstToolAllTools.FormattingEnabled = true;
+            this.lstToolAllTools.Location = new System.Drawing.Point(7, 21);
+            this.lstToolAllTools.Name = "lstToolAllTools";
+            this.lstToolAllTools.Size = new System.Drawing.Size(154, 212);
+            this.lstToolAllTools.TabIndex = 12;
+            this.lstToolAllTools.SelectedIndexChanged += new System.EventHandler(this.LstToolAllToolsSelectedIndexChanged);
             // 
             // label2
             // 
@@ -242,20 +242,20 @@ namespace RegistryMonitor
             this.label2.TabIndex = 11;
             this.label2.Text = "Tools";
             // 
-            // DirectoryPathTextbox
+            // txtToolFileLocation
             // 
-            this.DirectoryPathTextbox.Location = new System.Drawing.Point(167, 60);
-            this.DirectoryPathTextbox.Name = "DirectoryPathTextbox";
-            this.DirectoryPathTextbox.Size = new System.Drawing.Size(315, 20);
-            this.DirectoryPathTextbox.TabIndex = 10;
+            this.txtToolFileLocation.Location = new System.Drawing.Point(167, 60);
+            this.txtToolFileLocation.Name = "txtToolFileLocation";
+            this.txtToolFileLocation.Size = new System.Drawing.Size(315, 20);
+            this.txtToolFileLocation.TabIndex = 10;
             // 
-            // toolsNameTextbox
+            // txtToolName
             // 
-            this.toolsNameTextbox.Location = new System.Drawing.Point(167, 21);
-            this.toolsNameTextbox.Name = "toolsNameTextbox";
-            this.toolsNameTextbox.Size = new System.Drawing.Size(341, 20);
-            this.toolsNameTextbox.TabIndex = 9;
-            this.toolsNameTextbox.Leave += new System.EventHandler(this.NameTextbox_Leave);
+            this.txtToolName.Location = new System.Drawing.Point(167, 21);
+            this.txtToolName.Name = "txtToolName";
+            this.txtToolName.Size = new System.Drawing.Size(341, 20);
+            this.txtToolName.TabIndex = 9;
+            this.txtToolName.Leave += new System.EventHandler(this.NameTextbox_Leave);
             // 
             // directoryPathLbl
             // 
@@ -266,47 +266,47 @@ namespace RegistryMonitor
             this.directoryPathLbl.TabIndex = 8;
             this.directoryPathLbl.Text = "File Location: ";
             // 
-            // toolNameLbl
+            // LblToolName
             // 
-            this.toolNameLbl.AutoSize = true;
-            this.toolNameLbl.Location = new System.Drawing.Point(167, 5);
-            this.toolNameLbl.Name = "toolNameLbl";
-            this.toolNameLbl.Size = new System.Drawing.Size(41, 13);
-            this.toolNameLbl.TabIndex = 7;
-            this.toolNameLbl.Text = "Name: ";
+            this.LblToolName.AutoSize = true;
+            this.LblToolName.Location = new System.Drawing.Point(167, 5);
+            this.LblToolName.Name = "LblToolName";
+            this.LblToolName.Size = new System.Drawing.Size(41, 13);
+            this.LblToolName.TabIndex = 7;
+            this.LblToolName.Text = "Name: ";
             // 
-            // nameLbl
+            // LblEnvName
             // 
-            this.nameLbl.AutoSize = true;
-            this.nameLbl.Location = new System.Drawing.Point(167, 5);
-            this.nameLbl.Name = "nameLbl";
-            this.nameLbl.Size = new System.Drawing.Size(41, 13);
-            this.nameLbl.TabIndex = 1;
-            this.nameLbl.Text = "Name: ";
+            this.LblEnvName.AutoSize = true;
+            this.LblEnvName.Location = new System.Drawing.Point(167, 5);
+            this.LblEnvName.Name = "LblEnvName";
+            this.LblEnvName.Size = new System.Drawing.Size(41, 13);
+            this.LblEnvName.TabIndex = 1;
+            this.LblEnvName.Text = "Name: ";
             // 
-            // registryValueTextbox
+            // txtEnvRegistryValue
             // 
-            this.registryValueTextbox.Location = new System.Drawing.Point(167, 60);
-            this.registryValueTextbox.Name = "registryValueTextbox";
-            this.registryValueTextbox.Size = new System.Drawing.Size(266, 20);
-            this.registryValueTextbox.TabIndex = 4;
+            this.txtEnvRegistryValue.Location = new System.Drawing.Point(167, 60);
+            this.txtEnvRegistryValue.Name = "txtEnvRegistryValue";
+            this.txtEnvRegistryValue.Size = new System.Drawing.Size(266, 20);
+            this.txtEnvRegistryValue.TabIndex = 4;
             // 
-            // NameTextbox
+            // txtEnvName
             // 
-            this.NameTextbox.Location = new System.Drawing.Point(167, 21);
-            this.NameTextbox.Name = "NameTextbox";
-            this.NameTextbox.Size = new System.Drawing.Size(341, 20);
-            this.NameTextbox.TabIndex = 3;
-            this.NameTextbox.Leave += new System.EventHandler(this.NameTextbox_Leave);
+            this.txtEnvName.Location = new System.Drawing.Point(167, 21);
+            this.txtEnvName.Name = "txtEnvName";
+            this.txtEnvName.Size = new System.Drawing.Size(341, 20);
+            this.txtEnvName.TabIndex = 3;
+            this.txtEnvName.Leave += new System.EventHandler(this.NameTextbox_Leave);
             // 
-            // environmentsList
+            // lstEnvAllEnvironments
             // 
-            this.environmentsList.FormattingEnabled = true;
-            this.environmentsList.Location = new System.Drawing.Point(7, 21);
-            this.environmentsList.Name = "environmentsList";
-            this.environmentsList.Size = new System.Drawing.Size(154, 212);
-            this.environmentsList.TabIndex = 6;
-            this.environmentsList.SelectedIndexChanged += new System.EventHandler(this.environmentsList_SelectedIndexChanged);
+            this.lstEnvAllEnvironments.FormattingEnabled = true;
+            this.lstEnvAllEnvironments.Location = new System.Drawing.Point(7, 21);
+            this.lstEnvAllEnvironments.Name = "lstEnvAllEnvironments";
+            this.lstEnvAllEnvironments.Size = new System.Drawing.Size(154, 212);
+            this.lstEnvAllEnvironments.TabIndex = 6;
+            this.lstEnvAllEnvironments.SelectedIndexChanged += new System.EventHandler(this.LstEnvAllEnvironmentsSelectedIndexChanged);
             // 
             // label1
             // 
@@ -332,9 +332,9 @@ namespace RegistryMonitor
             // 
             // tabGeneral
             // 
-            this.tabGeneral.Controls.Add(this.showBalloonTipsCheckBox);
-            this.tabGeneral.Controls.Add(this.iconPropertiesGroupBox);
-            this.tabGeneral.Controls.Add(this.globalHotkeyGroupBox);
+            this.tabGeneral.Controls.Add(this.checkGeneralShowBalloonTips);
+            this.tabGeneral.Controls.Add(this.groupGeneralIconProperties);
+            this.tabGeneral.Controls.Add(this.groupGeneralGlobalHotkey);
             this.tabGeneral.Controls.Add(this.registryKeyGroupBox);
             this.tabGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabGeneral.Name = "tabGeneral";
@@ -343,66 +343,66 @@ namespace RegistryMonitor
             this.tabGeneral.Text = "General";
             this.tabGeneral.UseVisualStyleBackColor = true;
             // 
-            // showBalloonTipsCheckBox
+            // checkGeneralShowBalloonTips
             // 
-            this.showBalloonTipsCheckBox.AutoSize = true;
-            this.showBalloonTipsCheckBox.Location = new System.Drawing.Point(355, 138);
-            this.showBalloonTipsCheckBox.Name = "showBalloonTipsCheckBox";
-            this.showBalloonTipsCheckBox.Size = new System.Drawing.Size(114, 17);
-            this.showBalloonTipsCheckBox.TabIndex = 2;
-            this.showBalloonTipsCheckBox.Text = "Show Balloon Tips";
-            this.showBalloonTipsCheckBox.UseVisualStyleBackColor = true;
+            this.checkGeneralShowBalloonTips.AutoSize = true;
+            this.checkGeneralShowBalloonTips.Location = new System.Drawing.Point(355, 138);
+            this.checkGeneralShowBalloonTips.Name = "checkGeneralShowBalloonTips";
+            this.checkGeneralShowBalloonTips.Size = new System.Drawing.Size(114, 17);
+            this.checkGeneralShowBalloonTips.TabIndex = 2;
+            this.checkGeneralShowBalloonTips.Text = "Show Balloon Tips";
+            this.checkGeneralShowBalloonTips.UseVisualStyleBackColor = true;
             // 
-            // iconPropertiesGroupBox
+            // groupGeneralIconProperties
             // 
-            this.iconPropertiesGroupBox.Controls.Add(this.iconSizeUpDown);
-            this.iconPropertiesGroupBox.Controls.Add(this.iconTextColorComboBox);
-            this.iconPropertiesGroupBox.Controls.Add(this.iconColorComboBox);
-            this.iconPropertiesGroupBox.Controls.Add(this.textSampleColorLabel);
-            this.iconPropertiesGroupBox.Controls.Add(this.samplePicture);
-            this.iconPropertiesGroupBox.Controls.Add(this.sampleLabel);
-            this.iconPropertiesGroupBox.Controls.Add(this.sampleTextLabel);
-            this.iconPropertiesGroupBox.Controls.Add(this.sampleText);
-            this.iconPropertiesGroupBox.Controls.Add(this.iconColorTextLabel);
-            this.iconPropertiesGroupBox.Controls.Add(this.iconSizeLabel);
-            this.iconPropertiesGroupBox.Controls.Add(this.iconFontLabel);
-            this.iconPropertiesGroupBox.Controls.Add(this.iconFontComboBox);
-            this.iconPropertiesGroupBox.Location = new System.Drawing.Point(6, 3);
-            this.iconPropertiesGroupBox.Name = "iconPropertiesGroupBox";
-            this.iconPropertiesGroupBox.Size = new System.Drawing.Size(164, 230);
-            this.iconPropertiesGroupBox.TabIndex = 19;
-            this.iconPropertiesGroupBox.TabStop = false;
-            this.iconPropertiesGroupBox.Text = "Update Icon Properties";
+            this.groupGeneralIconProperties.Controls.Add(this.upDownGeneralIconSize);
+            this.groupGeneralIconProperties.Controls.Add(this.comboGeneralIconTextColor);
+            this.groupGeneralIconProperties.Controls.Add(this.comboGeneralIconColor);
+            this.groupGeneralIconProperties.Controls.Add(this.textSampleColorLabel);
+            this.groupGeneralIconProperties.Controls.Add(this.picGeneralIconSample);
+            this.groupGeneralIconProperties.Controls.Add(this.sampleLabel);
+            this.groupGeneralIconProperties.Controls.Add(this.sampleTextLabel);
+            this.groupGeneralIconProperties.Controls.Add(this.txtGeneralIconSampleText);
+            this.groupGeneralIconProperties.Controls.Add(this.iconColorTextLabel);
+            this.groupGeneralIconProperties.Controls.Add(this.iconSizeLabel);
+            this.groupGeneralIconProperties.Controls.Add(this.iconFontLabel);
+            this.groupGeneralIconProperties.Controls.Add(this.comboGeneralIconFont);
+            this.groupGeneralIconProperties.Location = new System.Drawing.Point(6, 3);
+            this.groupGeneralIconProperties.Name = "groupGeneralIconProperties";
+            this.groupGeneralIconProperties.Size = new System.Drawing.Size(164, 230);
+            this.groupGeneralIconProperties.TabIndex = 19;
+            this.groupGeneralIconProperties.TabStop = false;
+            this.groupGeneralIconProperties.Text = "Update Icon Properties";
             // 
-            // iconSizeUpDown
+            // upDownGeneralIconSize
             // 
-            this.iconSizeUpDown.DecimalPlaces = 2;
-            this.iconSizeUpDown.Increment = new decimal(new int[] {
+            this.upDownGeneralIconSize.DecimalPlaces = 2;
+            this.upDownGeneralIconSize.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.iconSizeUpDown.Location = new System.Drawing.Point(6, 72);
-            this.iconSizeUpDown.Maximum = new decimal(new int[] {
+            this.upDownGeneralIconSize.Location = new System.Drawing.Point(6, 72);
+            this.upDownGeneralIconSize.Maximum = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.iconSizeUpDown.Minimum = new decimal(new int[] {
+            this.upDownGeneralIconSize.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.iconSizeUpDown.Name = "iconSizeUpDown";
-            this.iconSizeUpDown.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.iconSizeUpDown.Size = new System.Drawing.Size(78, 20);
-            this.iconSizeUpDown.TabIndex = 18;
-            this.iconSizeUpDown.Value = new decimal(new int[] {
+            this.upDownGeneralIconSize.Name = "upDownGeneralIconSize";
+            this.upDownGeneralIconSize.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.upDownGeneralIconSize.Size = new System.Drawing.Size(78, 20);
+            this.upDownGeneralIconSize.TabIndex = 18;
+            this.upDownGeneralIconSize.Value = new decimal(new int[] {
             7,
             0,
             0,
             0});
-            this.iconSizeUpDown.ValueChanged += new System.EventHandler(this.UpdateSample);
+            this.upDownGeneralIconSize.ValueChanged += new System.EventHandler(this.UpdateSample);
             // 
             // textSampleColorLabel
             // 
@@ -414,13 +414,13 @@ namespace RegistryMonitor
             this.textSampleColorLabel.Text = "Sample Text Color:";
             this.textSampleColorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // samplePicture
+            // picGeneralIconSample
             // 
-            this.samplePicture.Location = new System.Drawing.Point(20, 191);
-            this.samplePicture.Name = "samplePicture";
-            this.samplePicture.Size = new System.Drawing.Size(32, 32);
-            this.samplePicture.TabIndex = 23;
-            this.samplePicture.TabStop = false;
+            this.picGeneralIconSample.Location = new System.Drawing.Point(20, 191);
+            this.picGeneralIconSample.Name = "picGeneralIconSample";
+            this.picGeneralIconSample.Size = new System.Drawing.Size(32, 32);
+            this.picGeneralIconSample.TabIndex = 23;
+            this.picGeneralIconSample.TabStop = false;
             // 
             // sampleLabel
             // 
@@ -440,14 +440,14 @@ namespace RegistryMonitor
             this.sampleTextLabel.TabIndex = 25;
             this.sampleTextLabel.Text = "Sample Text:";
             // 
-            // sampleText
+            // txtGeneralIconSampleText
             // 
-            this.sampleText.Location = new System.Drawing.Point(92, 72);
-            this.sampleText.Name = "sampleText";
-            this.sampleText.Size = new System.Drawing.Size(66, 20);
-            this.sampleText.TabIndex = 24;
-            this.sampleText.Text = "abc";
-            this.sampleText.TextChanged += new System.EventHandler(this.UpdateSample);
+            this.txtGeneralIconSampleText.Location = new System.Drawing.Point(92, 72);
+            this.txtGeneralIconSampleText.Name = "txtGeneralIconSampleText";
+            this.txtGeneralIconSampleText.Size = new System.Drawing.Size(66, 20);
+            this.txtGeneralIconSampleText.TabIndex = 24;
+            this.txtGeneralIconSampleText.Text = "abc";
+            this.txtGeneralIconSampleText.TextChanged += new System.EventHandler(this.UpdateSample);
             // 
             // iconColorTextLabel
             // 
@@ -477,28 +477,28 @@ namespace RegistryMonitor
             this.iconFontLabel.TabIndex = 19;
             this.iconFontLabel.Text = "Icon Text Font:";
             // 
-            // iconFontComboBox
+            // comboGeneralIconFont
             // 
-            this.iconFontComboBox.FormattingEnabled = true;
-            this.iconFontComboBox.Location = new System.Drawing.Point(6, 32);
-            this.iconFontComboBox.Name = "iconFontComboBox";
-            this.iconFontComboBox.Size = new System.Drawing.Size(152, 21);
-            this.iconFontComboBox.TabIndex = 16;
-            this.iconFontComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
+            this.comboGeneralIconFont.FormattingEnabled = true;
+            this.comboGeneralIconFont.Location = new System.Drawing.Point(6, 32);
+            this.comboGeneralIconFont.Name = "comboGeneralIconFont";
+            this.comboGeneralIconFont.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralIconFont.TabIndex = 16;
+            this.comboGeneralIconFont.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
             // 
-            // globalHotkeyGroupBox
+            // groupGeneralGlobalHotkey
             // 
-            this.globalHotkeyGroupBox.Controls.Add(this.optionalModifierKeysLabel);
-            this.globalHotkeyGroupBox.Controls.Add(this.globalHotkeyLabel);
-            this.globalHotkeyGroupBox.Controls.Add(this.secondModifierKeyComboBox);
-            this.globalHotkeyGroupBox.Controls.Add(this.firstModifierKeyComboBox);
-            this.globalHotkeyGroupBox.Controls.Add(this.hotkeyComboBox);
-            this.globalHotkeyGroupBox.Location = new System.Drawing.Point(346, 3);
-            this.globalHotkeyGroupBox.Name = "globalHotkeyGroupBox";
-            this.globalHotkeyGroupBox.Size = new System.Drawing.Size(164, 127);
-            this.globalHotkeyGroupBox.TabIndex = 1;
-            this.globalHotkeyGroupBox.TabStop = false;
-            this.globalHotkeyGroupBox.Text = "Update Global Hotkey";
+            this.groupGeneralGlobalHotkey.Controls.Add(this.optionalModifierKeysLabel);
+            this.groupGeneralGlobalHotkey.Controls.Add(this.globalHotkeyLabel);
+            this.groupGeneralGlobalHotkey.Controls.Add(this.comboGeneralSecondModifierKey);
+            this.groupGeneralGlobalHotkey.Controls.Add(this.comboGeneralFirstModifierKey);
+            this.groupGeneralGlobalHotkey.Controls.Add(this.comboGeneralGlobalHotkey);
+            this.groupGeneralGlobalHotkey.Location = new System.Drawing.Point(346, 3);
+            this.groupGeneralGlobalHotkey.Name = "groupGeneralGlobalHotkey";
+            this.groupGeneralGlobalHotkey.Size = new System.Drawing.Size(164, 127);
+            this.groupGeneralGlobalHotkey.TabIndex = 1;
+            this.groupGeneralGlobalHotkey.TabStop = false;
+            this.groupGeneralGlobalHotkey.Text = "Update Global Hotkey";
             // 
             // optionalModifierKeysLabel
             // 
@@ -518,29 +518,29 @@ namespace RegistryMonitor
             this.globalHotkeyLabel.TabIndex = 21;
             this.globalHotkeyLabel.Text = "Hotkey:";
             // 
-            // secondModifierKeyComboBox
+            // comboGeneralSecondModifierKey
             // 
-            this.secondModifierKeyComboBox.FormattingEnabled = true;
-            this.secondModifierKeyComboBox.Location = new System.Drawing.Point(6, 99);
-            this.secondModifierKeyComboBox.Name = "secondModifierKeyComboBox";
-            this.secondModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.secondModifierKeyComboBox.TabIndex = 18;
+            this.comboGeneralSecondModifierKey.FormattingEnabled = true;
+            this.comboGeneralSecondModifierKey.Location = new System.Drawing.Point(6, 99);
+            this.comboGeneralSecondModifierKey.Name = "comboGeneralSecondModifierKey";
+            this.comboGeneralSecondModifierKey.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralSecondModifierKey.TabIndex = 18;
             // 
-            // firstModifierKeyComboBox
+            // comboGeneralFirstModifierKey
             // 
-            this.firstModifierKeyComboBox.FormattingEnabled = true;
-            this.firstModifierKeyComboBox.Location = new System.Drawing.Point(6, 72);
-            this.firstModifierKeyComboBox.Name = "firstModifierKeyComboBox";
-            this.firstModifierKeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.firstModifierKeyComboBox.TabIndex = 17;
+            this.comboGeneralFirstModifierKey.FormattingEnabled = true;
+            this.comboGeneralFirstModifierKey.Location = new System.Drawing.Point(6, 72);
+            this.comboGeneralFirstModifierKey.Name = "comboGeneralFirstModifierKey";
+            this.comboGeneralFirstModifierKey.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralFirstModifierKey.TabIndex = 17;
             // 
-            // hotkeyComboBox
+            // comboGeneralGlobalHotkey
             // 
-            this.hotkeyComboBox.FormattingEnabled = true;
-            this.hotkeyComboBox.Location = new System.Drawing.Point(6, 32);
-            this.hotkeyComboBox.Name = "hotkeyComboBox";
-            this.hotkeyComboBox.Size = new System.Drawing.Size(152, 21);
-            this.hotkeyComboBox.TabIndex = 16;
+            this.comboGeneralGlobalHotkey.FormattingEnabled = true;
+            this.comboGeneralGlobalHotkey.Location = new System.Drawing.Point(6, 32);
+            this.comboGeneralGlobalHotkey.Name = "comboGeneralGlobalHotkey";
+            this.comboGeneralGlobalHotkey.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralGlobalHotkey.TabIndex = 16;
             // 
             // registryKeyGroupBox
             // 
@@ -548,10 +548,10 @@ namespace RegistryMonitor
             this.registryKeyGroupBox.Controls.Add(this.registrySubRootLabel);
             this.registryKeyGroupBox.Controls.Add(this.registryRootLabel);
             this.registryKeyGroupBox.Controls.Add(this.checkButton);
-            this.registryKeyGroupBox.Controls.Add(this.fieldTextBox);
-            this.registryKeyGroupBox.Controls.Add(this.rootCombo3);
-            this.registryKeyGroupBox.Controls.Add(this.rootCombo2);
-            this.registryKeyGroupBox.Controls.Add(this.rootCombo);
+            this.registryKeyGroupBox.Controls.Add(this.txtGeneralRegistryKeyField);
+            this.registryKeyGroupBox.Controls.Add(this.comboGeneralRegistryKeyRoot3);
+            this.registryKeyGroupBox.Controls.Add(this.comboGeneralRegistryKeyRoot2);
+            this.registryKeyGroupBox.Controls.Add(this.comboGeneralRegistryKeyRoot);
             this.registryKeyGroupBox.Location = new System.Drawing.Point(176, 3);
             this.registryKeyGroupBox.Name = "registryKeyGroupBox";
             this.registryKeyGroupBox.Size = new System.Drawing.Size(164, 194);
@@ -596,52 +596,52 @@ namespace RegistryMonitor
             this.checkButton.UseVisualStyleBackColor = true;
             this.checkButton.Click += new System.EventHandler(this.checkButton_Click);
             // 
-            // fieldTextBox
+            // txtGeneralRegistryKeyField
             // 
-            this.fieldTextBox.Location = new System.Drawing.Point(6, 139);
-            this.fieldTextBox.Name = "fieldTextBox";
-            this.fieldTextBox.Size = new System.Drawing.Size(152, 20);
-            this.fieldTextBox.TabIndex = 16;
+            this.txtGeneralRegistryKeyField.Location = new System.Drawing.Point(6, 139);
+            this.txtGeneralRegistryKeyField.Name = "txtGeneralRegistryKeyField";
+            this.txtGeneralRegistryKeyField.Size = new System.Drawing.Size(152, 20);
+            this.txtGeneralRegistryKeyField.TabIndex = 16;
             // 
-            // rootCombo3
+            // comboGeneralRegistryKeyRoot3
             // 
-            this.rootCombo3.FormattingEnabled = true;
-            this.rootCombo3.Location = new System.Drawing.Point(6, 99);
-            this.rootCombo3.Name = "rootCombo3";
-            this.rootCombo3.Size = new System.Drawing.Size(152, 21);
-            this.rootCombo3.TabIndex = 15;
+            this.comboGeneralRegistryKeyRoot3.FormattingEnabled = true;
+            this.comboGeneralRegistryKeyRoot3.Location = new System.Drawing.Point(6, 99);
+            this.comboGeneralRegistryKeyRoot3.Name = "comboGeneralRegistryKeyRoot3";
+            this.comboGeneralRegistryKeyRoot3.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralRegistryKeyRoot3.TabIndex = 15;
             // 
-            // rootCombo2
+            // comboGeneralRegistryKeyRoot2
             // 
-            this.rootCombo2.FormattingEnabled = true;
-            this.rootCombo2.Location = new System.Drawing.Point(6, 72);
-            this.rootCombo2.Name = "rootCombo2";
-            this.rootCombo2.Size = new System.Drawing.Size(152, 21);
-            this.rootCombo2.TabIndex = 14;
-            this.rootCombo2.SelectedIndexChanged += new System.EventHandler(this.RootCombo2_SelectedIndexChanged);
+            this.comboGeneralRegistryKeyRoot2.FormattingEnabled = true;
+            this.comboGeneralRegistryKeyRoot2.Location = new System.Drawing.Point(6, 72);
+            this.comboGeneralRegistryKeyRoot2.Name = "comboGeneralRegistryKeyRoot2";
+            this.comboGeneralRegistryKeyRoot2.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralRegistryKeyRoot2.TabIndex = 14;
+            this.comboGeneralRegistryKeyRoot2.SelectedIndexChanged += new System.EventHandler(this.RootCombo2_SelectedIndexChanged);
             // 
-            // rootCombo
+            // comboGeneralRegistryKeyRoot
             // 
-            this.rootCombo.FormattingEnabled = true;
-            this.rootCombo.Location = new System.Drawing.Point(6, 32);
-            this.rootCombo.Name = "rootCombo";
-            this.rootCombo.Size = new System.Drawing.Size(152, 21);
-            this.rootCombo.TabIndex = 13;
-            this.rootCombo.SelectedIndexChanged += new System.EventHandler(this.RootCombo_SelectedIndexChanged);
+            this.comboGeneralRegistryKeyRoot.FormattingEnabled = true;
+            this.comboGeneralRegistryKeyRoot.Location = new System.Drawing.Point(6, 32);
+            this.comboGeneralRegistryKeyRoot.Name = "comboGeneralRegistryKeyRoot";
+            this.comboGeneralRegistryKeyRoot.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralRegistryKeyRoot.TabIndex = 13;
+            this.comboGeneralRegistryKeyRoot.SelectedIndexChanged += new System.EventHandler(this.RootCombo_SelectedIndexChanged);
             // 
             // tabEnvironments
             // 
             this.tabEnvironments.Controls.Add(this.checkEnvDisplayOnMenu);
             this.tabEnvironments.Controls.Add(this.pnlEnvIcon);
-            this.tabEnvironments.Controls.Add(this.hotkeyCombo);
+            this.tabEnvironments.Controls.Add(this.comboEnvHotkey);
             this.tabEnvironments.Controls.Add(this.hotkeyLabel);
-            this.tabEnvironments.Controls.Add(this.guidLabel);
-            this.tabEnvironments.Controls.Add(this.environmentsList);
+            this.tabEnvironments.Controls.Add(this.lblEnvCurrentEnvironmentGuid);
+            this.tabEnvironments.Controls.Add(this.lstEnvAllEnvironments);
             this.tabEnvironments.Controls.Add(this.label1);
-            this.tabEnvironments.Controls.Add(this.registryValueTextbox);
-            this.tabEnvironments.Controls.Add(this.NameTextbox);
+            this.tabEnvironments.Controls.Add(this.txtEnvRegistryValue);
+            this.tabEnvironments.Controls.Add(this.txtEnvName);
             this.tabEnvironments.Controls.Add(this.registryValueLbl);
-            this.tabEnvironments.Controls.Add(this.nameLbl);
+            this.tabEnvironments.Controls.Add(this.LblEnvName);
             this.tabEnvironments.Location = new System.Drawing.Point(4, 22);
             this.tabEnvironments.Name = "tabEnvironments";
             this.tabEnvironments.Padding = new System.Windows.Forms.Padding(3);
@@ -662,7 +662,7 @@ namespace RegistryMonitor
             // 
             // pnlEnvIconFileLocation
             // 
-            this.pnlEnvIconFileLocation.Controls.Add(this.pictureEnvSampleIcon);
+            this.pnlEnvIconFileLocation.Controls.Add(this.picEnvSampleIcon);
             this.pnlEnvIconFileLocation.Controls.Add(this.lblEnvSampleIcon);
             this.pnlEnvIconFileLocation.Controls.Add(this.btnEnvIconFileLocation);
             this.pnlEnvIconFileLocation.Controls.Add(this.txtEnvIconFileLocation);
@@ -673,13 +673,13 @@ namespace RegistryMonitor
             this.pnlEnvIconFileLocation.Size = new System.Drawing.Size(350, 83);
             this.pnlEnvIconFileLocation.TabIndex = 2;
             // 
-            // pictureEnvSampleIcon
+            // picEnvSampleIcon
             // 
-            this.pictureEnvSampleIcon.Location = new System.Drawing.Point(78, 45);
-            this.pictureEnvSampleIcon.Name = "pictureEnvSampleIcon";
-            this.pictureEnvSampleIcon.Size = new System.Drawing.Size(32, 32);
-            this.pictureEnvSampleIcon.TabIndex = 27;
-            this.pictureEnvSampleIcon.TabStop = false;
+            this.picEnvSampleIcon.Location = new System.Drawing.Point(78, 45);
+            this.picEnvSampleIcon.Name = "picEnvSampleIcon";
+            this.picEnvSampleIcon.Size = new System.Drawing.Size(32, 32);
+            this.picEnvSampleIcon.TabIndex = 27;
+            this.picEnvSampleIcon.TabStop = false;
             // 
             // lblEnvSampleIcon
             // 
@@ -720,11 +720,11 @@ namespace RegistryMonitor
             // pnlEnvDynamicIcon
             // 
             this.pnlEnvDynamicIcon.Controls.Add(this.iconTextLabel);
-            this.pnlEnvDynamicIcon.Controls.Add(this.iconTextColorCombo);
-            this.pnlEnvDynamicIcon.Controls.Add(this.iconDisplayTextbox);
+            this.pnlEnvDynamicIcon.Controls.Add(this.comboEnvIconTextColor);
+            this.pnlEnvDynamicIcon.Controls.Add(this.txtEnvIconDisplayText);
             this.pnlEnvDynamicIcon.Controls.Add(this.iconTextColorLabel);
             this.pnlEnvDynamicIcon.Controls.Add(this.iconColorLabel);
-            this.pnlEnvDynamicIcon.Controls.Add(this.iconColorBackgroundCombo);
+            this.pnlEnvDynamicIcon.Controls.Add(this.comboEnvIconBackgroundColor);
             this.pnlEnvDynamicIcon.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlEnvDynamicIcon.Location = new System.Drawing.Point(0, 23);
             this.pnlEnvDynamicIcon.Name = "pnlEnvDynamicIcon";
@@ -740,13 +740,13 @@ namespace RegistryMonitor
             this.iconTextLabel.TabIndex = 10;
             this.iconTextLabel.Text = "Icon Display Text: ";
             // 
-            // iconDisplayTextbox
+            // txtEnvIconDisplayText
             // 
-            this.iconDisplayTextbox.Location = new System.Drawing.Point(3, 19);
-            this.iconDisplayTextbox.MaxLength = 3;
-            this.iconDisplayTextbox.Name = "iconDisplayTextbox";
-            this.iconDisplayTextbox.Size = new System.Drawing.Size(341, 20);
-            this.iconDisplayTextbox.TabIndex = 11;
+            this.txtEnvIconDisplayText.Location = new System.Drawing.Point(3, 19);
+            this.txtEnvIconDisplayText.MaxLength = 3;
+            this.txtEnvIconDisplayText.Name = "txtEnvIconDisplayText";
+            this.txtEnvIconDisplayText.Size = new System.Drawing.Size(341, 20);
+            this.txtEnvIconDisplayText.TabIndex = 11;
             // 
             // iconTextColorLabel
             // 
@@ -800,13 +800,13 @@ namespace RegistryMonitor
             this.radioEnvDynamicIcon.UseVisualStyleBackColor = true;
             this.radioEnvDynamicIcon.CheckedChanged += new System.EventHandler(this.iconRadioButtons_CheckChanged);
             // 
-            // hotkeyCombo
+            // comboEnvHotkey
             // 
-            this.hotkeyCombo.FormattingEnabled = true;
-            this.hotkeyCombo.Location = new System.Drawing.Point(439, 60);
-            this.hotkeyCombo.Name = "hotkeyCombo";
-            this.hotkeyCombo.Size = new System.Drawing.Size(68, 21);
-            this.hotkeyCombo.TabIndex = 18;
+            this.comboEnvHotkey.FormattingEnabled = true;
+            this.comboEnvHotkey.Location = new System.Drawing.Point(439, 60);
+            this.comboEnvHotkey.Name = "comboEnvHotkey";
+            this.comboEnvHotkey.Size = new System.Drawing.Size(68, 21);
+            this.comboEnvHotkey.TabIndex = 18;
             // 
             // hotkeyLabel
             // 
@@ -817,15 +817,15 @@ namespace RegistryMonitor
             this.hotkeyLabel.TabIndex = 8;
             this.hotkeyLabel.Text = "Hotkey: ";
             // 
-            // guidLabel
+            // lblEnvCurrentEnvironmentGuid
             // 
-            this.guidLabel.AutoSize = true;
-            this.guidLabel.Location = new System.Drawing.Point(214, 5);
-            this.guidLabel.Name = "guidLabel";
-            this.guidLabel.Size = new System.Drawing.Size(18, 13);
-            this.guidLabel.TabIndex = 7;
-            this.guidLabel.Text = "ID";
-            this.guidLabel.Visible = false;
+            this.lblEnvCurrentEnvironmentGuid.AutoSize = true;
+            this.lblEnvCurrentEnvironmentGuid.Location = new System.Drawing.Point(214, 5);
+            this.lblEnvCurrentEnvironmentGuid.Name = "lblEnvCurrentEnvironmentGuid";
+            this.lblEnvCurrentEnvironmentGuid.Size = new System.Drawing.Size(18, 13);
+            this.lblEnvCurrentEnvironmentGuid.TabIndex = 7;
+            this.lblEnvCurrentEnvironmentGuid.Text = "ID";
+            this.lblEnvCurrentEnvironmentGuid.Visible = false;
             // 
             // registryValueLbl
             // 
@@ -846,47 +846,47 @@ namespace RegistryMonitor
             this.checkEnvDisplayOnMenu.Text = "Display Environment On Menu";
             this.checkEnvDisplayOnMenu.UseVisualStyleBackColor = true;
             // 
-            // iconTextColorComboBox
+            // comboGeneralIconTextColor
             // 
-            this.iconTextColorComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconTextColorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconTextColorComboBox.FormattingEnabled = true;
-            this.iconTextColorComboBox.Location = new System.Drawing.Point(6, 111);
-            this.iconTextColorComboBox.Name = "iconTextColorComboBox";
-            this.iconTextColorComboBox.Size = new System.Drawing.Size(152, 21);
-            this.iconTextColorComboBox.TabIndex = 30;
-            this.iconTextColorComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
+            this.comboGeneralIconTextColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboGeneralIconTextColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboGeneralIconTextColor.FormattingEnabled = true;
+            this.comboGeneralIconTextColor.Location = new System.Drawing.Point(6, 111);
+            this.comboGeneralIconTextColor.Name = "comboGeneralIconTextColor";
+            this.comboGeneralIconTextColor.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralIconTextColor.TabIndex = 30;
+            this.comboGeneralIconTextColor.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
             // 
-            // iconColorComboBox
+            // comboGeneralIconColor
             // 
-            this.iconColorComboBox.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconColorComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconColorComboBox.FormattingEnabled = true;
-            this.iconColorComboBox.Location = new System.Drawing.Point(6, 151);
-            this.iconColorComboBox.Name = "iconColorComboBox";
-            this.iconColorComboBox.Size = new System.Drawing.Size(152, 21);
-            this.iconColorComboBox.TabIndex = 29;
-            this.iconColorComboBox.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
+            this.comboGeneralIconColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboGeneralIconColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboGeneralIconColor.FormattingEnabled = true;
+            this.comboGeneralIconColor.Location = new System.Drawing.Point(6, 151);
+            this.comboGeneralIconColor.Name = "comboGeneralIconColor";
+            this.comboGeneralIconColor.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralIconColor.TabIndex = 29;
+            this.comboGeneralIconColor.SelectedIndexChanged += new System.EventHandler(this.UpdateSample);
             // 
-            // iconTextColorCombo
+            // comboEnvIconTextColor
             // 
-            this.iconTextColorCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconTextColorCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconTextColorCombo.FormattingEnabled = true;
-            this.iconTextColorCombo.Location = new System.Drawing.Point(3, 58);
-            this.iconTextColorCombo.Name = "iconTextColorCombo";
-            this.iconTextColorCombo.Size = new System.Drawing.Size(168, 21);
-            this.iconTextColorCombo.TabIndex = 20;
+            this.comboEnvIconTextColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboEnvIconTextColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboEnvIconTextColor.FormattingEnabled = true;
+            this.comboEnvIconTextColor.Location = new System.Drawing.Point(3, 58);
+            this.comboEnvIconTextColor.Name = "comboEnvIconTextColor";
+            this.comboEnvIconTextColor.Size = new System.Drawing.Size(168, 21);
+            this.comboEnvIconTextColor.TabIndex = 20;
             // 
-            // iconColorBackgroundCombo
+            // comboEnvIconBackgroundColor
             // 
-            this.iconColorBackgroundCombo.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.iconColorBackgroundCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.iconColorBackgroundCombo.FormattingEnabled = true;
-            this.iconColorBackgroundCombo.Location = new System.Drawing.Point(176, 58);
-            this.iconColorBackgroundCombo.Name = "iconColorBackgroundCombo";
-            this.iconColorBackgroundCombo.Size = new System.Drawing.Size(168, 21);
-            this.iconColorBackgroundCombo.TabIndex = 18;
+            this.comboEnvIconBackgroundColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboEnvIconBackgroundColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboEnvIconBackgroundColor.FormattingEnabled = true;
+            this.comboEnvIconBackgroundColor.Location = new System.Drawing.Point(176, 58);
+            this.comboEnvIconBackgroundColor.Name = "comboEnvIconBackgroundColor";
+            this.comboEnvIconBackgroundColor.Size = new System.Drawing.Size(168, 21);
+            this.comboEnvIconBackgroundColor.TabIndex = 18;
             // 
             // Settings
             // 
@@ -908,12 +908,12 @@ namespace RegistryMonitor
             this.tabControl.ResumeLayout(false);
             this.tabGeneral.ResumeLayout(false);
             this.tabGeneral.PerformLayout();
-            this.iconPropertiesGroupBox.ResumeLayout(false);
-            this.iconPropertiesGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.iconSizeUpDown)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.samplePicture)).EndInit();
-            this.globalHotkeyGroupBox.ResumeLayout(false);
-            this.globalHotkeyGroupBox.PerformLayout();
+            this.groupGeneralIconProperties.ResumeLayout(false);
+            this.groupGeneralIconProperties.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.upDownGeneralIconSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGeneralIconSample)).EndInit();
+            this.groupGeneralGlobalHotkey.ResumeLayout(false);
+            this.groupGeneralGlobalHotkey.PerformLayout();
             this.registryKeyGroupBox.ResumeLayout(false);
             this.registryKeyGroupBox.PerformLayout();
             this.tabEnvironments.ResumeLayout(false);
@@ -921,7 +921,7 @@ namespace RegistryMonitor
             this.pnlEnvIcon.ResumeLayout(false);
             this.pnlEnvIconFileLocation.ResumeLayout(false);
             this.pnlEnvIconFileLocation.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEnvSampleIcon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picEnvSampleIcon)).EndInit();
             this.pnlEnvDynamicIcon.ResumeLayout(false);
             this.pnlEnvDynamicIcon.PerformLayout();
             this.pnlEnvIconType.ResumeLayout(false);
@@ -938,63 +938,63 @@ namespace RegistryMonitor
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.TabPage tabTools;
-        private System.Windows.Forms.ListBox toolsList;
+        private System.Windows.Forms.ListBox lstToolAllTools;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox DirectoryPathTextbox;
-        private System.Windows.Forms.TextBox toolsNameTextbox;
+        private System.Windows.Forms.TextBox txtToolFileLocation;
+        private System.Windows.Forms.TextBox txtToolName;
         private System.Windows.Forms.Label directoryPathLbl;
-        private System.Windows.Forms.Label toolNameLbl;
-        private System.Windows.Forms.Label nameLbl;
-        private System.Windows.Forms.TextBox registryValueTextbox;
-        private System.Windows.Forms.TextBox NameTextbox;
-        private System.Windows.Forms.ListBox environmentsList;
+        private System.Windows.Forms.Label LblToolName;
+        private System.Windows.Forms.Label LblEnvName;
+        private System.Windows.Forms.TextBox txtEnvRegistryValue;
+        private System.Windows.Forms.TextBox txtEnvName;
+        private System.Windows.Forms.ListBox lstEnvAllEnvironments;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabEnvironments;
         private System.Windows.Forms.Label registryValueLbl;
-        private System.Windows.Forms.Label guidLabel;
-        private System.Windows.Forms.ComboBox hotkeyCombo;
+        private System.Windows.Forms.Label lblEnvCurrentEnvironmentGuid;
+        private System.Windows.Forms.ComboBox comboEnvHotkey;
         private System.Windows.Forms.Label iconColorLabel;
-        private System.Windows.Forms.TextBox iconDisplayTextbox;
+        private System.Windows.Forms.TextBox txtEnvIconDisplayText;
         private System.Windows.Forms.Label iconTextLabel;
         private System.Windows.Forms.Label hotkeyLabel;
-        private ColorComboBox iconColorBackgroundCombo;
-        private System.Windows.Forms.Label guidToolsLabel;
-        private System.Windows.Forms.ComboBox hotkeyToolsCombo;
-        private System.Windows.Forms.Label hotkeyToolsLabel;
+        private ColorComboBox comboEnvIconBackgroundColor;
+        private System.Windows.Forms.Label lblToolCurrentToolGuid;
+        private System.Windows.Forms.ComboBox comboToolHotkey;
+        private System.Windows.Forms.Label lblToolHotkey;
         private System.Windows.Forms.TabPage tabGeneral;
         private System.Windows.Forms.GroupBox registryKeyGroupBox;
         private System.Windows.Forms.Button checkButton;
-        private System.Windows.Forms.TextBox fieldTextBox;
-        private System.Windows.Forms.ComboBox rootCombo3;
-        private System.Windows.Forms.ComboBox rootCombo2;
-        private System.Windows.Forms.ComboBox rootCombo;
-        private System.Windows.Forms.GroupBox globalHotkeyGroupBox;
-        private System.Windows.Forms.ComboBox secondModifierKeyComboBox;
-        private System.Windows.Forms.ComboBox firstModifierKeyComboBox;
-        private System.Windows.Forms.ComboBox hotkeyComboBox;
-        private System.Windows.Forms.CheckBox showBalloonTipsCheckBox;
-        private System.Windows.Forms.GroupBox iconPropertiesGroupBox;
-        private System.Windows.Forms.PictureBox samplePicture;
+        private System.Windows.Forms.TextBox txtGeneralRegistryKeyField;
+        private System.Windows.Forms.ComboBox comboGeneralRegistryKeyRoot3;
+        private System.Windows.Forms.ComboBox comboGeneralRegistryKeyRoot2;
+        private System.Windows.Forms.ComboBox comboGeneralRegistryKeyRoot;
+        private System.Windows.Forms.GroupBox groupGeneralGlobalHotkey;
+        private System.Windows.Forms.ComboBox comboGeneralSecondModifierKey;
+        private System.Windows.Forms.ComboBox comboGeneralFirstModifierKey;
+        private System.Windows.Forms.ComboBox comboGeneralGlobalHotkey;
+        private System.Windows.Forms.CheckBox checkGeneralShowBalloonTips;
+        private System.Windows.Forms.GroupBox groupGeneralIconProperties;
+        private System.Windows.Forms.PictureBox picGeneralIconSample;
         private System.Windows.Forms.Label sampleLabel;
         private System.Windows.Forms.Label iconColorTextLabel;
         private System.Windows.Forms.Label iconSizeLabel;
         private System.Windows.Forms.Label iconFontLabel;
-        private System.Windows.Forms.ComboBox iconFontComboBox;
+        private System.Windows.Forms.ComboBox comboGeneralIconFont;
         private System.Windows.Forms.Label sampleTextLabel;
-        private System.Windows.Forms.TextBox sampleText;
+        private System.Windows.Forms.TextBox txtGeneralIconSampleText;
         private System.Windows.Forms.Label textSampleColorLabel;
-        private ColorComboBox iconTextColorComboBox;
-        private ColorComboBox iconColorComboBox;
-        private System.Windows.Forms.NumericUpDown iconSizeUpDown;
+        private ColorComboBox comboGeneralIconTextColor;
+        private ColorComboBox comboGeneralIconColor;
+        private System.Windows.Forms.NumericUpDown upDownGeneralIconSize;
         private System.Windows.Forms.Label registryKeyNameLabel;
         private System.Windows.Forms.Label registrySubRootLabel;
         private System.Windows.Forms.Label registryRootLabel;
         private System.Windows.Forms.Label optionalModifierKeysLabel;
         private System.Windows.Forms.Label globalHotkeyLabel;
-        private ColorComboBox iconTextColorCombo;
+        private ColorComboBox comboEnvIconTextColor;
         private System.Windows.Forms.Label iconTextColorLabel;
-        private System.Windows.Forms.Button toolsDirectoryButton;
+        private System.Windows.Forms.Button btnToolFileLocation;
         private System.Windows.Forms.Panel pnlEnvIcon;
         private System.Windows.Forms.Panel pnlEnvDynamicIcon;
         private System.Windows.Forms.Panel pnlEnvIconType;
@@ -1004,7 +1004,7 @@ namespace RegistryMonitor
         private System.Windows.Forms.Button btnEnvIconFileLocation;
         private System.Windows.Forms.TextBox txtEnvIconFileLocation;
         private System.Windows.Forms.Label lblEnvIconFileLocation;
-        private System.Windows.Forms.PictureBox pictureEnvSampleIcon;
+        private System.Windows.Forms.PictureBox picEnvSampleIcon;
         private System.Windows.Forms.Label lblEnvSampleIcon;
         private System.Windows.Forms.CheckBox checkEnvDisplayOnMenu;
     }

@@ -46,10 +46,10 @@ namespace RegistryMonitor
 
         private void LoadToolTips()
         {
-            ToolTipUtils.AddToolTip(this.showBalloonTipsCheckBox, Constants.BalloonTips.ShowBalloonTipsCheckBoxCaption);
-            ToolTipUtils.AddToolTip(this.toolsDirectoryButton, Constants.BalloonTips.ToolsDirectoryButtonCaption);
-            ToolTipUtils.AddToolTip(this.globalHotkeyGroupBox, Constants.BalloonTips.GlobalHotkeyGroupBoxCaption);
-            ToolTipUtils.AddToolTip(this.checkEnvDisplayOnMenu, Constants.BalloonTips.CheckEnvDisplayOnMenuCaption);
+            ToolTipUtils.AddToolTip(checkGeneralShowBalloonTips, Constants.BalloonTips.CheckGeneralShowBalloonTipsCaption);
+            ToolTipUtils.AddToolTip(btnToolFileLocation, Constants.BalloonTips.BtnToolFileLocationCaption);
+            ToolTipUtils.AddToolTip(groupGeneralGlobalHotkey, Constants.BalloonTips.GroupGeneralGlobalHotkeyCaption);
+            ToolTipUtils.AddToolTip(checkEnvDisplayOnMenu, Constants.BalloonTips.CheckEnvDisplayOnMenuCaption);
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,11 +69,14 @@ namespace RegistryMonitor
             if (tabControl.SelectedTab != tabGeneral) return;
 
             SetupButtonEnabled(false);
-            RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, fieldTextBox);
-            GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, hotkeyComboBox, firstModifierKeyComboBox, secondModifierKeyComboBox);
-            showBalloonTipsCheckBox.Checked = _loadedSettings.General.ShowBalloonTips;
-            GeneralUtils.PopulateIconProperties(_loadedSettings.General, iconFontComboBox, iconColorComboBox, iconTextColorComboBox);
-            iconSizeUpDown.Text = _loadedSettings.General.IconFontSize.ToString(CultureInfo.InvariantCulture);
+            RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, comboGeneralRegistryKeyRoot, 
+                                                                         comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3, 
+                                                                         txtGeneralRegistryKeyField);
+            GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, comboGeneralGlobalHotkey, 
+                                                         comboGeneralFirstModifierKey, comboGeneralSecondModifierKey);
+            checkGeneralShowBalloonTips.Checked = _loadedSettings.General.ShowBalloonTips;
+            GeneralUtils.PopulateIconProperties(_loadedSettings.General, comboGeneralIconFont, comboGeneralIconColor, comboGeneralIconTextColor);
+            upDownGeneralIconSize.Text = _loadedSettings.General.IconFontSize.ToString(CultureInfo.InvariantCulture);
         }
 
         private void LoadEnvironmentsOrToolsTab()
@@ -91,25 +94,25 @@ namespace RegistryMonitor
         private void UpdateSample(object sender, EventArgs e)
         {
             // Make sure all properties are filled in
-            if (iconFontComboBox.SelectedIndex == -1 ||
-                iconColorComboBox.SelectedIndex == -1 ||
-                iconTextColorComboBox.SelectedIndex == -1 ||
-                string.IsNullOrEmpty(iconSizeUpDown.Text) ||
-                string.IsNullOrEmpty(sampleText.Text)) return;
+            if (comboGeneralIconFont.SelectedIndex == -1 ||
+                comboGeneralIconColor.SelectedIndex == -1 ||
+                comboGeneralIconTextColor.SelectedIndex == -1 ||
+                string.IsNullOrEmpty(upDownGeneralIconSize.Text) ||
+                string.IsNullOrEmpty(txtGeneralIconSampleText.Text)) return;
 
-            var size = iconSizeUpDown.Text.ToFloat();
+            var size = upDownGeneralIconSize.Text.ToFloat();
             if (size <= float.Epsilon) return;
 
-            Font font = new Font(iconFontComboBox.SelectedItem.ToString(), size);
+            Font font = new Font(comboGeneralIconFont.SelectedItem.ToString(), size);
             Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
 			using (Graphics g = Graphics.FromImage(bmp))
 			{
                 Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			    g.FillEllipse(iconColorComboBox.SelectedItem.ToString().ToSolidBrush(), rectangle);
-                g.DrawString(sampleText.Text, font, iconTextColorComboBox.SelectedItem.ToString().ToSolidBrush(), 0, 2);
+			    g.FillEllipse(comboGeneralIconColor.SelectedItem.ToString().ToSolidBrush(), rectangle);
+                g.DrawString(txtGeneralIconSampleText.Text, font, comboGeneralIconTextColor.SelectedItem.ToString().ToSolidBrush(), 0, 2);
 			}
 
-            samplePicture.Image = Converter.BitmapToIcon(bmp).ToBitmap();
+            picGeneralIconSample.Image = Converter.BitmapToIcon(bmp).ToBitmap();
         }
 
 #region Setup and Populate
@@ -118,32 +121,32 @@ namespace RegistryMonitor
         {
             if (env)
             {
-                environmentsList.Items.Clear();
+                lstEnvAllEnvironments.Items.Clear();
 
                 foreach (var key in _loadedSettings.Environments)
                 {
-                    environmentsList.Items.Add(key.Name);
+                    lstEnvAllEnvironments.Items.Add(key.Name);
                 }
 
-                if (string.IsNullOrEmpty(guidLabel.Text)) return;
+                if (string.IsNullOrEmpty(lblEnvCurrentEnvironmentGuid.Text)) return;
 
                 var currentEnvironment = _loadedSettings.Environments
-                                                        .First(environment => environment.ID == Guid.Parse(guidLabel.Text));
-                environmentsList.SelectedIndex = environmentsList.Items.IndexOf(currentEnvironment.Name);
+                                                        .First(environment => environment.ID == Guid.Parse(lblEnvCurrentEnvironmentGuid.Text));
+                lstEnvAllEnvironments.SelectedIndex = lstEnvAllEnvironments.Items.IndexOf(currentEnvironment.Name);
             }
             else
             {
-                toolsList.Items.Clear();
+                lstToolAllTools.Items.Clear();
 
                 foreach (var key in _loadedSettings.Tools)
                 {
-                    toolsList.Items.Add(key.Name);
+                    lstToolAllTools.Items.Add(key.Name);
                 }
 
-                if (string.IsNullOrEmpty(guidToolsLabel.Text)) return;
+                if (string.IsNullOrEmpty(lblToolCurrentToolGuid.Text)) return;
 
-                var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
-                toolsList.SelectedIndex = toolsList.Items.IndexOf(currentTool.Name);
+                var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(lblToolCurrentToolGuid.Text));
+                lstToolAllTools.SelectedIndex = lstToolAllTools.Items.IndexOf(currentTool.Name);
             }
         }
         
@@ -176,15 +179,15 @@ namespace RegistryMonitor
         {
             if (tabControl.SelectedTab == tabEnvironments)
             {
-                hotkeyCombo.Items.Clear();
-                foreach (var c in NameTextbox.Text.Where(c => c.ToString() != " "))
-                    hotkeyCombo.Items.Add(c);
+                comboEnvHotkey.Items.Clear();
+                foreach (var c in txtEnvName.Text.Where(c => c.ToString() != " "))
+                    comboEnvHotkey.Items.Add(c);
             }
             else if (tabControl.SelectedTab == tabTools)
             {
-                hotkeyToolsCombo.Items.Clear();
-                foreach (var c in toolsNameTextbox.Text.Where(c => c.ToString() != " "))
-                    hotkeyToolsCombo.Items.Add(c);
+                comboToolHotkey.Items.Clear();
+                foreach (var c in txtToolName.Text.Where(c => c.ToString() != " "))
+                    comboToolHotkey.Items.Add(c);
             }
         }
 
@@ -196,18 +199,9 @@ namespace RegistryMonitor
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                var addName = new AddName(true, _loadedSettings);
-                addName.Closing += NameAdded_EventHandler;
-                addName.Show();
-            }
-            else if (tabControl.SelectedTab == tabTools)
-            {
-                var addTextName = new AddName(false, _loadedSettings);
-                addTextName.Closing += NameAdded_EventHandler;
-                addTextName.Show();
-            }
+            var addName = new AddName(tabControl.SelectedTab == tabEnvironments, _loadedSettings);
+            addName.Closing += NameAdded_EventHandler;
+            addName.Show();
         }
 
         private void NameAdded_EventHandler(object sender, CancelEventArgs e)
@@ -216,13 +210,13 @@ namespace RegistryMonitor
 
             if (tabControl.SelectedTab == tabEnvironments)
             {
-                var index = environmentsList.Items.Count - 1;
-                environmentsList.SelectedIndex = index;
+                var index = lstEnvAllEnvironments.Items.Count - 1;
+                lstEnvAllEnvironments.SelectedIndex = index;
             }
             else if (tabControl.SelectedTab == tabTools)
             {
-                var toolIndex = toolsList.Items.Count - 1;
-                toolsList.SelectedIndex = toolIndex;
+                var toolIndex = lstToolAllTools.Items.Count - 1;
+                lstToolAllTools.SelectedIndex = toolIndex;
             }
         }
         
@@ -230,10 +224,10 @@ namespace RegistryMonitor
         {
             if (tabControl.SelectedTab == tabEnvironments)
             {
-                if (environmentsList.SelectedIndex != -1)
+                if (lstEnvAllEnvironments.SelectedIndex != -1)
                 {
                     var allEnvironments = _loadedSettings.Environments;
-                    var environmentToRemove = allEnvironments.FirstOrDefault(env => env.ID == Guid.Parse(guidLabel.Text));
+                    var environmentToRemove = allEnvironments.FirstOrDefault(env => env.ID == Guid.Parse(lblEnvCurrentEnvironmentGuid.Text));
                     if (environmentToRemove?.ID != Guid.Empty)
                     {
                         allEnvironments.Remove(environmentToRemove);
@@ -257,10 +251,10 @@ namespace RegistryMonitor
             }
             else if (tabControl.SelectedTab == tabTools)
             {
-                if (toolsList.SelectedIndex != -1)
+                if (lstToolAllTools.SelectedIndex != -1)
                 {
                     var allTools = _loadedSettings.Tools;
-                    var toolToRemove = allTools.FirstOrDefault(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+                    var toolToRemove = allTools.FirstOrDefault(tool => tool.ID == Guid.Parse(lblToolCurrentToolGuid.Text));
                     if (toolToRemove != null && toolToRemove.ID != Guid.Empty)
                     {
                         allTools.Remove(toolToRemove);
@@ -288,14 +282,14 @@ namespace RegistryMonitor
         private void ClearEnvironmentFields()
         {
             _loadingValues = true;
-            NameTextbox.Text = "";
-            registryValueTextbox.Text = "";
-            hotkeyCombo.Items.Clear();
-            hotkeyCombo.Text = "";
-            iconDisplayTextbox.Text = "";
-            iconTextColorCombo.SelectedIndex = -1;
-            iconColorBackgroundCombo.SelectedIndex = -1;
-            guidLabel.Text = "";
+            txtEnvName.Text = "";
+            txtEnvRegistryValue.Text = "";
+            comboEnvHotkey.Items.Clear();
+            comboEnvHotkey.Text = "";
+            txtEnvIconDisplayText.Text = "";
+            comboEnvIconTextColor.SelectedIndex = -1;
+            comboEnvIconBackgroundColor.SelectedIndex = -1;
+            lblEnvCurrentEnvironmentGuid.Text = "";
             _loadingValues = false;
             radioEnvDynamicIcon.Checked = true;
             txtEnvIconFileLocation.Text = "";
@@ -305,11 +299,11 @@ namespace RegistryMonitor
         private void ClearToolFields()
         {
             _loadingValues = true;
-            toolsNameTextbox.Text = "";
-            DirectoryPathTextbox.Text = "";
-            hotkeyToolsCombo.Items.Clear();
-            hotkeyToolsCombo.Text = "";
-            guidToolsLabel.Text = "";
+            txtToolName.Text = "";
+            txtToolFileLocation.Text = "";
+            comboToolHotkey.Items.Clear();
+            comboToolHotkey.Text = "";
+            lblToolCurrentToolGuid.Text = "";
             _loadingValues = false;
         }
 #endregion Clear Methods
@@ -321,9 +315,9 @@ namespace RegistryMonitor
             {
                 SaveNewRegistryKey();
                 SaveNewGlobalHotkey();
-                _loadedSettings.General.ShowBalloonTips = showBalloonTipsCheckBox.Checked;
-                _loadedSettings.General.IconFont = iconFontComboBox.SelectedItem.ToString();
-                _loadedSettings.General.IconFontSize = iconSizeUpDown.Text.ToFloat();
+                _loadedSettings.General.ShowBalloonTips = checkGeneralShowBalloonTips.Checked;
+                _loadedSettings.General.IconFont = comboGeneralIconFont.SelectedItem.ToString();
+                _loadedSettings.General.IconFontSize = upDownGeneralIconSize.Text.ToFloat();
                 _loadedSettings.General = _loadedSettings.General;
             }
             else
@@ -341,7 +335,7 @@ namespace RegistryMonitor
 
         private void SaveNewGlobalHotkey()
         {
-            if (firstModifierKeyComboBox.Text == System.Windows.Input.ModifierKeys.None.ToString())
+            if (comboGeneralFirstModifierKey.Text == System.Windows.Input.ModifierKeys.None.ToString())
             {
                 MessageBox.Show(Constants.HotkeyMessages.SelectGlobalHotkeyToSave, 
                                 Constants.HotkeyMessages.SelectGlobalHotkeyToSaveCaption, 
@@ -354,40 +348,40 @@ namespace RegistryMonitor
             else
             {
                 _loadedSettings.General.LoadedGlobalHotkey.Hotkey =
-                    GlobalHotkeyParser.ConvertStringToKey(hotkeyComboBox.Text);
+                    GlobalHotkeyParser.ConvertStringToKey(comboGeneralGlobalHotkey.Text);
                 _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(firstModifierKeyComboBox.Text);
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(comboGeneralFirstModifierKey.Text);
                 _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(secondModifierKeyComboBox.Text);
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(comboGeneralSecondModifierKey.Text);
             }
         }
 
         private bool CurrentHotkeyEqualsSavedHotkey()
         {
             return _loadedSettings.General.LoadedGlobalHotkey.Hotkey.ToString() ==
-                    hotkeyComboBox.Text &&
+                    comboGeneralGlobalHotkey.Text &&
                    _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey.ToString() ==
-                    firstModifierKeyComboBox.Text &&
+                    comboGeneralFirstModifierKey.Text &&
                    _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey.ToString() ==
-                    secondModifierKeyComboBox.Text;
+                    comboGeneralSecondModifierKey.Text;
         }
 
         private void SaveCurrentEnvironment()
         {
-            var currentEnvironment = _loadedSettings.Environments.First(env => env.ID == Guid.Parse(guidLabel.Text));
+            var currentEnvironment = _loadedSettings.Environments.First(env => env.ID == Guid.Parse(lblEnvCurrentEnvironmentGuid.Text));
 
-            if (currentEnvironment.Name != NameTextbox.Text)
-                currentEnvironment.Name = NameTextbox.Text;
-            if (currentEnvironment.SubkeyValue != registryValueTextbox.Text)
-                currentEnvironment.SubkeyValue = registryValueTextbox.Text;
-            if (currentEnvironment.HotKey != hotkeyCombo.Text)
-                currentEnvironment.HotKey = hotkeyCombo.Text;
-            if (currentEnvironment.IconLabel != iconDisplayTextbox.Text)
-                currentEnvironment.IconLabel = iconDisplayTextbox.Text;
-            if (currentEnvironment.IconTextColor != iconTextColorCombo.SelectedItem.ToString())
-                currentEnvironment.IconTextColor = iconTextColorCombo.SelectedItem.ToString();
-            if (currentEnvironment.IconBackgroundColor != iconColorBackgroundCombo.SelectedItem.ToString())
-                currentEnvironment.IconBackgroundColor = iconColorBackgroundCombo.SelectedItem.ToString();
+            if (currentEnvironment.Name != txtEnvName.Text)
+                currentEnvironment.Name = txtEnvName.Text;
+            if (currentEnvironment.SubkeyValue != txtEnvRegistryValue.Text)
+                currentEnvironment.SubkeyValue = txtEnvRegistryValue.Text;
+            if (currentEnvironment.HotKey != comboEnvHotkey.Text)
+                currentEnvironment.HotKey = comboEnvHotkey.Text;
+            if (currentEnvironment.IconLabel != txtEnvIconDisplayText.Text)
+                currentEnvironment.IconLabel = txtEnvIconDisplayText.Text;
+            if (currentEnvironment.IconTextColor != comboEnvIconTextColor.SelectedItem.ToString())
+                currentEnvironment.IconTextColor = comboEnvIconTextColor.SelectedItem.ToString();
+            if (currentEnvironment.IconBackgroundColor != comboEnvIconBackgroundColor.SelectedItem.ToString())
+                currentEnvironment.IconBackgroundColor = comboEnvIconBackgroundColor.SelectedItem.ToString();
             if (currentEnvironment.LoadIcon != radioEnvIconFromFile.Checked)
                 currentEnvironment.LoadIcon = radioEnvIconFromFile.Checked;
             if (currentEnvironment.IconFileLocation != txtEnvIconFileLocation.Text)
@@ -401,14 +395,14 @@ namespace RegistryMonitor
 
         private void SaveCurrentTool()
         {
-            var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(guidToolsLabel.Text));
+            var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(lblToolCurrentToolGuid.Text));
 
-            if (currentTool.Name != toolsNameTextbox.Text)
-                currentTool.Name = toolsNameTextbox.Text;
-            if (currentTool.FileLocation != DirectoryPathTextbox.Text)
-                currentTool.FileLocation = DirectoryPathTextbox.Text;
-            if (currentTool.HotKey != hotkeyToolsCombo.Text)
-                currentTool.HotKey = hotkeyToolsCombo.Text;
+            if (currentTool.Name != txtToolName.Text)
+                currentTool.Name = txtToolName.Text;
+            if (currentTool.FileLocation != txtToolFileLocation.Text)
+                currentTool.FileLocation = txtToolFileLocation.Text;
+            if (currentTool.HotKey != comboToolHotkey.Text)
+                currentTool.HotKey = comboToolHotkey.Text;
 
             RepopulateSelectedTabsListbox(false);
             SetCurrentOrderOfToolsAndSave();
@@ -417,7 +411,7 @@ namespace RegistryMonitor
         private void SetCurrentOrderOfEnvironmentsAndSave()
         {
             var environmentsOrdered = (from object item 
-                                       in environmentsList.Items
+                                       in lstEnvAllEnvironments.Items
                                        select _loadedSettings.Environments.FirstOrDefault(env => env.Name == item.ToString()))
                                        .ToList();
             _loadedSettings.Environments = environmentsOrdered;
@@ -426,7 +420,7 @@ namespace RegistryMonitor
         private void SetCurrentOrderOfToolsAndSave()
         {
             var toolsOrdered = (from object item 
-                                in toolsList.Items
+                                in lstToolAllTools.Items
                                 select _loadedSettings.Tools.FirstOrDefault(tool => tool.Name == item.ToString()))
                                 .ToList();
             _loadedSettings.Tools = toolsOrdered;
@@ -448,26 +442,26 @@ namespace RegistryMonitor
             TurnOnListEventHandlers();
         }
 
-        private void environmentsList_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstEnvAllEnvironmentsSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (environmentsList.SelectedIndex != -1)
+            if (lstEnvAllEnvironments.SelectedIndex != -1)
             {
                 _loadingValues = true;
-                var curItem = environmentsList.SelectedItem.ToString();
+                var curItem = lstEnvAllEnvironments.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Environments.FirstOrDefault(env => env.Name == curItem);
 
                 if (itemToLoad != null)
                 {
-                    guidLabel.Text = itemToLoad.ID.ToString();
-                    NameTextbox.Text = curItem;
-                    registryValueTextbox.Text = itemToLoad.SubkeyValue;
+                    lblEnvCurrentEnvironmentGuid.Text = itemToLoad.ID.ToString();
+                    txtEnvName.Text = curItem;
+                    txtEnvRegistryValue.Text = itemToLoad.SubkeyValue;
 
                     PopulateHotkeyCombo();
-                    hotkeyCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                    comboEnvHotkey.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
 
-                    iconDisplayTextbox.Text = itemToLoad.IconLabel;
-                    ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, iconTextColorCombo);
-                    ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, iconColorBackgroundCombo);
+                    txtEnvIconDisplayText.Text = itemToLoad.IconLabel;
+                    ColorUtils.PopulateColorComboBox(itemToLoad.IconTextColor, comboEnvIconTextColor);
+                    ColorUtils.PopulateColorComboBox(itemToLoad.IconBackgroundColor, comboEnvIconBackgroundColor);
 
                     radioEnvIconFromFile.Checked = itemToLoad.LoadIcon;
                     radioEnvDynamicIcon.Checked = !itemToLoad.LoadIcon;
@@ -480,34 +474,34 @@ namespace RegistryMonitor
             _loadingValues = false;
         }
 
-        private void toolsList_SelectedIndexChanged(object sender, EventArgs e)
+        private void LstToolAllToolsSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (toolsList.SelectedIndex != -1)
+            if (lstToolAllTools.SelectedIndex != -1)
             {
                 _loadingValues = true;
-                var curItem = toolsList.SelectedItem.ToString();
+                var curItem = lstToolAllTools.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Tools.First(tool => tool.Name == curItem);
 
-                guidToolsLabel.Text = itemToLoad.ID.ToString();
-                toolsNameTextbox.Text = curItem;
-                DirectoryPathTextbox.Text = itemToLoad.FileLocation;
+                lblToolCurrentToolGuid.Text = itemToLoad.ID.ToString();
+                txtToolName.Text = curItem;
+                txtToolFileLocation.Text = itemToLoad.FileLocation;
 
                 PopulateHotkeyCombo();
-                hotkeyToolsCombo.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                comboToolHotkey.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
             }
             _loadingValues = false;
         }
 
         private void TurnOffListEventHandlers()
         {
-            environmentsList.SelectedIndexChanged -= environmentsList_SelectedIndexChanged;
-            toolsList.SelectedIndexChanged -= toolsList_SelectedIndexChanged;
+            lstEnvAllEnvironments.SelectedIndexChanged -= LstEnvAllEnvironmentsSelectedIndexChanged;
+            lstToolAllTools.SelectedIndexChanged -= LstToolAllToolsSelectedIndexChanged;
         }
 
         private void TurnOnListEventHandlers()
         {
-            environmentsList.SelectedIndexChanged += environmentsList_SelectedIndexChanged;
-            toolsList.SelectedIndexChanged += toolsList_SelectedIndexChanged;
+            lstEnvAllEnvironments.SelectedIndexChanged += LstEnvAllEnvironmentsSelectedIndexChanged;
+            lstToolAllTools.SelectedIndexChanged += LstToolAllToolsSelectedIndexChanged;
         }
 
         private void MoveItem(int direction)
@@ -515,48 +509,48 @@ namespace RegistryMonitor
             if (tabControl.SelectedTab == tabEnvironments)
             {
                 // Checking selected item
-                if (environmentsList.SelectedItem == null || environmentsList.SelectedIndex < 0)
+                if (lstEnvAllEnvironments.SelectedItem == null || lstEnvAllEnvironments.SelectedIndex < 0)
                     return; // No selected item - nothing to do
 
                 // Calculate new index using move direction
-                int newIndex = environmentsList.SelectedIndex + direction;
+                int newIndex = lstEnvAllEnvironments.SelectedIndex + direction;
 
                 // Checking bounds of the range
-                if (newIndex < 0 || newIndex >= environmentsList.Items.Count)
+                if (newIndex < 0 || newIndex >= lstEnvAllEnvironments.Items.Count)
                     return; // Index out of range - nothing to do
 
-                object selected = environmentsList.SelectedItem;
+                object selected = lstEnvAllEnvironments.SelectedItem;
 
                 // Removing removable element
-                environmentsList.Items.Remove(selected);
+                lstEnvAllEnvironments.Items.Remove(selected);
                 // Insert it in new position
-                environmentsList.Items.Insert(newIndex, selected);
+                lstEnvAllEnvironments.Items.Insert(newIndex, selected);
                 // Restore selection
-                environmentsList.SetSelected(newIndex, true);
+                lstEnvAllEnvironments.SetSelected(newIndex, true);
                 // Save the new order
                 SetCurrentOrderOfEnvironmentsAndSave();
             }
             else if (tabControl.SelectedTab == tabTools)
             {
                 // Checking selected item
-                if (toolsList.SelectedItem == null || toolsList.SelectedIndex < 0)
+                if (lstToolAllTools.SelectedItem == null || lstToolAllTools.SelectedIndex < 0)
                     return; // No selected item - nothing to do
 
                 // Calculate new index using move direction
-                int newIndex = toolsList.SelectedIndex + direction;
+                int newIndex = lstToolAllTools.SelectedIndex + direction;
 
                 // Checking bounds of the range
-                if (newIndex < 0 || newIndex >= toolsList.Items.Count)
+                if (newIndex < 0 || newIndex >= lstToolAllTools.Items.Count)
                     return; // Index out of range - nothing to do
 
-                object selected = toolsList.SelectedItem;
+                object selected = lstToolAllTools.SelectedItem;
 
                 // Removing removable element
-                toolsList.Items.Remove(selected);
+                lstToolAllTools.Items.Remove(selected);
                 // Insert it in new position
-                toolsList.Items.Insert(newIndex, selected);
+                lstToolAllTools.Items.Insert(newIndex, selected);
                 // Restore selection
-                toolsList.SetSelected(newIndex, true);
+                lstToolAllTools.SetSelected(newIndex, true);
                 // Save the new order
                 SetCurrentOrderOfToolsAndSave();
             }
@@ -566,10 +560,10 @@ namespace RegistryMonitor
 #region Registry Key Methods
         private void checkButton_Click(object sender, EventArgs e)
         {
-            var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var rootValue = RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3);
 
             MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
-                            $"{rootValue}\\{fieldTextBox.Text}" +
+                            $"{rootValue}\\{txtGeneralRegistryKeyField.Text}" +
                             $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
                             $"{GetCurrentKeyValue()}", 
                             Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 
@@ -598,8 +592,8 @@ namespace RegistryMonitor
 
                 var newRegistryKey = new Files.MonitoredRegistryKey
                 {
-                    Root = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
-                    Subkey = fieldTextBox.Text
+                    Root = RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3),
+                    Subkey = txtGeneralRegistryKeyField.Text
                 };
                 _loadedSettings.MonitoredRegistryKey = newRegistryKey;
             }
@@ -607,41 +601,41 @@ namespace RegistryMonitor
 
         private void RootCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rootCombo2.Items.Clear();
-            rootCombo2.Text = "";
-            rootCombo3.Items.Clear();
-            rootCombo3.Text = "";
-            RegistryKeyUtils.PopulateRootCombo2(rootCombo, rootCombo2);
+            comboGeneralRegistryKeyRoot2.Items.Clear();
+            comboGeneralRegistryKeyRoot2.Text = "";
+            comboGeneralRegistryKeyRoot3.Items.Clear();
+            comboGeneralRegistryKeyRoot3.Text = "";
+            RegistryKeyUtils.PopulateRootCombo2(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2);
         }
 
         private void RootCombo2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            rootCombo3.Items.Clear();
-            rootCombo3.Text = "";
+            comboGeneralRegistryKeyRoot3.Items.Clear();
+            comboGeneralRegistryKeyRoot3.Text = "";
 
-            RegistryKeyUtils.PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+            RegistryKeyUtils.PopulateRootCombo3(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3);
         }
 
         private bool CurrentKeyEqualsSavedKey()
         {
-            var currentRoot = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var currentRoot = RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3);
 
             return currentRoot == _loadedSettings.MonitoredRegistryKey.Root &&
-                   fieldTextBox.Text == _loadedSettings.MonitoredRegistryKey.Subkey;
+                   txtGeneralRegistryKeyField.Text == _loadedSettings.MonitoredRegistryKey.Subkey;
         }
 
         private string GetCurrentKeyValue()
         {
-            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
+            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3).ToString(), txtGeneralRegistryKeyField.Text, "");
         }
 
         #endregion Registry Key Methods
 
         private void toolsDirectoryButton_Click(object sender, EventArgs e)
         {
-            if (toolsList.SelectedIndex == -1) return;
+            if (lstToolAllTools.SelectedIndex == -1) return;
 
-            OpenFileDialogUtils.FindFile(DirectoryPathTextbox, Constants.FileDialogFilters.ExecutableFilesOnly);
+            OpenFileDialogUtils.FindFile(txtToolFileLocation, Constants.FileDialogFilters.ExecutableFilesOnly);
         }
 
         private void iconRadioButtons_CheckChanged(object sender, EventArgs e)
@@ -660,7 +654,7 @@ namespace RegistryMonitor
 
         private void btnEnvIconFileLocation_Clicked(object sender, EventArgs e)
         {
-            if (environmentsList.SelectedIndex == -1) return;
+            if (lstEnvAllEnvironments.SelectedIndex == -1) return;
 
             OpenFileDialogUtils.FindFile(txtEnvIconFileLocation, Constants.FileDialogFilters.IconFilesOnly);
         }
@@ -670,21 +664,21 @@ namespace RegistryMonitor
             if (!File.Exists(txtEnvIconFileLocation.Text) ||
                 !txtEnvIconFileLocation.Text.Contains(Constants.FileExtensions.IconExtension, StringComparison.OrdinalIgnoreCase))
             {
-                pictureEnvSampleIcon.Image = null;
+                picEnvSampleIcon.Image = null;
                 return;
             }
             
             try
             {
                 var iconFromFile = new Icon(txtEnvIconFileLocation.Text, 16, 16);
-                pictureEnvSampleIcon.Image = iconFromFile.ToBitmap();
+                picEnvSampleIcon.Image = iconFromFile.ToBitmap();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(Constants.IconMessages.ErrorLoadingIcon + ex, 
                                 Constants.IconMessages.ErrorLoadingIconCaption, 
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
-                pictureEnvSampleIcon.Image = Resources.Exit_16.ToBitmap();
+                picEnvSampleIcon.Image = Resources.Exit_16.ToBitmap();
             }
         }
     }
