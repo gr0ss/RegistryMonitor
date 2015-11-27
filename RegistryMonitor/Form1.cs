@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using FlimFlan.IconEncoder;
 using RegistryMonitor.ExtensionMethods;
@@ -123,7 +124,7 @@ namespace RegistryMonitor
             menuStrip.Items.Add(menuTools);
             menuStrip.Items.Add(toolStripSeparator1);
             
-            foreach (var env in _loadedSettings.Environments)
+            foreach (var env in _loadedSettings.Environments.Where(env => env.DisplayOnMenu))
             {
                 menuStrip.Items.Add(MiscUtils.GetNameWithHotkey(env.Name, env.HotKey));
 

@@ -92,6 +92,9 @@ namespace RegistryMonitor.FileUtils
                 case FileConstants.Environments.ICON_FILE_LOCATION:
                     loadedEnvironment.IconFileLocation = propertyValue;
                     break;
+                case FileConstants.Environments.DISPLAY_ON_MENU:
+                    loadedEnvironment.DisplayOnMenu = bool.Parse(propertyValue);
+                    break;
             }
             return loadedEnvironment;
         }
@@ -100,11 +103,11 @@ namespace RegistryMonitor.FileUtils
         {
             return new List<LoadedEnvironments>
             {
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Development", SubkeyValue = "Data\\devDB.xml", HotKey = "D", IconLabel = "dev", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = ""},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb1", SubkeyValue = "Data\\sb1DB.xml", HotKey = "1", IconLabel = "sb1", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = ""},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb2", SubkeyValue = "Data\\sb2DB.xml", HotKey = "2", IconLabel = "sb2", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = ""},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = ""},
-                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconTextColor = "White", IconBackgroundColor = "Red", LoadIcon = false, IconFileLocation = ""}
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Development", SubkeyValue = "Data\\devDB.xml", HotKey = "D", IconLabel = "dev", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb1", SubkeyValue = "Data\\sb1DB.xml", HotKey = "1", IconLabel = "sb1", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb2", SubkeyValue = "Data\\sb2DB.xml", HotKey = "2", IconLabel = "sb2", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true},
+                new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconTextColor = "White", IconBackgroundColor = "Red", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true}
             };
         }
     }

@@ -27,7 +27,8 @@ namespace RegistryMonitor.Utils
             public const string IconCaption = "The environment has been changed to";
             public const string ShowBalloonTipsCheckBoxCaption = "Toggle balloon tips when registry key changes.";
             public const string ToolsDirectoryButtonCaption = "Search for tool.";
-            public const string GlobalHotkeyGroupBoxCaption = "";
+            public const string GlobalHotkeyGroupBoxCaption = "The hotkey used to open the context menu strip.";
+            public const string CheckEnvDisplayOnMenuCaption = "Toggle if you want the current environment to display as an item on the context menu strip.";
         }
 
         public static class IconMessages

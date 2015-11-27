@@ -13,6 +13,7 @@
             public const string ICON_BACKGROUND_COLOR = "IconBackgroundColor";
             public const string LOAD_ICON = "LoadIcon";
             public const string ICON_FILE_LOCATION = "IconFileLocation";
+            public const string DISPLAY_ON_MENU = "DisplayOnMenu";
         }
 
         public static class Tools

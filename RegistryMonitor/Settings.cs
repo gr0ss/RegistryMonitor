@@ -49,6 +49,7 @@ namespace RegistryMonitor
             ToolTipUtils.AddToolTip(this.showBalloonTipsCheckBox, Constants.BalloonTips.ShowBalloonTipsCheckBoxCaption);
             ToolTipUtils.AddToolTip(this.toolsDirectoryButton, Constants.BalloonTips.ToolsDirectoryButtonCaption);
             ToolTipUtils.AddToolTip(this.globalHotkeyGroupBox, Constants.BalloonTips.GlobalHotkeyGroupBoxCaption);
+            ToolTipUtils.AddToolTip(this.checkEnvDisplayOnMenu, Constants.BalloonTips.CheckEnvDisplayOnMenuCaption);
         }
 
         private void TabControl_SelectedIndexChanged(object sender, EventArgs e)
@@ -298,6 +299,7 @@ namespace RegistryMonitor
             _loadingValues = false;
             radioEnvDynamicIcon.Checked = true;
             txtEnvIconFileLocation.Text = "";
+            checkEnvDisplayOnMenu.Checked = false;
         }
 
         private void ClearToolFields()
@@ -390,6 +392,8 @@ namespace RegistryMonitor
                 currentEnvironment.LoadIcon = radioEnvIconFromFile.Checked;
             if (currentEnvironment.IconFileLocation != txtEnvIconFileLocation.Text)
                 currentEnvironment.IconFileLocation = txtEnvIconFileLocation.Text;
+            if (currentEnvironment.DisplayOnMenu != checkEnvDisplayOnMenu.Checked)
+                currentEnvironment.DisplayOnMenu = checkEnvDisplayOnMenu.Checked;
 
             RepopulateSelectedTabsListbox(true);
             SetCurrentOrderOfEnvironmentsAndSave();
@@ -469,6 +473,8 @@ namespace RegistryMonitor
                     radioEnvDynamicIcon.Checked = !itemToLoad.LoadIcon;
 
                     txtEnvIconFileLocation.Text = itemToLoad.IconFileLocation;
+
+                    checkEnvDisplayOnMenu.Checked = itemToLoad.DisplayOnMenu;
                 }
             }
             _loadingValues = false;

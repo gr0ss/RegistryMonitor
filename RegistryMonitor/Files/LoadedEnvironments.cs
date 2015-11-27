@@ -13,5 +13,6 @@ namespace RegistryMonitor.Files
         public string IconBackgroundColor { get; set; }
         public bool LoadIcon { get; set; }
         public string IconFileLocation { get; set; }
+        public bool DisplayOnMenu { get; set; }
     }
 }
