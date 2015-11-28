@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using RegistryMonitor.ExtensionMethods;
 
 namespace RegistryMonitor.Utils
 {
@@ -41,7 +42,11 @@ namespace RegistryMonitor.Utils
             Image = new Bitmap(16, 16);
             Graphics g = Graphics.FromImage(Image);
 
-            g.DrawRectangle(Pens.White, 0, 0, Image.Width, Image.Height);
+            Pen boarderColor = Pens.White;
+            if (brush.ConvertBrushToString() == "White")
+                boarderColor = Pens.Black;
+
+            g.DrawRectangle(boarderColor, 0, 0, Image.Width, Image.Height);
             g.FillRectangle(brush, 1, 1, Image.Width - 1, Image.Height - 1);
         }
         

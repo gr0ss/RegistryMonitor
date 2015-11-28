@@ -119,35 +119,10 @@ namespace RegistryMonitor
 
         private void RepopulateSelectedTabsListbox(bool env)
         {
-            if (env)
-            {
-                lstEnvAllEnvironments.Items.Clear();
-
-                foreach (var key in _loadedSettings.Environments)
-                {
-                    lstEnvAllEnvironments.Items.Add(key.Name);
-                }
-
-                if (string.IsNullOrEmpty(lblEnvCurrentEnvironmentGuid.Text)) return;
-
-                var currentEnvironment = _loadedSettings.Environments
-                                                        .First(environment => environment.ID == Guid.Parse(lblEnvCurrentEnvironmentGuid.Text));
-                lstEnvAllEnvironments.SelectedIndex = lstEnvAllEnvironments.Items.IndexOf(currentEnvironment.Name);
-            }
-            else
-            {
-                lstToolAllTools.Items.Clear();
-
-                foreach (var key in _loadedSettings.Tools)
-                {
-                    lstToolAllTools.Items.Add(key.Name);
-                }
-
-                if (string.IsNullOrEmpty(lblToolCurrentToolGuid.Text)) return;
-
-                var currentTool = _loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(lblToolCurrentToolGuid.Text));
-                lstToolAllTools.SelectedIndex = lstToolAllTools.Items.IndexOf(currentTool.Name);
-            }
+            ListboxUtils.RepopulateListBox(env, 
+                                           env ? lstEnvAllEnvironments : lstToolAllTools, 
+                                           _loadedSettings, 
+                                           env ? lblEnvCurrentEnvironmentGuid.Text : lblToolCurrentToolGuid.Text);
         }
         
         private void SetupButtonEnabled(bool enabled)
@@ -222,63 +197,22 @@ namespace RegistryMonitor
         
         private void removeButton_Click(object sender, EventArgs e)
         {
-            if (tabControl.SelectedTab == tabEnvironments)
+            var env = tabControl.SelectedTab == tabEnvironments;
+            ListboxUtils.RemoveListBoxItem(env, 
+                                           env ? lstEnvAllEnvironments : lstToolAllTools, 
+                                           _loadedSettings, 
+                                           env ? lblEnvCurrentEnvironmentGuid.Text : lblToolCurrentToolGuid.Text);
+            if (env)
             {
-                if (lstEnvAllEnvironments.SelectedIndex != -1)
-                {
-                    var allEnvironments = _loadedSettings.Environments;
-                    var environmentToRemove = allEnvironments.FirstOrDefault(env => env.ID == Guid.Parse(lblEnvCurrentEnvironmentGuid.Text));
-                    if (environmentToRemove?.ID != Guid.Empty)
-                    {
-                        allEnvironments.Remove(environmentToRemove);
-                        _loadedSettings.Environments = allEnvironments;
-                        ClearEnvironmentFields();
-                    }
-                    else
-                    {
-                        MessageBox.Show(Constants.EnvironmentMessages.ErrorRetrievingEnvironment,
-                                        Constants.EnvironmentMessages.ErrorRetrievingEnvironmentCaption, 
-                                        MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(Constants.EnvironmentMessages.SelectEnvironmentToDelete, 
-                                    Constants.EnvironmentMessages.SelectEnvironmentToDeleteCaption, 
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                
+                ClearEnvironmentFields();
             }
-            else if (tabControl.SelectedTab == tabTools)
+            else
             {
-                if (lstToolAllTools.SelectedIndex != -1)
-                {
-                    var allTools = _loadedSettings.Tools;
-                    var toolToRemove = allTools.FirstOrDefault(tool => tool.ID == Guid.Parse(lblToolCurrentToolGuid.Text));
-                    if (toolToRemove != null && toolToRemove.ID != Guid.Empty)
-                    {
-                        allTools.Remove(toolToRemove);
-                        _loadedSettings.Tools = allTools;
-                        ClearToolFields();
-                    }
-                    else
-                    {
-                        MessageBox.Show(Constants.ToolMessages.ErrorRetrievingTool,
-                            Constants.ToolMessages.ErrorRetrievingToolCaption,
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show(Constants.ToolMessages.SelectToolToDelete, 
-                                    Constants.ToolMessages.SelectToolToDeleteCaption, 
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                ClearToolFields();
             }
             RepopulateSelectedTabsListbox(tabControl.SelectedTab == tabEnvironments);
         }
-
-#region Clear Methods
+        
         private void ClearEnvironmentFields()
         {
             _loadingValues = true;
@@ -306,14 +240,13 @@ namespace RegistryMonitor
             lblToolCurrentToolGuid.Text = "";
             _loadingValues = false;
         }
-#endregion Clear Methods
 
 #region Save button
         private void saveButton_Click(object sender, EventArgs e)
         {
             if (tabControl.SelectedTab == tabGeneral)
             {
-                SaveNewRegistryKey();
+                RegistryKeyUtils.SaveNewRegistryKey(_loadedSettings, comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3, txtGeneralRegistryKeyField.Text);
                 SaveNewGlobalHotkey();
                 _loadedSettings.General.ShowBalloonTips = checkGeneralShowBalloonTips.Checked;
                 _loadedSettings.General.IconFont = comboGeneralIconFont.SelectedItem.ToString();
@@ -430,15 +363,25 @@ namespace RegistryMonitor
 #region Move buttons
         private void moveUpButton_Click(object sender, EventArgs e)
         {
+            var env = tabControl.SelectedTab == tabEnvironments;
             TurnOffListEventHandlers();
-            MoveItem(-1);
+            ListboxUtils.MoveItem(-1, env, env ? lstEnvAllEnvironments : lstToolAllTools);
+            if (env)
+                SetCurrentOrderOfEnvironmentsAndSave();
+            else
+                SetCurrentOrderOfToolsAndSave();
             TurnOnListEventHandlers();
         }
 
         private void moveDownButton_Click(object sender, EventArgs e)
         {
+            var env = tabControl.SelectedTab == tabEnvironments;
             TurnOffListEventHandlers();
-            MoveItem(1);
+            ListboxUtils.MoveItem(1, env, env ? lstEnvAllEnvironments : lstToolAllTools);
+            if (env)
+                SetCurrentOrderOfEnvironmentsAndSave();
+            else
+                SetCurrentOrderOfToolsAndSave();
             TurnOnListEventHandlers();
         }
 
@@ -503,102 +446,16 @@ namespace RegistryMonitor
             lstEnvAllEnvironments.SelectedIndexChanged += LstEnvAllEnvironmentsSelectedIndexChanged;
             lstToolAllTools.SelectedIndexChanged += LstToolAllToolsSelectedIndexChanged;
         }
-
-        private void MoveItem(int direction)
-         {
-            if (tabControl.SelectedTab == tabEnvironments)
-            {
-                // Checking selected item
-                if (lstEnvAllEnvironments.SelectedItem == null || lstEnvAllEnvironments.SelectedIndex < 0)
-                    return; // No selected item - nothing to do
-
-                // Calculate new index using move direction
-                int newIndex = lstEnvAllEnvironments.SelectedIndex + direction;
-
-                // Checking bounds of the range
-                if (newIndex < 0 || newIndex >= lstEnvAllEnvironments.Items.Count)
-                    return; // Index out of range - nothing to do
-
-                object selected = lstEnvAllEnvironments.SelectedItem;
-
-                // Removing removable element
-                lstEnvAllEnvironments.Items.Remove(selected);
-                // Insert it in new position
-                lstEnvAllEnvironments.Items.Insert(newIndex, selected);
-                // Restore selection
-                lstEnvAllEnvironments.SetSelected(newIndex, true);
-                // Save the new order
-                SetCurrentOrderOfEnvironmentsAndSave();
-            }
-            else if (tabControl.SelectedTab == tabTools)
-            {
-                // Checking selected item
-                if (lstToolAllTools.SelectedItem == null || lstToolAllTools.SelectedIndex < 0)
-                    return; // No selected item - nothing to do
-
-                // Calculate new index using move direction
-                int newIndex = lstToolAllTools.SelectedIndex + direction;
-
-                // Checking bounds of the range
-                if (newIndex < 0 || newIndex >= lstToolAllTools.Items.Count)
-                    return; // Index out of range - nothing to do
-
-                object selected = lstToolAllTools.SelectedItem;
-
-                // Removing removable element
-                lstToolAllTools.Items.Remove(selected);
-                // Insert it in new position
-                lstToolAllTools.Items.Insert(newIndex, selected);
-                // Restore selection
-                lstToolAllTools.SetSelected(newIndex, true);
-                // Save the new order
-                SetCurrentOrderOfToolsAndSave();
-            }
-        }
 #endregion Move buttons
-
-#region Registry Key Methods
+        
         private void checkButton_Click(object sender, EventArgs e)
         {
-            var rootValue = RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3);
-
-            MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
-                            $"{rootValue}\\{txtGeneralRegistryKeyField.Text}" +
-                            $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
-                            $"{GetCurrentKeyValue()}", 
-                            Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+            RegistryKeyUtils.CheckCurrentKeyValue(comboGeneralRegistryKeyRoot,
+                                                  comboGeneralRegistryKeyRoot2, 
+                                                  comboGeneralRegistryKeyRoot3, 
+                                                  txtGeneralRegistryKeyField.Text);
         }
-
-        private void SaveNewRegistryKey()
-        {
-            if (GetCurrentKeyValue() == string.Empty) // New Key is invalid.
-            {
-                MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKey, 
-                                Constants.RegistryKeyMessages.SelectRegistryKeyCaption, 
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (CurrentKeyEqualsSavedKey()) // New Key is Old Key.
-            {
-                return;
-            }
-            else // Save New Key.
-            {
-                var confirmMessage = MessageBox.Show(Constants.RegistryKeyMessages.OverrideRegistryKey, 
-                                                     Constants.RegistryKeyMessages.OverrideRegistryKeyCaption, 
-                                                     MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
-
-                if (confirmMessage != DialogResult.Yes) return;
-
-                var newRegistryKey = new Files.MonitoredRegistryKey
-                {
-                    Root = RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3),
-                    Subkey = txtGeneralRegistryKeyField.Text
-                };
-                _loadedSettings.MonitoredRegistryKey = newRegistryKey;
-            }
-        }
-
+        
         private void RootCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboGeneralRegistryKeyRoot2.Items.Clear();
@@ -615,21 +472,6 @@ namespace RegistryMonitor
 
             RegistryKeyUtils.PopulateRootCombo3(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3);
         }
-
-        private bool CurrentKeyEqualsSavedKey()
-        {
-            var currentRoot = RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3);
-
-            return currentRoot == _loadedSettings.MonitoredRegistryKey.Root &&
-                   txtGeneralRegistryKeyField.Text == _loadedSettings.MonitoredRegistryKey.Subkey;
-        }
-
-        private string GetCurrentKeyValue()
-        {
-            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3).ToString(), txtGeneralRegistryKeyField.Text, "");
-        }
-
-        #endregion Registry Key Methods
 
         private void toolsDirectoryButton_Click(object sender, EventArgs e)
         {

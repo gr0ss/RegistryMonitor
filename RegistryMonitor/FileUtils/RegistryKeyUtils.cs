@@ -123,8 +123,11 @@ namespace RegistryMonitor.FileUtils
             rootCombo.SelectedIndex = rootCombo.Items.GetIndex(splitRegistryKey[0]);
             PopulateRootCombo2(rootCombo, rootCombo2);
             rootCombo2.SelectedIndex = rootCombo2.Items.GetIndex(splitRegistryKey[1]);
-            PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
-            rootCombo3.SelectedIndex = rootCombo3.Items.GetIndex(splitRegistryKey[2]);
+            if (rootCombo2.SelectedIndex != -1)
+            {
+                PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
+                rootCombo3.SelectedIndex = rootCombo3.Items.GetIndex(splitRegistryKey[2]);
+            }
             subkeyTextBox.Text = registryKey.Subkey;
         }
 
@@ -140,6 +143,8 @@ namespace RegistryMonitor.FileUtils
         public static void PopulateRootCombo2(ComboBox rootCombo, ComboBox rootCombo2)
         {
             var currentRoot = GetRegistryKeyFromCombo(rootCombo);
+
+            if (currentRoot == null) return;
             
             foreach (var name in currentRoot.GetSubKeyNames())
             {
@@ -170,6 +175,61 @@ namespace RegistryMonitor.FileUtils
             if (rootCombo3.SelectedIndex != -1)
                 userRoot.Append("\\" + rootCombo3.SelectedItem);
             return userRoot.ToString();
+        }
+
+        private static string GetCurrentKeyValue(ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        {
+            return (string) Registry.GetValue(GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), registryKeyField, "");
+        }
+
+        private static bool CurrentKeyEqualsSavedKey(MonitoredRegistryKey monitoredKey, ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        {
+            var currentRoot = GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+
+            return currentRoot == monitoredKey.Root &&
+                   registryKeyField == monitoredKey.Subkey;
+        }
+
+        public static void SaveNewRegistryKey(LoadedSettings loadedSettings, ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        {
+            if (GetCurrentKeyValue(rootCombo, rootCombo2, rootCombo3, registryKeyField) == string.Empty) // New Key is invalid.
+            {
+                MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKey, 
+                                Constants.RegistryKeyMessages.SelectRegistryKeyCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (CurrentKeyEqualsSavedKey(loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, registryKeyField)) // New Key is Old Key.
+            {
+                return;
+            }
+            else // Save New Key.
+            {
+                var confirmMessage = MessageBox.Show(Constants.RegistryKeyMessages.OverrideRegistryKey, 
+                                                     Constants.RegistryKeyMessages.OverrideRegistryKeyCaption, 
+                                                     MessageBoxButtons.YesNo, MessageBoxIcon.Hand);
+
+                if (confirmMessage != DialogResult.Yes) return;
+
+                var newRegistryKey = new Files.MonitoredRegistryKey
+                {
+                    Root = GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                    Subkey = registryKeyField
+                };
+                loadedSettings.MonitoredRegistryKey = newRegistryKey;
+            }
+        }
+
+        public static void CheckCurrentKeyValue(ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        {
+            var rootValue = GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var keyValue = GetCurrentKeyValue(rootCombo, rootCombo2, rootCombo3, registryKeyField);
+
+            MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
+                            $"{rootValue}\\{registryKeyField}" +
+                            $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
+                            $"{keyValue}", 
+                            Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

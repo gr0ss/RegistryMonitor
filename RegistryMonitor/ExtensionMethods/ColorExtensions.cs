@@ -47,7 +47,7 @@ namespace RegistryMonitor.ExtensionMethods
         /// <returns></returns>
         public static string ConvertBrushToString(this Brush brush)
         {
-            return ((SolidBrush) brush).Color.ToString();
+            return ((SolidBrush) brush).Color.Name;
         }
     }
 }
