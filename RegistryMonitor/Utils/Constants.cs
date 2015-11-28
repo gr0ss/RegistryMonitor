@@ -114,6 +114,9 @@ namespace RegistryMonitor.Utils
         {
             public const string Error = "Error: ";
             public const string ErrorCaption = "Error";
+
+            public const string SavedSuccessfully = "saved successfully.";
+            public const string SavedSuccessfullyCaption = "Successfully Saved";
         }
     }
 }

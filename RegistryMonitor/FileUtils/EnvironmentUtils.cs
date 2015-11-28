@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -129,6 +130,41 @@ namespace RegistryMonitor.FileUtils
                 new LoadedEnvironments {ID = Guid.NewGuid(), Name = "sb3", SubkeyValue = "Data\\sb3DB.xml", HotKey = "3", IconLabel = "sb3", IconTextColor = "White", IconBackgroundColor = "Blue", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true},
                 new LoadedEnvironments {ID = Guid.NewGuid(), Name = "Production", SubkeyValue = "Data\\prdDB.xml", HotKey = "P", IconLabel = "prd", IconTextColor = "White", IconBackgroundColor = "Red", LoadIcon = false, IconFileLocation = "", DisplayOnMenu = true}
             };
+        }
+
+        public static void SaveCurrentEnvironment(LoadedSettings loadedSettings, ListBox environmentsListBox, string currentEnvironmentGuid,
+            string name, string registryValue, string hotkey, string iconDisplayText, string iconTextColor, string iconBackgroundColor,
+            bool iconFromFile, string iconFileLocation, bool displayOnMenu)
+        {
+            var currentEnvironment = loadedSettings.Environments.First(env => env.ID == Guid.Parse(currentEnvironmentGuid));
+
+            if (string.IsNullOrEmpty(currentEnvironmentGuid)) return;
+
+            if (currentEnvironment.Name != name)
+                currentEnvironment.Name = name;
+            if (currentEnvironment.SubkeyValue != registryValue)
+                currentEnvironment.SubkeyValue = registryValue;
+            if (currentEnvironment.HotKey != hotkey)
+                currentEnvironment.HotKey = hotkey;
+            if (currentEnvironment.IconLabel != iconDisplayText)
+                currentEnvironment.IconLabel = iconDisplayText;
+            if (currentEnvironment.IconTextColor != iconTextColor)
+                currentEnvironment.IconTextColor = iconTextColor;
+            if (currentEnvironment.IconBackgroundColor != iconBackgroundColor)
+                currentEnvironment.IconBackgroundColor = iconBackgroundColor;
+            if (currentEnvironment.LoadIcon != iconFromFile)
+                currentEnvironment.LoadIcon = iconFromFile;
+            if (currentEnvironment.IconFileLocation != iconFileLocation)
+                currentEnvironment.IconFileLocation = iconFileLocation;
+            if (currentEnvironment.DisplayOnMenu != displayOnMenu)
+                currentEnvironment.DisplayOnMenu = displayOnMenu;
+
+            ListboxUtils.RepopulateListBox(true, environmentsListBox, loadedSettings, currentEnvironmentGuid);
+            ListboxUtils.SetCurrentOrderFromListBoxAndSave(true, environmentsListBox, loadedSettings);
+
+            MessageBox.Show($"{currentEnvironment.Name} {Constants.Messages.SavedSuccessfully}",
+                            $"Environment {Constants.Messages.SavedSuccessfullyCaption}",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

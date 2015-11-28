@@ -243,11 +243,7 @@ namespace RegistryMonitor
 
         private void SetNewGlobalHotkeyIfChanged()
         {
-            if (_currentLoadedGlobalHotkey == _loadedSettings.General.LoadedGlobalHotkey) return;
-
-            GlobalHotkeyUtils.UnregisterGlobalHotkey(_hkManager, _currentLoadedGlobalHotkey);
-            GlobalHotkeyUtils.RegisterGlobalHotkey(_hkManager, _loadedSettings.General.LoadedGlobalHotkey);
-            _currentLoadedGlobalHotkey = _loadedSettings.General.LoadedGlobalHotkey;
+            GlobalHotkeyUtils.SetNewGlobalHotkeyIfChanged(_loadedSettings, _currentLoadedGlobalHotkey, _hkManager);
         }
 
         private void SetNewRegistrykeyIfChanged()
@@ -273,7 +269,7 @@ namespace RegistryMonitor
 
             Icon.BalloonTipTitle = Constants.BalloonTips.IconTitle;
             Icon.BalloonTipText = $"{Constants.BalloonTips.IconCaption} {_currentLoadedEnvironment.Name}";
-            Icon.ShowBalloonTip(1000);
+            Icon.ShowBalloonTip(500);
         }
 
         private void OnError(object sender, ErrorEventArgs e)

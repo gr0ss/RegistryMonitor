@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
@@ -109,6 +110,28 @@ namespace RegistryMonitor.FileUtils
             {
                 new LoadedTools {ID = Guid.NewGuid(), Name = "Set Windows Positions", FileLocation = fileLocation, HotKey = "W"}
             };
+        }
+
+        public static void SaveCurrentTool(LoadedSettings loadedSettings, ListBox toolsListBox, string currentToolGuid,
+            string name, string fileLocation, string hotKey)
+        {
+            var currentTool = loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(currentToolGuid));
+
+            if (string.IsNullOrEmpty(currentToolGuid)) return;
+
+            if (currentTool.Name != name)
+                currentTool.Name = name;
+            if (currentTool.FileLocation != fileLocation)
+                currentTool.FileLocation = fileLocation;
+            if (currentTool.HotKey != hotKey)
+                currentTool.HotKey = hotKey;
+
+            ListboxUtils.RepopulateListBox(false, toolsListBox, loadedSettings, currentToolGuid);
+            ListboxUtils.SetCurrentOrderFromListBoxAndSave(false, toolsListBox, loadedSettings);
+
+            MessageBox.Show($"{currentTool.Name} {Constants.Messages.SavedSuccessfully}",
+                            $"Tool {Constants.Messages.SavedSuccessfullyCaption}",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

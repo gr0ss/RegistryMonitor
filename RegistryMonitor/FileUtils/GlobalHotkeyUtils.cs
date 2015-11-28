@@ -85,5 +85,14 @@ namespace RegistryMonitor.FileUtils
                    loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey.ToString() == firstModifierKey &&
                    loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey.ToString() == secondModifierKey;
         }
+
+        public static void SetNewGlobalHotkeyIfChanged(LoadedSettings loadedSettings, LoadedGlobalHotkey loadedGlobalHotkey, HotKeyManager hkManager)
+        {
+            if (loadedGlobalHotkey == loadedSettings.General.LoadedGlobalHotkey) return;
+
+            UnregisterGlobalHotkey(hkManager, loadedGlobalHotkey);
+            RegisterGlobalHotkey(hkManager, loadedSettings.General.LoadedGlobalHotkey);
+            loadedGlobalHotkey = loadedSettings.General.LoadedGlobalHotkey;
+        }
     }
 }

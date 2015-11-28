@@ -133,5 +133,21 @@ namespace RegistryMonitor.FileUtils
             
             fontComboBox.SelectedItem = currentFont;
         }
+
+        public static void SaveGeneralSettings(LoadedSettings loadedSettings, ComboBox rootCombo, ComboBox rootCombo2, 
+            ComboBox rootCombo3, string registryKeyField, string globalHotKey, string firstModifierKey, 
+            string secondModifierKey, bool showBalloonTips, string iconFont, float iconSize)
+        {
+            RegistryKeyUtils.SaveNewRegistryKey(loadedSettings, rootCombo, rootCombo2, rootCombo3, registryKeyField);
+            GlobalHotkeyUtils.SaveNewGlobalHotkey(loadedSettings, globalHotKey, firstModifierKey, secondModifierKey);
+            loadedSettings.General.ShowBalloonTips = showBalloonTips;
+            loadedSettings.General.IconFont = iconFont;
+            loadedSettings.General.IconFontSize = iconSize;
+            loadedSettings.General = loadedSettings.General;
+
+            MessageBox.Show($"Settings {Constants.Messages.SavedSuccessfully}",
+                            $"Settings {Constants.Messages.SavedSuccessfullyCaption}",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

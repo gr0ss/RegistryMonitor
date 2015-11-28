@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 
 namespace RegistryMonitor.FileUtils
 {
@@ -33,6 +34,15 @@ namespace RegistryMonitor.FileUtils
             var charset = builder.ToString().ToCharArray();
 
             return name.TrimStart(charset)[0];
+        }
+
+        public static void PopulateHotkeyCombo(ComboBox currentHotKeyCombo, string currentName)
+        {
+            currentHotKeyCombo.Items.Clear();
+            foreach (var c in currentName.Where(c => c.ToString() != " "))
+            {
+                currentHotKeyCombo.Items.Add(c);
+            }
         }
     }
 }
