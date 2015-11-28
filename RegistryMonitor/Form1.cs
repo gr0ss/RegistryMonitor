@@ -2,17 +2,13 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using FlimFlan.IconEncoder;
-using RegistryMonitor.ExtensionMethods;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryMonitor.Files;
 using RegistryMonitor.FileUtils;
-using RegistryMonitor.Properties;
 using RegistryMonitor.Utils;
 using RegistryUtils;
 using Zhwang.SuperNotifyIcon;
@@ -242,36 +238,7 @@ namespace RegistryMonitor
 
         private void SetIcon()
         {
-            if (_currentLoadedEnvironment.LoadIcon && 
-                File.Exists(_currentLoadedEnvironment.IconFileLocation) &&
-                _currentLoadedEnvironment.IconFileLocation.Contains(Constants.FileExtensions.IconExtension, StringComparison.OrdinalIgnoreCase))
-            {
-                try
-                {
-                    var iconFromFile = new Icon(_currentLoadedEnvironment.IconFileLocation, 16, 16);
-                    Icon.Icon = iconFromFile;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(Constants.IconMessages.ErrorLoadingIcon + ex, 
-                                    Constants.IconMessages.ErrorLoadingIconCaption, 
-                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Icon.Icon = Resources.Exit_16;
-                }
-            }
-            else
-            {
-                Font font = new Font(_loadedSettings.General.IconFont, _loadedSettings.General.IconFontSize);
-                Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
-			    using (Graphics g = Graphics.FromImage(bmp))
-			    {
-                    Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			        g.FillEllipse(_currentLoadedEnvironment.IconBackgroundColor.ToSolidBrush(), rectangle);
-                    g.DrawString(_currentLoadedEnvironment.IconLabel, font, _currentLoadedEnvironment.IconTextColor.ToSolidBrush(), 0, 1);
-			    }
-
-                Icon.Icon = Converter.BitmapToIcon(bmp);
-            }
+            IconUtils.SetIcon(_currentLoadedEnvironment, _loadedSettings, Icon);
         }
 
         private void SetNewGlobalHotkeyIfChanged()

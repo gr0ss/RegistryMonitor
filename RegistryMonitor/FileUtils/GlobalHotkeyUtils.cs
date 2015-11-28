@@ -4,6 +4,8 @@ using System.Windows.Input;
 using GlobalHotKey;
 using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.Files;
+using RegistryMonitor.Parsers;
+using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
 {
@@ -52,6 +54,36 @@ namespace RegistryMonitor.FileUtils
             hotkeyCombo.SelectedIndex = hotkeyCombo.Items.GetIndex(loadedHotkey.Hotkey.ToString());
             firstModifierKeyCombo.SelectedIndex = firstModifierKeyCombo.Items.GetIndex(loadedHotkey.FirstModifierKey.ToString());
             secondModifierKeyCombo.SelectedIndex = secondModifierKeyCombo.Items.GetIndex(loadedHotkey.SecondModifierKey.ToString());
+        }
+
+        public static void SaveNewGlobalHotkey(LoadedSettings loadedSettings, string globalHotKey, string firstModifierKey, string secondModifierKey)
+        {
+            if (firstModifierKey == ModifierKeys.None.ToString())
+            {
+                MessageBox.Show(Constants.HotkeyMessages.SelectGlobalHotkeyToSave, 
+                                Constants.HotkeyMessages.SelectGlobalHotkeyToSaveCaption, 
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } 
+            else if (CurrentHotkeyEqualsSavedHotkey(loadedSettings, globalHotKey, firstModifierKey, secondModifierKey))
+            {
+                return;
+            }
+            else
+            {
+                loadedSettings.General.LoadedGlobalHotkey.Hotkey =
+                    GlobalHotkeyParser.ConvertStringToKey(globalHotKey);
+                loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey =
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(firstModifierKey);
+                loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey =
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(secondModifierKey);
+            }
+        }
+
+        private static bool CurrentHotkeyEqualsSavedHotkey(LoadedSettings loadedSettings, string globalHotKey, string firstModifierKey, string secondModifierKey)
+        {
+            return loadedSettings.General.LoadedGlobalHotkey.Hotkey.ToString() == globalHotKey &&
+                   loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey.ToString() == firstModifierKey &&
+                   loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey.ToString() == secondModifierKey;
         }
     }
 }

@@ -139,6 +139,7 @@
     <Compile Include="Utils\Converter.cs" />
     <Compile Include="FileUtils\EnvironmentUtils.cs" />
     <Compile Include="Utils\IconHolder.cs" />
+    <Compile Include="Utils\IconUtils.cs" />
     <Compile Include="Utils\ImageStructs.cs" />
     <Compile Include="Utils\ListboxUtils.cs" />
     <Compile Include="Utils\OpenFileDialogUtils.cs" />

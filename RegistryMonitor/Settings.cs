@@ -1,16 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using FlimFlan.IconEncoder;
 using RegistryMonitor.ExtensionMethods;
-using Microsoft.Win32;
 using RegistryMonitor.FileUtils;
-using RegistryMonitor.Parsers;
 using RegistryMonitor.Properties;
 using RegistryMonitor.Utils;
 
@@ -93,26 +88,13 @@ namespace RegistryMonitor
 
         private void UpdateSample(object sender, EventArgs e)
         {
-            // Make sure all properties are filled in
-            if (comboGeneralIconFont.SelectedIndex == -1 ||
-                comboGeneralIconColor.SelectedIndex == -1 ||
-                comboGeneralIconTextColor.SelectedIndex == -1 ||
-                string.IsNullOrEmpty(upDownGeneralIconSize.Text) ||
-                string.IsNullOrEmpty(txtGeneralIconSampleText.Text)) return;
+            IconUtils.UpdateSampleIcon(comboGeneralIconFont, comboGeneralIconColor, comboGeneralIconTextColor, 
+                upDownGeneralIconSize.Text, txtGeneralIconSampleText.Text, picGeneralIconSample);
+        }
 
-            var size = upDownGeneralIconSize.Text.ToFloat();
-            if (size <= float.Epsilon) return;
-
-            Font font = new Font(comboGeneralIconFont.SelectedItem.ToString(), size);
-            Bitmap bmp = new Bitmap(16, 16, PixelFormat.Format32bppRgb);
-			using (Graphics g = Graphics.FromImage(bmp))
-			{
-                Rectangle rectangle = new Rectangle(0, 0, 16, 16);
-			    g.FillEllipse(comboGeneralIconColor.SelectedItem.ToString().ToSolidBrush(), rectangle);
-                g.DrawString(txtGeneralIconSampleText.Text, font, comboGeneralIconTextColor.SelectedItem.ToString().ToSolidBrush(), 0, 2);
-			}
-
-            picGeneralIconSample.Image = Converter.BitmapToIcon(bmp).ToBitmap();
+        private void UpdateLoadedSampleIcon(object sender, EventArgs e)
+        {
+            IconUtils.UpdateLoadedSampleIcon(txtEnvIconFileLocation.Text, picEnvSampleIcon);
         }
 
 #region Setup and Populate
@@ -224,10 +206,10 @@ namespace RegistryMonitor
             comboEnvIconTextColor.SelectedIndex = -1;
             comboEnvIconBackgroundColor.SelectedIndex = -1;
             lblEnvCurrentEnvironmentGuid.Text = "";
-            _loadingValues = false;
             radioEnvDynamicIcon.Checked = true;
             txtEnvIconFileLocation.Text = "";
             checkEnvDisplayOnMenu.Checked = false;
+            _loadingValues = false;
         }
 
         private void ClearToolFields()
@@ -247,7 +229,7 @@ namespace RegistryMonitor
             if (tabControl.SelectedTab == tabGeneral)
             {
                 RegistryKeyUtils.SaveNewRegistryKey(_loadedSettings, comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3, txtGeneralRegistryKeyField.Text);
-                SaveNewGlobalHotkey();
+                GlobalHotkeyUtils.SaveNewGlobalHotkey(_loadedSettings, comboGeneralGlobalHotkey.Text, comboGeneralFirstModifierKey.Text, comboGeneralSecondModifierKey.Text);
                 _loadedSettings.General.ShowBalloonTips = checkGeneralShowBalloonTips.Checked;
                 _loadedSettings.General.IconFont = comboGeneralIconFont.SelectedItem.ToString();
                 _loadedSettings.General.IconFontSize = upDownGeneralIconSize.Text.ToFloat();
@@ -265,40 +247,7 @@ namespace RegistryMonitor
                 }
             }
         }
-
-        private void SaveNewGlobalHotkey()
-        {
-            if (comboGeneralFirstModifierKey.Text == System.Windows.Input.ModifierKeys.None.ToString())
-            {
-                MessageBox.Show(Constants.HotkeyMessages.SelectGlobalHotkeyToSave, 
-                                Constants.HotkeyMessages.SelectGlobalHotkeyToSaveCaption, 
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } 
-            else if (CurrentHotkeyEqualsSavedHotkey())
-            {
-                return;
-            }
-            else
-            {
-                _loadedSettings.General.LoadedGlobalHotkey.Hotkey =
-                    GlobalHotkeyParser.ConvertStringToKey(comboGeneralGlobalHotkey.Text);
-                _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(comboGeneralFirstModifierKey.Text);
-                _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(comboGeneralSecondModifierKey.Text);
-            }
-        }
-
-        private bool CurrentHotkeyEqualsSavedHotkey()
-        {
-            return _loadedSettings.General.LoadedGlobalHotkey.Hotkey.ToString() ==
-                    comboGeneralGlobalHotkey.Text &&
-                   _loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey.ToString() ==
-                    comboGeneralFirstModifierKey.Text &&
-                   _loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey.ToString() ==
-                    comboGeneralSecondModifierKey.Text;
-        }
-
+        
         private void SaveCurrentEnvironment()
         {
             var currentEnvironment = _loadedSettings.Environments.First(env => env.ID == Guid.Parse(lblEnvCurrentEnvironmentGuid.Text));
@@ -473,29 +422,6 @@ namespace RegistryMonitor
             if (lstEnvAllEnvironments.SelectedIndex == -1) return;
 
             OpenFileDialogUtils.FindFile(txtEnvIconFileLocation, Constants.FileDialogFilters.IconFilesOnly);
-        }
-
-        private void UpdateLoadedSampleIcon(object sender, EventArgs e)
-        {
-            if (!File.Exists(txtEnvIconFileLocation.Text) ||
-                !txtEnvIconFileLocation.Text.Contains(Constants.FileExtensions.IconExtension, StringComparison.OrdinalIgnoreCase))
-            {
-                picEnvSampleIcon.Image = null;
-                return;
-            }
-            
-            try
-            {
-                var iconFromFile = new Icon(txtEnvIconFileLocation.Text, 16, 16);
-                picEnvSampleIcon.Image = iconFromFile.ToBitmap();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(Constants.IconMessages.ErrorLoadingIcon + ex, 
-                                Constants.IconMessages.ErrorLoadingIconCaption, 
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
-                picEnvSampleIcon.Image = Resources.Exit_16.ToBitmap();
-            }
         }
     }
 }
