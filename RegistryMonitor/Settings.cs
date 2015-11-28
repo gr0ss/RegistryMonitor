@@ -323,7 +323,7 @@ namespace RegistryMonitor
                 currentEnvironment.DisplayOnMenu = checkEnvDisplayOnMenu.Checked;
 
             RepopulateSelectedTabsListbox(true);
-            SetCurrentOrderOfEnvironmentsAndSave();
+            ListboxUtils.SetCurrentOrderFromListBoxAndSave(true, lstEnvAllEnvironments, _loadedSettings);
         }
 
         private void SaveCurrentTool()
@@ -338,25 +338,7 @@ namespace RegistryMonitor
                 currentTool.HotKey = comboToolHotkey.Text;
 
             RepopulateSelectedTabsListbox(false);
-            SetCurrentOrderOfToolsAndSave();
-        }
-
-        private void SetCurrentOrderOfEnvironmentsAndSave()
-        {
-            var environmentsOrdered = (from object item 
-                                       in lstEnvAllEnvironments.Items
-                                       select _loadedSettings.Environments.FirstOrDefault(env => env.Name == item.ToString()))
-                                       .ToList();
-            _loadedSettings.Environments = environmentsOrdered;
-        }
-
-        private void SetCurrentOrderOfToolsAndSave()
-        {
-            var toolsOrdered = (from object item 
-                                in lstToolAllTools.Items
-                                select _loadedSettings.Tools.FirstOrDefault(tool => tool.Name == item.ToString()))
-                                .ToList();
-            _loadedSettings.Tools = toolsOrdered;
+            ListboxUtils.SetCurrentOrderFromListBoxAndSave(false, lstToolAllTools, _loadedSettings);
         }
 #endregion Save button
 
@@ -365,11 +347,7 @@ namespace RegistryMonitor
         {
             var env = tabControl.SelectedTab == tabEnvironments;
             TurnOffListEventHandlers();
-            ListboxUtils.MoveItem(-1, env, env ? lstEnvAllEnvironments : lstToolAllTools);
-            if (env)
-                SetCurrentOrderOfEnvironmentsAndSave();
-            else
-                SetCurrentOrderOfToolsAndSave();
+            ListboxUtils.MoveItem(-1, env, env ? lstEnvAllEnvironments : lstToolAllTools, _loadedSettings);
             TurnOnListEventHandlers();
         }
 
@@ -377,11 +355,7 @@ namespace RegistryMonitor
         {
             var env = tabControl.SelectedTab == tabEnvironments;
             TurnOffListEventHandlers();
-            ListboxUtils.MoveItem(1, env, env ? lstEnvAllEnvironments : lstToolAllTools);
-            if (env)
-                SetCurrentOrderOfEnvironmentsAndSave();
-            else
-                SetCurrentOrderOfToolsAndSave();
+            ListboxUtils.MoveItem(1, env, env ? lstEnvAllEnvironments : lstToolAllTools, _loadedSettings);
             TurnOnListEventHandlers();
         }
 

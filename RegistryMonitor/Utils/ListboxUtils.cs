@@ -89,7 +89,7 @@ namespace RegistryMonitor.Utils
             }
         }
         
-        public static void MoveItem(int direction, bool env, ListBox currentListBox)
+        public static void MoveItem(int direction, bool env, ListBox currentListBox, LoadedSettings loadedSettings)
         {
             // Checking selected item
             if (currentListBox.SelectedItem == null || currentListBox.SelectedIndex < 0)
@@ -110,6 +110,29 @@ namespace RegistryMonitor.Utils
             currentListBox.Items.Insert(newIndex, selected);
             // Restore selection
             currentListBox.SetSelected(newIndex, true);
+            // Save changes
+            SetCurrentOrderFromListBoxAndSave(env, currentListBox, loadedSettings);
+        }
+
+        public static void SetCurrentOrderFromListBoxAndSave(bool env, ListBox currentListBox, LoadedSettings loadedSettings)
+        {
+            if (env)
+            {
+                var environmentsOrdered = (from object item 
+                                           in currentListBox.Items
+                                           select loadedSettings.Environments.FirstOrDefault(environment => environment.Name == item.ToString()))
+                                           .ToList();
+                loadedSettings.Environments = environmentsOrdered;
+            }
+            else
+            {
+                var toolsOrdered = (from object item 
+                                    in currentListBox.Items
+                                    select loadedSettings.Tools.FirstOrDefault(tool => tool.Name == item.ToString()))
+                                    .ToList();
+                loadedSettings.Tools = toolsOrdered;
+            }
+            
         }
     }
 }
