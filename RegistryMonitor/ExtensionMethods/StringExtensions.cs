@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Windows.Forms;
 
 namespace RegistryMonitor.ExtensionMethods
 {
@@ -25,6 +26,22 @@ namespace RegistryMonitor.ExtensionMethods
         public static bool Contains(this string str, string compareTo, StringComparison comp)
         {
             return str.IndexOf(compareTo, comp) >= 0;
+        }
+
+        /// <summary>
+        /// Checks the object collection for a string ignoreing the case.
+        /// </summary>
+        /// <param name="ary"></param>
+        /// <param name="stringToFind"></param>
+        /// <returns></returns>
+        public static int GetIndex(this ComboBox.ObjectCollection ary, string stringToFind)
+        {
+            for (int i = 0; i < ary.Count; i++)
+            {
+                if (ary[i].ToString().Equals(stringToFind, StringComparison.OrdinalIgnoreCase))
+                    return i;
+            }
+            return -1;
         }
     }
 }

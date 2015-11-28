@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Windows.Input;
 using GlobalHotKey;
+using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.Files;
 
 namespace RegistryMonitor.FileUtils
@@ -48,9 +49,9 @@ namespace RegistryMonitor.FileUtils
                 secondModifierKeyCombo.Items.Add(modifierKeyName);
             }
 
-            hotkeyCombo.SelectedIndex = hotkeyCombo.Items.IndexOf(loadedHotkey.Hotkey.ToString());
-            firstModifierKeyCombo.SelectedIndex = firstModifierKeyCombo.Items.IndexOf(loadedHotkey.FirstModifierKey.ToString());
-            secondModifierKeyCombo.SelectedIndex = secondModifierKeyCombo.Items.IndexOf(loadedHotkey.SecondModifierKey.ToString());
+            hotkeyCombo.SelectedIndex = hotkeyCombo.Items.GetIndex(loadedHotkey.Hotkey.ToString());
+            firstModifierKeyCombo.SelectedIndex = firstModifierKeyCombo.Items.GetIndex(loadedHotkey.FirstModifierKey.ToString());
+            secondModifierKeyCombo.SelectedIndex = secondModifierKeyCombo.Items.GetIndex(loadedHotkey.SecondModifierKey.ToString());
         }
     }
 }

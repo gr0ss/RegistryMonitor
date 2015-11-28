@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.Files;
 using RegistryMonitor.Utils;
 
@@ -90,7 +91,14 @@ namespace RegistryMonitor.FileUtils
         private static MonitoredRegistryKey GetInitialRegistryKey()
         {
             return new MonitoredRegistryKey {Root = "", Subkey = ""};
-        } 
+        }
+
+        public static RegistryKey GetRegistryKeyFromCombo(ComboBox combo)
+        {
+            return GetRegistryKeyFromText(!string.IsNullOrEmpty(combo.SelectedText) 
+                                          ? combo.SelectedText 
+                                          : combo.SelectedItem.ToString());
+        }
 
         public static RegistryKey GetRegistryKeyFromText(string key)
         {
@@ -112,11 +120,11 @@ namespace RegistryMonitor.FileUtils
             var splitRegistryKey = registryKey.Root.Split(char.Parse("\\"));
 
             PopulateRootCombo(rootCombo);
-            rootCombo.SelectedIndex = rootCombo.Items.IndexOf(splitRegistryKey[0]);
+            rootCombo.SelectedIndex = rootCombo.Items.GetIndex(splitRegistryKey[0]);
             PopulateRootCombo2(rootCombo, rootCombo2);
-            rootCombo2.SelectedIndex = rootCombo2.Items.IndexOf(splitRegistryKey[1]);
+            rootCombo2.SelectedIndex = rootCombo2.Items.GetIndex(splitRegistryKey[1]);
             PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
-            rootCombo3.SelectedIndex = rootCombo3.Items.IndexOf(splitRegistryKey[2]);
+            rootCombo3.SelectedIndex = rootCombo3.Items.GetIndex(splitRegistryKey[2]);
             subkeyTextBox.Text = registryKey.Subkey;
         }
 
@@ -131,7 +139,7 @@ namespace RegistryMonitor.FileUtils
 
         public static void PopulateRootCombo2(ComboBox rootCombo, ComboBox rootCombo2)
         {
-            var currentRoot = GetRegistryKeyFromText(rootCombo.SelectedText);
+            var currentRoot = GetRegistryKeyFromCombo(rootCombo);
             
             foreach (var name in currentRoot.GetSubKeyNames())
             {
@@ -141,8 +149,10 @@ namespace RegistryMonitor.FileUtils
 
         public static void PopulateRootCombo3(ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3)
         {
-            var currentRoot = GetRegistryKeyFromText(rootCombo.SelectedText);
+            var currentRoot = GetRegistryKeyFromCombo(rootCombo);
             var currentSubkey = currentRoot.OpenSubKey(rootCombo2.SelectedItem.ToString());
+
+            if (currentSubkey == null) return;
 
             foreach (var name in currentSubkey.GetSubKeyNames())
             {
