@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RegistryMonitor.Files;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
@@ -132,34 +133,32 @@ namespace RegistryMonitor.FileUtils
             };
         }
 
-        public static void SaveCurrentEnvironment(LoadedSettings loadedSettings, ListBox environmentsListBox, string currentEnvironmentGuid,
-            string name, string registryValue, string hotkey, string iconDisplayText, string iconTextColor, string iconBackgroundColor,
-            bool iconFromFile, string iconFileLocation, bool displayOnMenu)
+        public static void SaveCurrentEnvironment(LoadedSettings loadedSettings, ListBox environmentsListBox, EnvironmentStruct environment)
         {
-            var currentEnvironment = loadedSettings.Environments.First(env => env.ID == Guid.Parse(currentEnvironmentGuid));
+            var currentEnvironment = loadedSettings.Environments.First(env => env.ID == environment.ID);
 
-            if (string.IsNullOrEmpty(currentEnvironmentGuid)) return;
+            if (environment.ID == Guid.Empty) return;
 
-            if (currentEnvironment.Name != name)
-                currentEnvironment.Name = name;
-            if (currentEnvironment.SubkeyValue != registryValue)
-                currentEnvironment.SubkeyValue = registryValue;
-            if (currentEnvironment.HotKey != hotkey)
-                currentEnvironment.HotKey = hotkey;
-            if (currentEnvironment.IconLabel != iconDisplayText)
-                currentEnvironment.IconLabel = iconDisplayText;
-            if (currentEnvironment.IconTextColor != iconTextColor)
-                currentEnvironment.IconTextColor = iconTextColor;
-            if (currentEnvironment.IconBackgroundColor != iconBackgroundColor)
-                currentEnvironment.IconBackgroundColor = iconBackgroundColor;
-            if (currentEnvironment.LoadIcon != iconFromFile)
-                currentEnvironment.LoadIcon = iconFromFile;
-            if (currentEnvironment.IconFileLocation != iconFileLocation)
-                currentEnvironment.IconFileLocation = iconFileLocation;
-            if (currentEnvironment.DisplayOnMenu != displayOnMenu)
-                currentEnvironment.DisplayOnMenu = displayOnMenu;
+            if (currentEnvironment.Name != environment.Name)
+                currentEnvironment.Name = environment.Name;
+            if (currentEnvironment.SubkeyValue != environment.SubkeyValue)
+                currentEnvironment.SubkeyValue = environment.SubkeyValue;
+            if (currentEnvironment.HotKey != environment.HotKey)
+                currentEnvironment.HotKey = environment.HotKey;
+            if (currentEnvironment.IconLabel != environment.IconLabel)
+                currentEnvironment.IconLabel = environment.IconLabel;
+            if (currentEnvironment.IconTextColor != environment.IconTextColor)
+                currentEnvironment.IconTextColor = environment.IconTextColor;
+            if (currentEnvironment.IconBackgroundColor != environment.IconBackgroundColor)
+                currentEnvironment.IconBackgroundColor = environment.IconBackgroundColor;
+            if (currentEnvironment.LoadIcon != environment.LoadIcon)
+                currentEnvironment.LoadIcon = environment.LoadIcon;
+            if (currentEnvironment.IconFileLocation != environment.IconFileLocation)
+                currentEnvironment.IconFileLocation = environment.IconFileLocation;
+            if (currentEnvironment.DisplayOnMenu != environment.DisplayOnMenu)
+                currentEnvironment.DisplayOnMenu = environment.DisplayOnMenu;
 
-            ListboxUtils.RepopulateListBox(true, environmentsListBox, loadedSettings, currentEnvironmentGuid);
+            ListboxUtils.RepopulateListBox(true, environmentsListBox, loadedSettings, environment.ID);
             ListboxUtils.SetCurrentOrderFromListBoxAndSave(true, environmentsListBox, loadedSettings);
 
             MessageBox.Show($"{currentEnvironment.Name} {Constants.Messages.SavedSuccessfully}",

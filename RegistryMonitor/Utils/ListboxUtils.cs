@@ -6,7 +6,7 @@ namespace RegistryMonitor.Utils
 {
     public static class ListboxUtils
     {
-        public static void RepopulateListBox(bool env, ListBox currentListBox, LoadedSettings loadedSettings, string currentGuid)
+        public static void RepopulateListBox(bool env, ListBox currentListBox, LoadedSettings loadedSettings, Guid currentGuid)
         {
             currentListBox.Items.Clear();
 
@@ -26,13 +26,14 @@ namespace RegistryMonitor.Utils
             }
 
             
-            if (string.IsNullOrEmpty(currentGuid)) return;
+            if (currentGuid != Guid.Empty) return;
 
             var currentName = env
-                            ? loadedSettings.Environments.First(environment => environment.ID == Guid.Parse(currentGuid)).Name
-                            : loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(currentGuid)).Name;
+                            ? loadedSettings.Environments.FirstOrDefault(environment => environment.ID == currentGuid)?.Name
+                            : loadedSettings.Tools.FirstOrDefault(tool => tool.ID == currentGuid)?.Name;
             
-            currentListBox.SelectedIndex = currentListBox.Items.IndexOf(currentName);
+            if (currentName != null)
+                currentListBox.SelectedIndex = currentListBox.Items.IndexOf(currentName);
         }
 
         public static void RemoveListBoxItem(bool env, ListBox currentListBox, LoadedSettings loadedSettings, string currentGuid)

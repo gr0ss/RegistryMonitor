@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.FileUtils;
 using RegistryMonitor.Properties;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor
@@ -92,11 +93,8 @@ namespace RegistryMonitor
             if (tabControl.SelectedTab != tabGeneral) return;
 
             SetupButtonEnabled(false);
-            RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, comboGeneralRegistryKeyRoot, 
-                                                                         comboGeneralRegistryKeyRoot2, comboGeneralRegistryKeyRoot3, 
-                                                                         txtGeneralRegistryKeyField);
-            GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, comboGeneralGlobalHotkey, 
-                                                         comboGeneralFirstModifierKey, comboGeneralSecondModifierKey);
+            RegistryKeyUtils.PopulateComboBoxesBasedOnCurrentRegistryKey(_loadedSettings.MonitoredRegistryKey, CreateRegistryKeyObjectStruct());
+            GlobalHotkeyUtils.PopulateGlobalHotkeyCombos(_loadedSettings.General.LoadedGlobalHotkey, CreateGlobalHotkeyObjectStruct());
             checkGeneralShowBalloonTips.Checked = _loadedSettings.General.ShowBalloonTips;
             GeneralUtils.PopulateIconProperties(_loadedSettings.General, comboGeneralIconFont, comboGeneralIconColor, comboGeneralIconTextColor);
             upDownGeneralIconSize.Text = _loadedSettings.General.IconFontSize.ToString(CultureInfo.InvariantCulture);
@@ -154,12 +152,15 @@ namespace RegistryMonitor
                 var curItem = lstToolAllTools.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Tools.First(tool => tool.Name == curItem);
 
-                lblToolCurrentToolGuid.Text = itemToLoad.ID.ToString();
-                txtToolName.Text = curItem;
-                txtToolFileLocation.Text = itemToLoad.FileLocation;
+                if (itemToLoad != null)
+                {
+                    lblToolCurrentToolGuid.Text = itemToLoad.ID.ToString();
+                    txtToolName.Text = curItem;
+                    txtToolFileLocation.Text = itemToLoad.FileLocation;
 
-                MiscUtils.PopulateHotkeyCombo(comboToolHotkey, txtToolName.Text);
-                comboToolHotkey.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                    MiscUtils.PopulateHotkeyCombo(comboToolHotkey, txtToolName.Text);
+                    comboToolHotkey.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
+                }
             }
             _loadingValues = false;
         }
@@ -235,10 +236,7 @@ namespace RegistryMonitor
 
         private void checkButton_Click(object sender, EventArgs e)
         {
-            RegistryKeyUtils.CheckCurrentKeyValue(comboGeneralRegistryKeyRoot,
-                                                  comboGeneralRegistryKeyRoot2, 
-                                                  comboGeneralRegistryKeyRoot3, 
-                                                  txtGeneralRegistryKeyField.Text);
+            RegistryKeyUtils.CheckCurrentKeyValue(CreateRegistryKeyStruct());
         }
         
         private void toolsDirectoryButton_Click(object sender, EventArgs e)
@@ -259,24 +257,17 @@ namespace RegistryMonitor
         {
             if (tabControl.SelectedTab == tabGeneral)
             {
-                GeneralUtils.SaveGeneralSettings(_loadedSettings, comboGeneralRegistryKeyRoot, comboGeneralRegistryKeyRoot2, 
-                    comboGeneralRegistryKeyRoot3, txtGeneralRegistryKeyField.Text, comboGeneralGlobalHotkey.Text, 
-                    comboGeneralFirstModifierKey.Text, comboGeneralSecondModifierKey.Text, checkGeneralShowBalloonTips.Checked,
-                    comboGeneralIconFont.SelectedItem.ToString(), upDownGeneralIconSize.Text.ToFloat());
+                GeneralUtils.SaveGeneralSettings(_loadedSettings, CreateGeneralStruct());
             }
             else
             {
                 if (tabControl.SelectedTab == tabEnvironments)
                 {
-                    EnvironmentUtils.SaveCurrentEnvironment(_loadedSettings, lstEnvAllEnvironments, lblEnvCurrentEnvironmentGuid.Text,
-                        txtEnvName.Text, txtEnvRegistryValue.Text, comboEnvHotkey.Text, txtEnvIconDisplayText.Text,
-                        comboEnvIconTextColor.SelectedItem.ToString(), comboEnvIconBackgroundColor.SelectedItem.ToString(),
-                        radioEnvIconFromFile.Checked, txtEnvIconFileLocation.Text, checkEnvDisplayOnMenu.Checked);
+                    EnvironmentUtils.SaveCurrentEnvironment(_loadedSettings, lstEnvAllEnvironments, CreateEnvironmentStruct());
                 }
                 else if (tabControl.SelectedTab == tabTools)
                 {
-                    ToolsUtils.SaveCurrentTool(_loadedSettings, lstToolAllTools, lblToolCurrentToolGuid.Text, 
-                        txtToolName.Text, txtToolFileLocation.Text, comboToolHotkey.Text);
+                    ToolsUtils.SaveCurrentTool(_loadedSettings, lstToolAllTools, CreateToolStruct());
                 }
             }
         }
@@ -305,10 +296,16 @@ namespace RegistryMonitor
         private void RepopulateSelectedTabsListbox()
         {
             var env = tabControl.SelectedTab == tabEnvironments;
+            var envGuid = string.IsNullOrEmpty(lblEnvCurrentEnvironmentGuid.Text)
+                        ? Guid.Empty
+                        : Guid.Parse(lblEnvCurrentEnvironmentGuid.Text);
+            var toolGuid = string.IsNullOrEmpty(lblToolCurrentToolGuid.Text) 
+                         ? Guid.Empty 
+                         : Guid.Parse(lblToolCurrentToolGuid.Text);
             ListboxUtils.RepopulateListBox(env, 
                                            env ? lstEnvAllEnvironments : lstToolAllTools, 
                                            _loadedSettings, 
-                                           env ? lblEnvCurrentEnvironmentGuid.Text : lblToolCurrentToolGuid.Text);
+                                           env ? envGuid : toolGuid);
         }
         
         private void SetupButtonEnabled(bool enabled)
@@ -361,7 +358,94 @@ namespace RegistryMonitor
             comboToolHotkey.Items.Clear();
             comboToolHotkey.Text = "";
             lblToolCurrentToolGuid.Text = "";
+            txtToolFileLocation.Text = "";
             _loadingValues = false;
-        }  
+        }
+
+        private EnvironmentStruct CreateEnvironmentStruct()
+        {
+            return new EnvironmentStruct
+            {
+                ID = string.IsNullOrEmpty(lblEnvCurrentEnvironmentGuid.Text) 
+                    ? Guid.Empty 
+                    : Guid.Parse(lblEnvCurrentEnvironmentGuid.Text),
+                Name = txtEnvName.Text,
+                SubkeyValue = txtEnvRegistryValue.Text,
+                HotKey = comboEnvHotkey.Text,
+                IconLabel = txtEnvIconDisplayText.Text,
+                IconTextColor = comboEnvIconTextColor.SelectedItem.ToString(),
+                IconBackgroundColor = comboEnvIconBackgroundColor.SelectedItem.ToString(),
+                LoadIcon = radioEnvIconFromFile.Checked,
+                IconFileLocation = txtEnvIconFileLocation.Text,
+                DisplayOnMenu = checkEnvDisplayOnMenu.Checked
+            };
+        }
+
+        private ToolStruct CreateToolStruct()
+        {
+            return new ToolStruct
+            {
+                ID = string.IsNullOrEmpty(lblToolCurrentToolGuid.Text)
+                   ? Guid.Empty 
+                   : Guid.Parse(lblToolCurrentToolGuid.Text),
+                Name = txtToolName.Text,
+                HotKey = comboToolHotkey.Text,
+                FileLocation = txtToolFileLocation.Text
+            };
+        }
+
+        private GeneralStruct CreateGeneralStruct()
+        {
+            return new GeneralStruct
+            {
+                IconFont = comboGeneralIconFont.SelectedItem.ToString(),
+                IconFontSize = upDownGeneralIconSize.Text.ToFloat(),
+                ShowBalloonTips = checkGeneralShowBalloonTips.Checked,
+                RegistryKey = CreateRegistryKeyStruct(),
+                GlobalHotkey = CreateGlobalHotkeyStruct()
+            };
+        }
+
+        private RegistryKeyStruct CreateRegistryKeyStruct()
+        {
+            return new RegistryKeyStruct
+            {
+                Root = comboGeneralRegistryKeyRoot,
+                Root2 = comboGeneralRegistryKeyRoot2,
+                Root3 = comboGeneralRegistryKeyRoot3,
+                Subkey = txtGeneralRegistryKeyField.Text
+            };
+        }
+
+        private GlobalHotkeyStruct CreateGlobalHotkeyStruct()
+        {
+            return new GlobalHotkeyStruct
+            {
+                Hotkey = comboGeneralGlobalHotkey.Text,
+                FirstModifierKey = comboGeneralFirstModifierKey.Text,
+                SecondModifierKey = comboGeneralSecondModifierKey.Text
+            };
+        }
+
+        private RegistryKeyObjectStruct CreateRegistryKeyObjectStruct()
+        {
+            return new RegistryKeyObjectStruct
+            {
+                Root = comboGeneralRegistryKeyRoot,
+                Root2 = comboGeneralRegistryKeyRoot2,
+                Root3 = comboGeneralRegistryKeyRoot3,
+                Subkey = txtGeneralRegistryKeyField
+            };
+        }
+
+        private GlobalHotkeyObjectStruct CreateGlobalHotkeyObjectStruct()
+        {
+            return new GlobalHotkeyObjectStruct
+            {
+                Hotkey = comboGeneralGlobalHotkey,
+                FirstModifierKey = comboGeneralFirstModifierKey,
+                SecondModifierKey = comboGeneralSecondModifierKey
+            };
+        }
     }
 }

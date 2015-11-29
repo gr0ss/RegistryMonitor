@@ -13,7 +13,9 @@ namespace RegistryMonitor.ExtensionMethods
         /// <returns></returns>
         public static float ToFloat(this string str)
         {
-            return float.Parse(str, CultureInfo.InvariantCulture.NumberFormat);
+            return !string.IsNullOrEmpty(str) 
+                ? float.Parse(str, CultureInfo.InvariantCulture.NumberFormat) 
+                : float.NaN;
         }
 
         /// <summary>
@@ -25,7 +27,11 @@ namespace RegistryMonitor.ExtensionMethods
         /// <returns></returns>
         public static bool Contains(this string str, string compareTo, StringComparison comp)
         {
-            return str.IndexOf(compareTo, comp) >= 0;
+            if (!string.IsNullOrEmpty(str))
+            {
+                return str.IndexOf(compareTo, comp) >= 0;
+            }
+            return false;
         }
 
         /// <summary>
@@ -36,10 +42,14 @@ namespace RegistryMonitor.ExtensionMethods
         /// <returns></returns>
         public static int GetIndex(this ComboBox.ObjectCollection ary, string stringToFind)
         {
+            if (ary.Count <= 0) return -1;
+
             for (int i = 0; i < ary.Count; i++)
             {
                 if (ary[i].ToString().Equals(stringToFind, StringComparison.OrdinalIgnoreCase))
+                {
                     return i;
+                }
             }
             return -1;
         }

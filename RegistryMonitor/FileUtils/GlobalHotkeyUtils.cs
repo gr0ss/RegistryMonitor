@@ -5,6 +5,7 @@ using GlobalHotKey;
 using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.Files;
 using RegistryMonitor.Parsers;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
@@ -35,47 +36,47 @@ namespace RegistryMonitor.FileUtils
             }
         }
 
-        public static void PopulateGlobalHotkeyCombos(LoadedGlobalHotkey loadedHotkey, ComboBox hotkeyCombo, ComboBox firstModifierKeyCombo, ComboBox secondModifierKeyCombo)
+        public static void PopulateGlobalHotkeyCombos(LoadedGlobalHotkey loadedHotkey, GlobalHotkeyObjectStruct globalHotkey)
         {
             var keyNames = Enum.GetNames(typeof (Key));
             var modifierKeyNames = Enum.GetNames(typeof (ModifierKeys));
             
             foreach (var keyName in keyNames)
             {
-                hotkeyCombo.Items.Add(keyName);
+                globalHotkey.Hotkey.Items.Add(keyName);
             }
 
             foreach (var modifierKeyName in modifierKeyNames)
             {
-                firstModifierKeyCombo.Items.Add(modifierKeyName);
-                secondModifierKeyCombo.Items.Add(modifierKeyName);
+                globalHotkey.FirstModifierKey.Items.Add(modifierKeyName);
+                globalHotkey.SecondModifierKey.Items.Add(modifierKeyName);
             }
 
-            hotkeyCombo.SelectedIndex = hotkeyCombo.Items.GetIndex(loadedHotkey.Hotkey.ToString());
-            firstModifierKeyCombo.SelectedIndex = firstModifierKeyCombo.Items.GetIndex(loadedHotkey.FirstModifierKey.ToString());
-            secondModifierKeyCombo.SelectedIndex = secondModifierKeyCombo.Items.GetIndex(loadedHotkey.SecondModifierKey.ToString());
+            globalHotkey.Hotkey.SelectedIndex = globalHotkey.Hotkey.Items.GetIndex(loadedHotkey.Hotkey.ToString());
+            globalHotkey.FirstModifierKey.SelectedIndex = globalHotkey.FirstModifierKey.Items.GetIndex(loadedHotkey.FirstModifierKey.ToString());
+            globalHotkey.SecondModifierKey.SelectedIndex = globalHotkey.SecondModifierKey.Items.GetIndex(loadedHotkey.SecondModifierKey.ToString());
         }
 
-        public static void SaveNewGlobalHotkey(LoadedSettings loadedSettings, string globalHotKey, string firstModifierKey, string secondModifierKey)
+        public static void SaveNewGlobalHotkey(LoadedSettings loadedSettings, GlobalHotkeyStruct globalHotkey)
         {
-            if (firstModifierKey == ModifierKeys.None.ToString())
+            if (globalHotkey.FirstModifierKey == ModifierKeys.None.ToString())
             {
                 MessageBox.Show(Constants.HotkeyMessages.SelectGlobalHotkeyToSave, 
                                 Constants.HotkeyMessages.SelectGlobalHotkeyToSaveCaption, 
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             } 
-            else if (CurrentHotkeyEqualsSavedHotkey(loadedSettings, globalHotKey, firstModifierKey, secondModifierKey))
+            else if (CurrentHotkeyEqualsSavedHotkey(loadedSettings, globalHotkey.Hotkey, globalHotkey.FirstModifierKey, globalHotkey.SecondModifierKey))
             {
                 return;
             }
             else
             {
                 loadedSettings.General.LoadedGlobalHotkey.Hotkey =
-                    GlobalHotkeyParser.ConvertStringToKey(globalHotKey);
+                    GlobalHotkeyParser.ConvertStringToKey(globalHotkey.Hotkey);
                 loadedSettings.General.LoadedGlobalHotkey.FirstModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(firstModifierKey);
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(globalHotkey.FirstModifierKey);
                 loadedSettings.General.LoadedGlobalHotkey.SecondModifierKey =
-                    GlobalHotkeyParser.ConvertStringToModifierKeys(secondModifierKey);
+                    GlobalHotkeyParser.ConvertStringToModifierKeys(globalHotkey.SecondModifierKey);
             }
         }
 

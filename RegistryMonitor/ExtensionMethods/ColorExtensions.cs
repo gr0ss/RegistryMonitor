@@ -14,7 +14,9 @@ namespace RegistryMonitor.ExtensionMethods
         /// <returns></returns>
         public static SolidBrush ToSolidBrush(this string brushColor)
         {
-            return new SolidBrush(Color.FromName(brushColor));
+            return !string.IsNullOrEmpty(brushColor) 
+                ? new SolidBrush(Color.FromName(brushColor)) 
+                : null;
         }
 
         /// <summary>
@@ -24,10 +26,11 @@ namespace RegistryMonitor.ExtensionMethods
         /// <returns></returns>
         public static Brush ToBrush(this string brushColor)
         {
-            var newBrush = new BrushConverter().ConvertFromInvariantString(brushColor) as Brush;
-            //var tc = TypeDescriptor.GetConverter(typeof (Brush));
-            //var brush = (Brush) tc.ConvertFromString(brushColor);
-            return newBrush;
+            if (!string.IsNullOrEmpty(brushColor))
+            {
+                return new BrushConverter().ConvertFromInvariantString(brushColor) as Brush;
+            }
+            return null;
         }
 
         /// <summary>

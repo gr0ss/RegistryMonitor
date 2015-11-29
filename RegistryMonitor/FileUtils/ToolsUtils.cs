@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using RegistryMonitor.Files;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
@@ -112,21 +113,20 @@ namespace RegistryMonitor.FileUtils
             };
         }
 
-        public static void SaveCurrentTool(LoadedSettings loadedSettings, ListBox toolsListBox, string currentToolGuid,
-            string name, string fileLocation, string hotKey)
+        public static void SaveCurrentTool(LoadedSettings loadedSettings, ListBox toolsListBox, ToolStruct tool)
         {
-            var currentTool = loadedSettings.Tools.First(tool => tool.ID == Guid.Parse(currentToolGuid));
+            var currentTool = loadedSettings.Tools.First(t => t.ID == tool.ID);
 
-            if (string.IsNullOrEmpty(currentToolGuid)) return;
+            if (tool.ID == Guid.Empty) return;
 
-            if (currentTool.Name != name)
-                currentTool.Name = name;
-            if (currentTool.FileLocation != fileLocation)
-                currentTool.FileLocation = fileLocation;
-            if (currentTool.HotKey != hotKey)
-                currentTool.HotKey = hotKey;
+            if (currentTool.Name != tool.Name)
+                currentTool.Name = tool.Name;
+            if (currentTool.FileLocation != tool.FileLocation)
+                currentTool.FileLocation = tool.FileLocation;
+            if (currentTool.HotKey != tool.HotKey)
+                currentTool.HotKey = tool.HotKey;
 
-            ListboxUtils.RepopulateListBox(false, toolsListBox, loadedSettings, currentToolGuid);
+            ListboxUtils.RepopulateListBox(false, toolsListBox, loadedSettings, tool.ID);
             ListboxUtils.SetCurrentOrderFromListBoxAndSave(false, toolsListBox, loadedSettings);
 
             MessageBox.Show($"{currentTool.Name} {Constants.Messages.SavedSuccessfully}",

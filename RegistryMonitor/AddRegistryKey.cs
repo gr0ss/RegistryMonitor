@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using RegistryMonitor.Properties;
 using Microsoft.Win32;
 using RegistryMonitor.FileUtils;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor
@@ -24,7 +24,7 @@ namespace RegistryMonitor
 
         private void checkButton_Click(object sender, EventArgs e)
         {
-            var rootValue = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var rootValue = RegistryKeyUtils.GetCurrentRoot(CreateRegistryKeyStruct());
 
             MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
                             $"{rootValue}\\{fieldTextBox.Text}" +
@@ -48,7 +48,7 @@ namespace RegistryMonitor
             {
                 var newRegistryKey = new Files.MonitoredRegistryKey
                 {
-                    Root = RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
+                    Root = RegistryKeyUtils.GetCurrentRoot(CreateRegistryKeyStruct()),
                     Subkey = fieldTextBox.Text
                 };
                 _loadedSettings.MonitoredRegistryKey = newRegistryKey;
@@ -82,7 +82,18 @@ namespace RegistryMonitor
 
         private string GetCurrentKeyValue()
         {
-            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), fieldTextBox.Text, "");
+            return (string) Registry.GetValue(RegistryKeyUtils.GetCurrentRoot(CreateRegistryKeyStruct()), fieldTextBox.Text, "");
+        }
+
+        private RegistryKeyStruct CreateRegistryKeyStruct()
+        {
+            return new RegistryKeyStruct
+            {
+                Root = rootCombo,
+                Root2 = rootCombo2,
+                Root3 = rootCombo3,
+                Subkey = fieldTextBox.Text
+            };
         }
     }
 }

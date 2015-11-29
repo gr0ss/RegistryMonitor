@@ -130,6 +130,11 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LoadedSettings.cs" />
+    <Compile Include="Structs\EnvironmentStruct.cs" />
+    <Compile Include="Structs\GeneralStruct.cs" />
+    <Compile Include="Structs\GlobalHotkeyStruct.cs" />
+    <Compile Include="Structs\RegistryKeyStruct.cs" />
+    <Compile Include="Structs\ToolStruct.cs" />
     <Compile Include="Utils\BitmapHolder.cs" />
     <Compile Include="Utils\ColorComboBox.cs">
       <SubType>Component</SubType>

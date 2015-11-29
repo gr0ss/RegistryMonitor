@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.Files;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
@@ -115,20 +116,20 @@ namespace RegistryMonitor.FileUtils
             return Registry.CurrentUser;
         }
 
-        public static void PopulateComboBoxesBasedOnCurrentRegistryKey(MonitoredRegistryKey registryKey, ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, TextBox subkeyTextBox)
+        public static void PopulateComboBoxesBasedOnCurrentRegistryKey(MonitoredRegistryKey registryKey, RegistryKeyObjectStruct registryKeyObjectStruct)
         {
             var splitRegistryKey = registryKey.Root.Split(char.Parse("\\"));
 
-            PopulateRootCombo(rootCombo);
-            rootCombo.SelectedIndex = rootCombo.Items.GetIndex(splitRegistryKey[0]);
-            PopulateRootCombo2(rootCombo, rootCombo2);
-            rootCombo2.SelectedIndex = rootCombo2.Items.GetIndex(splitRegistryKey[1]);
-            if (rootCombo2.SelectedIndex != -1)
+            PopulateRootCombo(registryKeyObjectStruct.Root);
+            registryKeyObjectStruct.Root.SelectedIndex = registryKeyObjectStruct.Root.Items.GetIndex(splitRegistryKey[0]);
+            PopulateRootCombo2(registryKeyObjectStruct.Root, registryKeyObjectStruct.Root2);
+            registryKeyObjectStruct.Root2.SelectedIndex = registryKeyObjectStruct.Root2.Items.GetIndex(splitRegistryKey[1]);
+            if (registryKeyObjectStruct.Root2.SelectedIndex != -1)
             {
-                PopulateRootCombo3(rootCombo, rootCombo2, rootCombo3);
-                rootCombo3.SelectedIndex = rootCombo3.Items.GetIndex(splitRegistryKey[2]);
+                PopulateRootCombo3(registryKeyObjectStruct.Root, registryKeyObjectStruct.Root2, registryKeyObjectStruct.Root3);
+                registryKeyObjectStruct.Root3.SelectedIndex = registryKeyObjectStruct.Root3.Items.GetIndex(splitRegistryKey[2]);
             }
-            subkeyTextBox.Text = registryKey.Subkey;
+            registryKeyObjectStruct.Subkey.Text = registryKey.Subkey;
         }
 
         public static void PopulateRootCombo(ComboBox rootCombo)
@@ -165,40 +166,40 @@ namespace RegistryMonitor.FileUtils
             }
         }
 
-        public static string GetCurrentRoot(ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3)
+        public static string GetCurrentRoot(RegistryKeyStruct registryKey)
         {
             var userRoot = new StringBuilder();
-            if (rootCombo.SelectedIndex != -1)
-                userRoot.Append(rootCombo.SelectedItem);
-            if (rootCombo2.SelectedIndex != -1)
-                userRoot.Append("\\" + rootCombo2.SelectedItem);
-            if (rootCombo3.SelectedIndex != -1)
-                userRoot.Append("\\" + rootCombo3.SelectedItem);
+            if (registryKey.Root.SelectedIndex != -1)
+                userRoot.Append(registryKey.Root.SelectedItem);
+            if (registryKey.Root2.SelectedIndex != -1)
+                userRoot.Append("\\" + registryKey.Root2.SelectedItem);
+            if (registryKey.Root3.SelectedIndex != -1)
+                userRoot.Append("\\" + registryKey.Root3.SelectedItem);
             return userRoot.ToString();
         }
 
-        private static string GetCurrentKeyValue(ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        private static string GetCurrentKeyValue(RegistryKeyStruct registryKey)
         {
-            return (string) Registry.GetValue(GetCurrentRoot(rootCombo, rootCombo2, rootCombo3).ToString(), registryKeyField, "");
+            return (string) Registry.GetValue(GetCurrentRoot(registryKey), registryKey.Subkey, "");
         }
 
-        private static bool CurrentKeyEqualsSavedKey(MonitoredRegistryKey monitoredKey, ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        private static bool CurrentKeyEqualsSavedKey(MonitoredRegistryKey monitoredKey, RegistryKeyStruct registryKey)
         {
-            var currentRoot = GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
+            var currentRoot = GetCurrentRoot(registryKey);
 
             return currentRoot == monitoredKey.Root &&
-                   registryKeyField == monitoredKey.Subkey;
+                   registryKey.Subkey == monitoredKey.Subkey;
         }
 
-        public static void SaveNewRegistryKey(LoadedSettings loadedSettings, ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        public static void SaveNewRegistryKey(LoadedSettings loadedSettings, RegistryKeyStruct registryKey)
         {
-            if (GetCurrentKeyValue(rootCombo, rootCombo2, rootCombo3, registryKeyField) == string.Empty) // New Key is invalid.
+            if (GetCurrentKeyValue(registryKey) == string.Empty) // New Key is invalid.
             {
                 MessageBox.Show(Constants.RegistryKeyMessages.SelectRegistryKey, 
                                 Constants.RegistryKeyMessages.SelectRegistryKeyCaption, 
                                 MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (CurrentKeyEqualsSavedKey(loadedSettings.MonitoredRegistryKey, rootCombo, rootCombo2, rootCombo3, registryKeyField)) // New Key is Old Key.
+            else if (CurrentKeyEqualsSavedKey(loadedSettings.MonitoredRegistryKey, registryKey)) // New Key is Old Key.
             {
                 return;
             }
@@ -210,22 +211,22 @@ namespace RegistryMonitor.FileUtils
 
                 if (confirmMessage != DialogResult.Yes) return;
 
-                var newRegistryKey = new Files.MonitoredRegistryKey
+                var newRegistryKey = new MonitoredRegistryKey
                 {
-                    Root = GetCurrentRoot(rootCombo, rootCombo2, rootCombo3),
-                    Subkey = registryKeyField
+                    Root = GetCurrentRoot(registryKey),
+                    Subkey = registryKey.Subkey
                 };
                 loadedSettings.MonitoredRegistryKey = newRegistryKey;
             }
         }
 
-        public static void CheckCurrentKeyValue(ComboBox rootCombo, ComboBox rootCombo2, ComboBox rootCombo3, string registryKeyField)
+        public static void CheckCurrentKeyValue(RegistryKeyStruct registryKey)
         {
-            var rootValue = GetCurrentRoot(rootCombo, rootCombo2, rootCombo3);
-            var keyValue = GetCurrentKeyValue(rootCombo, rootCombo2, rootCombo3, registryKeyField);
+            var rootValue = GetCurrentRoot(registryKey);
+            var keyValue = GetCurrentKeyValue(registryKey);
 
             MessageBox.Show($"{Constants.RegistryKeyMessages.CurrentSelectedKey}" +
-                            $"{rootValue}\\{registryKeyField}" +
+                            $"{rootValue}\\{registryKey.Subkey}" +
                             $"{Constants.RegistryKeyMessages.CurrentValueOfKey}" +
                             $"{keyValue}", 
                             Constants.RegistryKeyMessages.CurrentValueOfKeyCaption, 

@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RegistryMonitor.Files;
 using RegistryMonitor.Parsers;
+using RegistryMonitor.Structs;
 using RegistryMonitor.Utils;
 
 namespace RegistryMonitor.FileUtils
@@ -134,15 +135,13 @@ namespace RegistryMonitor.FileUtils
             fontComboBox.SelectedItem = currentFont;
         }
 
-        public static void SaveGeneralSettings(LoadedSettings loadedSettings, ComboBox rootCombo, ComboBox rootCombo2, 
-            ComboBox rootCombo3, string registryKeyField, string globalHotKey, string firstModifierKey, 
-            string secondModifierKey, bool showBalloonTips, string iconFont, float iconSize)
+        public static void SaveGeneralSettings(LoadedSettings loadedSettings, GeneralStruct general)
         {
-            RegistryKeyUtils.SaveNewRegistryKey(loadedSettings, rootCombo, rootCombo2, rootCombo3, registryKeyField);
-            GlobalHotkeyUtils.SaveNewGlobalHotkey(loadedSettings, globalHotKey, firstModifierKey, secondModifierKey);
-            loadedSettings.General.ShowBalloonTips = showBalloonTips;
-            loadedSettings.General.IconFont = iconFont;
-            loadedSettings.General.IconFontSize = iconSize;
+            RegistryKeyUtils.SaveNewRegistryKey(loadedSettings, general.RegistryKey);
+            GlobalHotkeyUtils.SaveNewGlobalHotkey(loadedSettings, general.GlobalHotkey);
+            loadedSettings.General.ShowBalloonTips = general.ShowBalloonTips;
+            loadedSettings.General.IconFont = general.IconFont;
+            loadedSettings.General.IconFontSize = general.IconFontSize;
             loadedSettings.General = loadedSettings.General;
 
             MessageBox.Show($"Settings {Constants.Messages.SavedSuccessfully}",
