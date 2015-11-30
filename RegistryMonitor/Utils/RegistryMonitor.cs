@@ -352,7 +352,7 @@ namespace RegistryUtils
 				WaitHandle[] waitHandles = new WaitHandle[] {_eventNotify, _eventTerminate};
 				while (!_eventTerminate.WaitOne(0, true))
 				{
-					result = RegNotifyChangeKeyValue(registryKey, true, _regFilter, _eventNotify.Handle, true);
+				    result = RegNotifyChangeKeyValue(registryKey, true, _regFilter, _eventNotify.SafeWaitHandle.DangerousGetHandle(), true);
 					if (result != 0)
 						throw new Win32Exception(result);
 

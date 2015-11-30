@@ -15,9 +15,12 @@ using Zhwang.SuperNotifyIcon;
 
 namespace RegistryMonitor
 {
+    /// <summary>
+    /// Main Class for RegistryMonitor.
+    /// </summary>
     public partial class Form1 : Form
     {
-        private LoadedSettings _loadedSettings;
+        private readonly LoadedSettings _loadedSettings;
         
         private LoadedEnvironments _currentLoadedEnvironment;
         private LoadedGlobalHotkey _currentLoadedGlobalHotkey;
@@ -31,6 +34,9 @@ namespace RegistryMonitor
 
         private bool _settingsAlreadyRunning;
 
+        /// <summary>
+        /// Main Class for RegistryMonitor.
+        /// </summary>
         public Form1()
         {
             InitializeComponent();

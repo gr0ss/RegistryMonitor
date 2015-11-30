@@ -12,16 +12,26 @@ using RegistryMonitor.Utils;
 
 namespace RegistryMonitor
 {
+    /// <summary>
+    /// All settings for RegistryMonitor.
+    /// </summary>
     public partial class Settings : Form
     {
-        private LoadedSettings _loadedSettings;
+        private readonly LoadedSettings _loadedSettings;
         private bool _loadingValues;
 
+        /// <summary>
+        /// All settings for RegistryMonitor.
+        /// </summary>
         public Settings()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// All settings for RegistryMonitor.
+        /// </summary>
+        /// <param name="loadedSettings"></param>
         public Settings(LoadedSettings loadedSettings)
         {
             InitializeComponent();
