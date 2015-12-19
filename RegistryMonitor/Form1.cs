@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Exceptionless;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryMonitor.Files;
@@ -39,6 +40,8 @@ namespace RegistryMonitor
         /// </summary>
         public Form1()
         {
+            ExceptionlessClient.Default.Register(false);
+
             InitializeComponent();
             
             _loadedSettings = new LoadedSettings();
