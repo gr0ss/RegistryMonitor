@@ -18,7 +18,7 @@ namespace RegistryMonitor
     public partial class Settings : Form
     {
         private readonly LoadedSettings _loadedSettings;
-        private bool _loadingValues;
+        //private bool _loadingValues;
 
         /// <summary>
         /// All settings for RegistryMonitor.
@@ -126,7 +126,7 @@ namespace RegistryMonitor
         {
             if (lstEnvAllEnvironments.SelectedIndex != -1)
             {
-                _loadingValues = true;
+                //_loadingValues = true;
                 var curItem = lstEnvAllEnvironments.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Environments.FirstOrDefault(env => env.Name == curItem);
 
@@ -151,14 +151,14 @@ namespace RegistryMonitor
                     checkEnvDisplayOnMenu.Checked = itemToLoad.DisplayOnMenu;
                 }
             }
-            _loadingValues = false;
+            //_loadingValues = false;
         }
 
         private void LstToolAllTools_Changed(object sender, EventArgs e)
         {
             if (lstToolAllTools.SelectedIndex != -1)
             {
-                _loadingValues = true;
+                //_loadingValues = true;
                 var curItem = lstToolAllTools.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Tools.First(tool => tool.Name == curItem);
 
@@ -172,7 +172,7 @@ namespace RegistryMonitor
                     comboToolHotkey.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
                 }
             }
-            _loadingValues = false;
+            //_loadingValues = false;
         }
 
         private void TurnOffListEventHandlers()
@@ -345,7 +345,7 @@ namespace RegistryMonitor
         
         private void ClearEnvironmentFields()
         {
-            _loadingValues = true;
+            //_loadingValues = true;
             txtEnvName.Text = "";
             txtEnvRegistryValue.Text = "";
             comboEnvHotkey.Items.Clear();
@@ -357,19 +357,19 @@ namespace RegistryMonitor
             radioEnvDynamicIcon.Checked = true;
             txtEnvIconFileLocation.Text = "";
             checkEnvDisplayOnMenu.Checked = false;
-            _loadingValues = false;
+            //_loadingValues = false;
         }
 
         private void ClearToolFields()
         {
-            _loadingValues = true;
+            //_loadingValues = true;
             txtToolName.Text = "";
             txtToolFileLocation.Text = "";
             comboToolHotkey.Items.Clear();
             comboToolHotkey.Text = "";
             lblToolCurrentToolGuid.Text = "";
             txtToolFileLocation.Text = "";
-            _loadingValues = false;
+            //_loadingValues = false;
         }
 
         private EnvironmentStruct CreateEnvironmentStruct()

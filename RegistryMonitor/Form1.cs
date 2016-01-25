@@ -151,25 +151,14 @@ namespace RegistryMonitor
         private void ToolClicked(object sender, EventArgs e)
         {
             var currentTool = _loadedSettings.Tools.Find(tool => tool.Name == sender.ToString().Replace("&", ""));
-            // Prepare the process to run
-            ProcessStartInfo start = new ProcessStartInfo();
-            // Enter the executable to run, including the complete path
-            start.FileName = currentTool.FileLocation;
-            // Do you want to show a console window?
-            start.WindowStyle = ProcessWindowStyle.Hidden;
-            start.CreateNoWindow = true;
-            int exitCode;
-            
+
             if (File.Exists(currentTool.FileLocation))
             {
-                // Run the external process & wait for it to finish
-                using (Process proc = Process.Start(start))
+                var toolToRun = new Process
                 {
-                     proc.WaitForExit();
-
-                     // Retrieve the app's exit code
-                     exitCode = proc.ExitCode;
-                }
+                    StartInfo = {FileName = currentTool.FileLocation}
+                };
+                toolToRun.Start();
             }
             else
             {
@@ -177,7 +166,6 @@ namespace RegistryMonitor
                                    Constants.ToolMessages.CouldntFindToolCaption, 
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
         }
 
         private void HkManagerOnKeyPressed(object sender, KeyPressedEventArgs e)
