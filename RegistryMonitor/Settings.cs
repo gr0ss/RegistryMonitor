@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Exceptionless;
 using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.FileUtils;
 using RegistryMonitor.Properties;
@@ -18,7 +19,7 @@ namespace RegistryMonitor
     public partial class Settings : Form
     {
         private readonly LoadedSettings _loadedSettings;
-        //private bool _loadingValues;
+        private bool _allowFeatureUsageLogging = false;
 
         /// <summary>
         /// All settings for RegistryMonitor.
@@ -126,7 +127,6 @@ namespace RegistryMonitor
         {
             if (lstEnvAllEnvironments.SelectedIndex != -1)
             {
-                //_loadingValues = true;
                 var curItem = lstEnvAllEnvironments.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Environments.FirstOrDefault(env => env.Name == curItem);
 
@@ -151,14 +151,12 @@ namespace RegistryMonitor
                     checkEnvDisplayOnMenu.Checked = itemToLoad.DisplayOnMenu;
                 }
             }
-            //_loadingValues = false;
         }
 
         private void LstToolAllTools_Changed(object sender, EventArgs e)
         {
             if (lstToolAllTools.SelectedIndex != -1)
             {
-                //_loadingValues = true;
                 var curItem = lstToolAllTools.SelectedItem.ToString();
                 var itemToLoad = _loadedSettings.Tools.First(tool => tool.Name == curItem);
 
@@ -172,7 +170,6 @@ namespace RegistryMonitor
                     comboToolHotkey.SelectedIndex = MiscUtils.GetIndexOfHotkey(itemToLoad.Name, itemToLoad.HotKey);
                 }
             }
-            //_loadingValues = false;
         }
 
         private void TurnOffListEventHandlers()
@@ -200,11 +197,15 @@ namespace RegistryMonitor
 
             if (tabControl.SelectedTab == tabEnvironments)
             {
+                if (_allowFeatureUsageLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.EnvironmentAdded);
+
                 var index = lstEnvAllEnvironments.Items.Count - 1;
                 lstEnvAllEnvironments.SelectedIndex = index;
             }
             else if (tabControl.SelectedTab == tabTools)
             {
+                if (_allowFeatureUsageLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.ToolAdded);
+
                 var toolIndex = lstToolAllTools.Items.Count - 1;
                 lstToolAllTools.SelectedIndex = toolIndex;
             }
@@ -219,10 +220,12 @@ namespace RegistryMonitor
                                            env ? lblEnvCurrentEnvironmentGuid.Text : lblToolCurrentToolGuid.Text);
             if (env)
             {
+                if (_allowFeatureUsageLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.EnvironmentRemoved);
                 ClearEnvironmentFields();
             }
             else
             {
+                if (_allowFeatureUsageLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.ToolRemoved);
                 ClearToolFields();
             }
             RepopulateSelectedTabsListbox();
@@ -246,6 +249,7 @@ namespace RegistryMonitor
 
         private void checkButton_Click(object sender, EventArgs e)
         {
+            if (_allowFeatureUsageLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.RegistryKeyValueChecked);
             RegistryKeyUtils.CheckCurrentKeyValue(CreateRegistryKeyStruct());
         }
         
@@ -265,6 +269,8 @@ namespace RegistryMonitor
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            if (_allowFeatureUsageLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.SettingsSaved);
+
             if (tabControl.SelectedTab == tabGeneral)
             {
                 GeneralUtils.SaveGeneralSettings(_loadedSettings, CreateGeneralStruct());
@@ -345,7 +351,6 @@ namespace RegistryMonitor
         
         private void ClearEnvironmentFields()
         {
-            //_loadingValues = true;
             txtEnvName.Text = "";
             txtEnvRegistryValue.Text = "";
             comboEnvHotkey.Items.Clear();
@@ -357,19 +362,16 @@ namespace RegistryMonitor
             radioEnvDynamicIcon.Checked = true;
             txtEnvIconFileLocation.Text = "";
             checkEnvDisplayOnMenu.Checked = false;
-            //_loadingValues = false;
         }
 
         private void ClearToolFields()
         {
-            //_loadingValues = true;
             txtToolName.Text = "";
             txtToolFileLocation.Text = "";
             comboToolHotkey.Items.Clear();
             comboToolHotkey.Text = "";
             lblToolCurrentToolGuid.Text = "";
             txtToolFileLocation.Text = "";
-            //_loadingValues = false;
         }
 
         private EnvironmentStruct CreateEnvironmentStruct()

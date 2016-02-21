@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Exceptionless;
+using Exceptionless.Logging;
 using GlobalHotKey;
 using Microsoft.Win32;
 using RegistryMonitor.Files;
@@ -34,14 +35,21 @@ namespace RegistryMonitor
         private readonly Point? _locationOfIcon;
 
         private bool _settingsAlreadyRunning;
+        private bool _allowLogging = false;
+        private bool _allowFeatureUseLogging = false;
 
         /// <summary>
         /// Main Class for RegistryMonitor.
         /// </summary>
         public Form1()
         {
-            ExceptionlessClient.Default.Register(false);
-
+            if (_allowLogging)
+            {
+                ExceptionlessClient.Default.Register(false);
+                ExceptionlessClient.Default.Configuration.SetUserIdentity(Environment.MachineName);
+                ExceptionlessClient.Default.Configuration.UseSessions();
+            }
+            
             InitializeComponent();
             
             _loadedSettings = new LoadedSettings();
@@ -86,7 +94,10 @@ namespace RegistryMonitor
                     addRegistry.Show();
                 }
                 else
-                    Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);                
+                {
+                    if (_allowLogging) ExceptionlessClient.Default.SubmitLog(Constants.LogMessages.NoRegistryKey, LogLevel.Info);
+                    Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);
+                }                
             }
             else
                 LoadRegistryMonitor();
@@ -95,9 +106,14 @@ namespace RegistryMonitor
         private void RegistryKeyAdded_EventHandler(object sender, CancelEventArgs e)
         {
             if (string.IsNullOrEmpty(_loadedSettings.MonitoredRegistryKey.Root))
+            {
+                if (_allowLogging) ExceptionlessClient.Default.SubmitLog(Constants.LogMessages.EmptyRegistryKey, LogLevel.Info);
                 Environment.Exit(Constants.EnvironmentExitCodes.NoRegistryKey);
+            }
             else
+            {
                 LoadRegistryMonitor();
+            }
         }
 
         private void LoadRegistryMonitor()
@@ -144,12 +160,16 @@ namespace RegistryMonitor
         #region OnClick
         private void EnvironmentClicked(object sender, EventArgs e)
         {
+            if (_allowFeatureUseLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.EnvironmentChanged);
+
             _currentLoadedEnvironment = _loadedSettings.Environments.Find(env => env.Name == sender.ToString().Replace("&", ""));
             SetRegistry();
         }
 
         private void ToolClicked(object sender, EventArgs e)
         {
+            if (_allowFeatureUseLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.ToolUsed);
+
             var currentTool = _loadedSettings.Tools.Find(tool => tool.Name == sender.ToString().Replace("&", ""));
 
             if (File.Exists(currentTool.FileLocation))
@@ -162,6 +182,8 @@ namespace RegistryMonitor
             }
             else
             {
+                if (_allowLogging) ExceptionlessClient.Default.SubmitLog(Constants.LogMessages.ToolDidntExist, LogLevel.Info);
+
                 MessageBox.Show($"{Constants.ToolMessages.CouldntFindTool}{currentTool.FileLocation}", 
                                    Constants.ToolMessages.CouldntFindToolCaption, 
                                    MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -201,6 +223,8 @@ namespace RegistryMonitor
         private void menuEdit_Click(object sender, EventArgs e)
         {
             if (_settingsAlreadyRunning) return;
+            
+            if (_allowFeatureUseLogging) ExceptionlessClient.Default.SubmitFeatureUsage(Constants.FeatureUsages.UpdateSettings);
 
             Settings settings = new Settings(_loadedSettings);
             settings.Closed += (o, args) =>
@@ -270,7 +294,9 @@ namespace RegistryMonitor
         }
 
         private void OnError(object sender, ErrorEventArgs e)
-		{
+        {
+            e.GetException().ToExceptionless().Submit();
+
             if (InvokeRequired)
             {
                 BeginInvoke(new ErrorEventHandler(OnError), sender, e);

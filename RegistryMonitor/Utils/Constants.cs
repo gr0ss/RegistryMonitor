@@ -118,5 +118,28 @@ namespace RegistryMonitor.Utils
             public const string SavedSuccessfully = "saved successfully.";
             public const string SavedSuccessfullyCaption = "Successfully Saved";
         }
+
+        public static class FeatureUsages
+        {
+            // Main form
+            public const string ToolUsed = "Tool Shortcut Clicked";
+            public const string EnvironmentChanged = "Environment Change Clicked";
+            public const string UpdateSettings = "Updating Application Settings Clicked";
+
+            // Settings form
+            public const string ToolAdded = "Tool Added";
+            public const string ToolRemoved = "Tool Removed";
+            public const string EnvironmentAdded = "Environment Added";
+            public const string EnvironmentRemoved = "Environment Removed";
+            public const string RegistryKeyValueChecked = "New Registry Key Value Checked";
+            public const string SettingsSaved = "Save Settings Button Clicked";
+        }
+
+        public static class LogMessages
+        {
+            public const string NoRegistryKey = "User chose to leave application instead of entering a registry key";
+            public const string EmptyRegistryKey = "Registry key was not present while trying to be added";
+            public const string ToolDidntExist = "User tried running a tool that didnt exist";
+        }
     }
 }
