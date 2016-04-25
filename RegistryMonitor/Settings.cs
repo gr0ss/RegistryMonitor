@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using Exceptionless;
+using Microsoft.Win32;
 using RegistryMonitor.ExtensionMethods;
 using RegistryMonitor.FileUtils;
 using RegistryMonitor.Properties;
@@ -19,7 +20,11 @@ namespace RegistryMonitor
     public partial class Settings : Form
     {
         private readonly LoadedSettings _loadedSettings;
-        private bool _allowFeatureUsageLogging = false;
+        private bool _allowFeatureUsageLogging = true;
+        private const string REGISTRY_MONITOR = "RegistryMonitor";
+
+        // The path to the key where Windows looks for startup applications
+        RegistryKey rkStartup = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 
         /// <summary>
         /// All settings for RegistryMonitor.
@@ -109,6 +114,9 @@ namespace RegistryMonitor
             checkGeneralShowBalloonTips.Checked = _loadedSettings.General.ShowBalloonTips;
             GeneralUtils.PopulateIconProperties(_loadedSettings.General, comboGeneralIconFont, comboGeneralIconColor, comboGeneralIconTextColor);
             upDownGeneralIconSize.Text = _loadedSettings.General.IconFontSize.ToString(CultureInfo.InvariantCulture);
+
+            // Check to see if Registry Monitor Starts With Windows
+            checkGeneralStartWithWindows.Checked = rkStartup.GetValue(REGISTRY_MONITOR) != null;
         }
 
         private void LoadEnvironmentsOrToolsTab()
@@ -274,6 +282,17 @@ namespace RegistryMonitor
             if (tabControl.SelectedTab == tabGeneral)
             {
                 GeneralUtils.SaveGeneralSettings(_loadedSettings, CreateGeneralStruct());
+
+                if (checkGeneralStartWithWindows.Checked)
+                {
+                    // Add the value in the registry so that the application runs at startup
+                    rkStartup.SetValue(REGISTRY_MONITOR, Application.ExecutablePath);
+                }
+                else
+                {
+                    // Remove the value from the registry so that the application doesn't start
+                    rkStartup.DeleteValue(REGISTRY_MONITOR, false);
+                }
             }
             else
             {

@@ -35,8 +35,8 @@ namespace RegistryMonitor
         private readonly Point? _locationOfIcon;
 
         private bool _settingsAlreadyRunning;
-        private bool _allowLogging = false;
-        private bool _allowFeatureUseLogging = false;
+        private bool _allowLogging = true;
+        private bool _allowFeatureUseLogging = true;
 
         /// <summary>
         /// Main Class for RegistryMonitor.

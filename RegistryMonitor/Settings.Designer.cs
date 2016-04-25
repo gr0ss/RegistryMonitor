@@ -57,6 +57,8 @@ namespace RegistryMonitor
             this.checkGeneralShowBalloonTips = new System.Windows.Forms.CheckBox();
             this.groupGeneralIconProperties = new System.Windows.Forms.GroupBox();
             this.upDownGeneralIconSize = new System.Windows.Forms.NumericUpDown();
+            this.comboGeneralIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
+            this.comboGeneralIconColor = new RegistryMonitor.Utils.ColorComboBox();
             this.lblGeneralIconTextColor = new System.Windows.Forms.Label();
             this.picGeneralIconSample = new System.Windows.Forms.PictureBox();
             this.lblGeneralIconSample = new System.Windows.Forms.Label();
@@ -92,9 +94,11 @@ namespace RegistryMonitor
             this.lblEnvIconFileLocation = new System.Windows.Forms.Label();
             this.pnlEnvDynamicIcon = new System.Windows.Forms.Panel();
             this.lblEnvIconDisplayText = new System.Windows.Forms.Label();
+            this.comboEnvIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
             this.txtEnvIconDisplayText = new System.Windows.Forms.TextBox();
             this.lblEnvIconTextColor = new System.Windows.Forms.Label();
             this.lblEnvIconBackgroundColor = new System.Windows.Forms.Label();
+            this.comboEnvIconBackgroundColor = new RegistryMonitor.Utils.ColorComboBox();
             this.pnlEnvIconType = new System.Windows.Forms.Panel();
             this.radioEnvIconFromFile = new System.Windows.Forms.RadioButton();
             this.radioEnvDynamicIcon = new System.Windows.Forms.RadioButton();
@@ -102,10 +106,7 @@ namespace RegistryMonitor
             this.lblEnvHotkey = new System.Windows.Forms.Label();
             this.lblEnvCurrentEnvironmentGuid = new System.Windows.Forms.Label();
             this.lblEnvRegistryValue = new System.Windows.Forms.Label();
-            this.comboGeneralIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
-            this.comboGeneralIconColor = new RegistryMonitor.Utils.ColorComboBox();
-            this.comboEnvIconTextColor = new RegistryMonitor.Utils.ColorComboBox();
-            this.comboEnvIconBackgroundColor = new RegistryMonitor.Utils.ColorComboBox();
+            this.checkGeneralStartWithWindows = new System.Windows.Forms.CheckBox();
             this.tabTools.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabGeneral.SuspendLayout();
@@ -332,6 +333,7 @@ namespace RegistryMonitor
             // 
             // tabGeneral
             // 
+            this.tabGeneral.Controls.Add(this.checkGeneralStartWithWindows);
             this.tabGeneral.Controls.Add(this.checkGeneralShowBalloonTips);
             this.tabGeneral.Controls.Add(this.groupGeneralIconProperties);
             this.tabGeneral.Controls.Add(this.groupGeneralGlobalHotkey);
@@ -403,6 +405,28 @@ namespace RegistryMonitor
             0,
             0});
             this.upDownGeneralIconSize.ValueChanged += new System.EventHandler(this.SampleIcon_Changed);
+            // 
+            // comboGeneralIconTextColor
+            // 
+            this.comboGeneralIconTextColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboGeneralIconTextColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboGeneralIconTextColor.FormattingEnabled = true;
+            this.comboGeneralIconTextColor.Location = new System.Drawing.Point(6, 111);
+            this.comboGeneralIconTextColor.Name = "comboGeneralIconTextColor";
+            this.comboGeneralIconTextColor.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralIconTextColor.TabIndex = 3;
+            this.comboGeneralIconTextColor.SelectedIndexChanged += new System.EventHandler(this.SampleIcon_Changed);
+            // 
+            // comboGeneralIconColor
+            // 
+            this.comboGeneralIconColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboGeneralIconColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboGeneralIconColor.FormattingEnabled = true;
+            this.comboGeneralIconColor.Location = new System.Drawing.Point(6, 151);
+            this.comboGeneralIconColor.Name = "comboGeneralIconColor";
+            this.comboGeneralIconColor.Size = new System.Drawing.Size(152, 21);
+            this.comboGeneralIconColor.TabIndex = 4;
+            this.comboGeneralIconColor.SelectedIndexChanged += new System.EventHandler(this.SampleIcon_Changed);
             // 
             // lblGeneralIconTextColor
             // 
@@ -750,6 +774,16 @@ namespace RegistryMonitor
             this.lblEnvIconDisplayText.TabIndex = 10;
             this.lblEnvIconDisplayText.Text = "Icon Display Text: ";
             // 
+            // comboEnvIconTextColor
+            // 
+            this.comboEnvIconTextColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboEnvIconTextColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboEnvIconTextColor.FormattingEnabled = true;
+            this.comboEnvIconTextColor.Location = new System.Drawing.Point(3, 58);
+            this.comboEnvIconTextColor.Name = "comboEnvIconTextColor";
+            this.comboEnvIconTextColor.Size = new System.Drawing.Size(168, 21);
+            this.comboEnvIconTextColor.TabIndex = 1;
+            // 
             // txtEnvIconDisplayText
             // 
             this.txtEnvIconDisplayText.Location = new System.Drawing.Point(3, 19);
@@ -775,6 +809,16 @@ namespace RegistryMonitor
             this.lblEnvIconBackgroundColor.Size = new System.Drawing.Size(122, 13);
             this.lblEnvIconBackgroundColor.TabIndex = 12;
             this.lblEnvIconBackgroundColor.Text = "Icon Background Color: ";
+            // 
+            // comboEnvIconBackgroundColor
+            // 
+            this.comboEnvIconBackgroundColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboEnvIconBackgroundColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboEnvIconBackgroundColor.FormattingEnabled = true;
+            this.comboEnvIconBackgroundColor.Location = new System.Drawing.Point(176, 58);
+            this.comboEnvIconBackgroundColor.Name = "comboEnvIconBackgroundColor";
+            this.comboEnvIconBackgroundColor.Size = new System.Drawing.Size(168, 21);
+            this.comboEnvIconBackgroundColor.TabIndex = 2;
             // 
             // pnlEnvIconType
             // 
@@ -846,47 +890,15 @@ namespace RegistryMonitor
             this.lblEnvRegistryValue.TabIndex = 2;
             this.lblEnvRegistryValue.Text = "Registry Value: ";
             // 
-            // comboGeneralIconTextColor
+            // checkGeneralStartWithWindows
             // 
-            this.comboGeneralIconTextColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboGeneralIconTextColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboGeneralIconTextColor.FormattingEnabled = true;
-            this.comboGeneralIconTextColor.Location = new System.Drawing.Point(6, 111);
-            this.comboGeneralIconTextColor.Name = "comboGeneralIconTextColor";
-            this.comboGeneralIconTextColor.Size = new System.Drawing.Size(152, 21);
-            this.comboGeneralIconTextColor.TabIndex = 3;
-            this.comboGeneralIconTextColor.SelectedIndexChanged += new System.EventHandler(this.SampleIcon_Changed);
-            // 
-            // comboGeneralIconColor
-            // 
-            this.comboGeneralIconColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboGeneralIconColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboGeneralIconColor.FormattingEnabled = true;
-            this.comboGeneralIconColor.Location = new System.Drawing.Point(6, 151);
-            this.comboGeneralIconColor.Name = "comboGeneralIconColor";
-            this.comboGeneralIconColor.Size = new System.Drawing.Size(152, 21);
-            this.comboGeneralIconColor.TabIndex = 4;
-            this.comboGeneralIconColor.SelectedIndexChanged += new System.EventHandler(this.SampleIcon_Changed);
-            // 
-            // comboEnvIconTextColor
-            // 
-            this.comboEnvIconTextColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboEnvIconTextColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboEnvIconTextColor.FormattingEnabled = true;
-            this.comboEnvIconTextColor.Location = new System.Drawing.Point(3, 58);
-            this.comboEnvIconTextColor.Name = "comboEnvIconTextColor";
-            this.comboEnvIconTextColor.Size = new System.Drawing.Size(168, 21);
-            this.comboEnvIconTextColor.TabIndex = 1;
-            // 
-            // comboEnvIconBackgroundColor
-            // 
-            this.comboEnvIconBackgroundColor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
-            this.comboEnvIconBackgroundColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboEnvIconBackgroundColor.FormattingEnabled = true;
-            this.comboEnvIconBackgroundColor.Location = new System.Drawing.Point(176, 58);
-            this.comboEnvIconBackgroundColor.Name = "comboEnvIconBackgroundColor";
-            this.comboEnvIconBackgroundColor.Size = new System.Drawing.Size(168, 21);
-            this.comboEnvIconBackgroundColor.TabIndex = 2;
+            this.checkGeneralStartWithWindows.AutoSize = true;
+            this.checkGeneralStartWithWindows.Location = new System.Drawing.Point(355, 161);
+            this.checkGeneralStartWithWindows.Name = "checkGeneralStartWithWindows";
+            this.checkGeneralStartWithWindows.Size = new System.Drawing.Size(120, 17);
+            this.checkGeneralStartWithWindows.TabIndex = 4;
+            this.checkGeneralStartWithWindows.Text = "Start With Windows";
+            this.checkGeneralStartWithWindows.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1007,5 +1019,6 @@ namespace RegistryMonitor
         private System.Windows.Forms.PictureBox picEnvSampleIcon;
         private System.Windows.Forms.Label lblEnvSampleIcon;
         private System.Windows.Forms.CheckBox checkEnvDisplayOnMenu;
+        private System.Windows.Forms.CheckBox checkGeneralStartWithWindows;
     }
 }
